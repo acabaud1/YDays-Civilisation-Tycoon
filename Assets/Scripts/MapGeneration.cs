@@ -1,7 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Algorithme de génération de terrain utilisant la méthode de génération de bruit de Perlin.
+/// Ce script est rattaché au MapManager
+/// </summary>
 public class MapGeneration : MonoBehaviour
 {
     public int nbOfChunksPerRow = 4;
@@ -12,11 +15,11 @@ public class MapGeneration : MonoBehaviour
     public Transform map;
     private Object[,] mapArray;
 
-    public Object land;
-    public Object sand;
-    public Object water;
-    public Object tree;
-    public Object ironOre;
+    public GameObject land;
+    public GameObject sand;
+    public GameObject water;
+    public GameObject tree;
+    public GameObject ironOre;
 
     public float zoom = 20f;
     public float pnThreshold = 0.65f;
@@ -24,6 +27,7 @@ public class MapGeneration : MonoBehaviour
     private float offsetX;
     private float offsetY;
 
+    // Couroutine servant à générer tous les éléments qui seront placés au niveau du sol.
     IEnumerator GenerateChunk(int m, int n)
     {
         for (int x = ((width / nbOfChunksPerRow) * m); x < ((width / nbOfChunksPerRow) * (m + 1)); x++)
@@ -34,11 +38,11 @@ public class MapGeneration : MonoBehaviour
 
                 if (pnValue > pnThreshold)
                 {
-                    mapArray[x, y] = Instantiate(water, new Vector3(x, 0, y), Quaternion.identity, map);
+                    mapArray[x, y] = Instantiate(water, new Vector3(x, 0 - 0.02f, y), Quaternion.identity, map);
                 }
                 else if (pnValue > pnThreshold - 0.05f)
                 {
-                    mapArray[x, y] = Instantiate(sand, new Vector3(x, 0, y), Quaternion.identity, map);
+                    mapArray[x, y] = Instantiate(sand, new Vector3(x, 0 - 0.01f, y), Quaternion.identity, map);
                 }
                 else
                 {
@@ -57,6 +61,7 @@ public class MapGeneration : MonoBehaviour
         offsetX = Random.Range(0f, 999999f);
         offsetY = Random.Range(0f, 999999f);
 
+        // 1er passage pour génération du sol (sable, terre, eau)
         for (int m = 0; m < nbOfChunksPerRow; m++)
         {
             for (int n = 0; n < nbOfChunksPerRow; n++)
@@ -65,47 +70,42 @@ public class MapGeneration : MonoBehaviour
             }
         }
 
+        GenerateDoodads(tree, 0.3f);
+        GenerateDoodads(ironOre, 0.1f);
+    }
+
+    // 1+n itérations pour générer les différents éléments.
+    // requiredPnValue = La valeur renvoyé par le calcul de Perlin à laquelle vous souhaitez placer vos éléments.
+    private void GenerateDoodads(GameObject Doodads, float requiredPnValue)
+    {
         offsetX = Random.Range(0f, 999999f);
         offsetY = Random.Range(0f, 999999f);
-
-        for (int x = 0; x < width; x++)
+        if (Doodads.GetComponent<Renderer>() && land.GetComponent<Renderer>())
         {
-            for (int y = 0; y < height; y++)
+            float doodadHeight = Doodads.GetComponent<Renderer>().bounds.size.y / 2;
+            float plateformTop = land.GetComponent<Renderer>().bounds.size.y / 2;
+            for (int x = 0; x < width; x++)
             {
-                float pnValue = CalcPerlin(x, y);
-
-                if (pnValue < 0.3f)
+                for (int y = 0; y < height; y++)
                 {
-                    if (mapArray[x, y].name == "Land(Clone)")
+                    float pnValue = CalcPerlin(x, y);
+
+                    if (pnValue < requiredPnValue)
                     {
-                        Instantiate(tree, new Vector3(x, 1.3f, y), Quaternion.identity, map);
+                        if (mapArray[x, y].name == "Land(Clone)")
+                        {
+                            Instantiate(Doodads, new Vector3(x, doodadHeight + plateformTop, y), Quaternion.identity, map);
+                        }
                     }
                 }
             }
         }
 
-        offsetX = Random.Range(0f, 999999f);
-        offsetY = Random.Range(0f, 999999f);
-
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                float pnValue = CalcPerlin(x, y);
-
-                if (pnValue < 0.1f)
-                {
-                    if (mapArray[x, y].name == "Land(Clone)")
-                    {
-                        Instantiate(ironOre, new Vector3(x, 1.3f, y), Quaternion.identity, map);
-                    }
-                }
-            }
-        }
     }
 
     private float CalcPerlin(int x, int y)
     {
+
         float xCoord = (float)x / width * zoom + offsetX;
         float yCoord = (float)y / width * zoom + offsetY;
 
