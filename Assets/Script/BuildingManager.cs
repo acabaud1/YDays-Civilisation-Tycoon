@@ -31,6 +31,9 @@ public class BuildingManager : MonoBehaviour
     /// </summary>
     public void ToggleDeleteMod()
     {
+        Destroy(_ghostGameObject);
+        _ghostGameObject = null;
+        _isInGostMode = false;
         _isInDeleteMode = !_isInDeleteMode;
     }
 
@@ -43,6 +46,14 @@ public class BuildingManager : MonoBehaviour
         _ghostGameObject = null;
         _isInGostMode = false;
         _isInDeleteMode = false;
+        var lastHoverGameObjectMesh = _lastHoverGameObject != null
+            ? _lastHoverGameObject.GetComponent<MeshRenderer>()
+            : null;
+
+        if (lastHoverGameObjectMesh != null && _lastHoverMaterialColor.HasValue)
+            lastHoverGameObjectMesh.material.color = _lastHoverMaterialColor.Value;
+        _lastHoverGameObject = null;
+        _lastHoverMaterialColor = null;
     }
 
     /// <summary>
@@ -55,20 +66,12 @@ public class BuildingManager : MonoBehaviour
         var script = buildingManager.GetComponent<Building>();
         if (script != null)
         {
+            CleanMod();
             if (_ghostGameObject != null) Destroy(_ghostGameObject);
             _selectedGameObject = script.FullBuilding;
             _isInGostMode = true;
             _ghostGameObject = Instantiate(script.GhostBuilding, new Vector3(0, -2, 0), Quaternion.identity);
             _ghostMaterialColor = _ghostGameObject.GetComponent<MeshRenderer>().material.color;
-            
-            var lastHoverGameObjectMesh = _lastHoverGameObject != null
-                ? _lastHoverGameObject.GetComponent<MeshRenderer>()
-                : null;
-
-            if (lastHoverGameObjectMesh != null && _lastHoverMaterialColor.HasValue)
-                lastHoverGameObjectMesh.material.color = _lastHoverMaterialColor.Value;
-            _lastHoverGameObject = null;
-            _lastHoverMaterialColor = null;
         }
     }
 
