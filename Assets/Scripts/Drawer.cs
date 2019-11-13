@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// This class containt the behavior of the drawer
 public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
     bool open = false;
     bool mouseOver = false;
     private Animator drawerAnimationController;
-    private List<Delegate> callbacks = new List<Delegate>();
     public GameObject BottomButtons;
-    public GameObject BuildingList;
 
+    /// Get the animator component in Drawer prefab GameObject.
     void Start()
     {
         drawerAnimationController = GetComponent<Animator>();
     }
 
+    /// Click away listener behavior for close the drawer.
     public void Update()
     {
         if (drawerAnimationController && Input.GetMouseButtonDown(0) && open && !mouseOver)
@@ -29,6 +28,7 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    /// Desactivate all buttons in the bottom of the screen when you activate the drawer.
     private void ReactivateButtons()
     {
         if (BottomButtons)
@@ -41,6 +41,7 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    /// Open the drawer with the DrawerAnim state in animator
     public void OnOpen()
     {
         if (drawerAnimationController && !open)
@@ -50,16 +51,16 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    /// Implementation of IPointerEnterHandler.OnPointerEnter
     public void OnPointerEnter(PointerEventData eventData) 
     {
         mouseOver = true;
-        Debug.Log("Mouse is over the drawer !");
     }
 
+    /// Implementation of IPointerExitHandler.OnPointerExit
     public void OnPointerExit(PointerEventData eventData)
     {
         mouseOver = false;
-        Debug.Log("Mouse is not over the drawer !");
     }
 
 }
