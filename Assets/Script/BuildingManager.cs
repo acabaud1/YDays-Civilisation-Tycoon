@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class BuildingManager : MonoBehaviour
 {
@@ -10,7 +11,11 @@ public class BuildingManager : MonoBehaviour
     private Color _ghostMaterialColor;
     private bool _isInDeleteMode;
     private bool _isInGostMode;
+    private GameObject _lastHoverGameObject;
+    private Color? _lastHoverMaterialColor;
     private GameObject _selectedGameObject;
+
+    [FormerlySerializedAs("LayerMask")] public LayerMask layerMask;
 
     /// <summary>
     ///     Initialise une nouvelle instance de la classe <see cref="BuildingManager" />
@@ -21,6 +26,9 @@ public class BuildingManager : MonoBehaviour
         _isInGostMode = false;
     }
 
+    /// <summary>
+    ///     Active / Désactive le mode de suppression.
+    /// </summary>
     public void ToggleDeleteMod()
     {
         _isInDeleteMode = !_isInDeleteMode;
@@ -64,8 +72,10 @@ public class BuildingManager : MonoBehaviour
         {
             RaycastHit hit;
             var ray = Camera.main?.ScreenPointToRay(Input.mousePosition);
+            Vector3 ray2 = Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, 5f));
+            Debug.Log("ray2 : " + ray2);
 
-            if (ray.HasValue && Physics.Raycast(ray.Value, out hit, 100.0f))
+            if (ray.HasValue && Physics.Raycast(ray.Value, out hit, 100.0f, layerMask))
                 if (hit.transform != null)
                 {
                     var mousePosition = hit.point;
@@ -75,40 +85,73 @@ public class BuildingManager : MonoBehaviour
                     mousePosition.y = 1;
                     mousePosition.z = (int) Math.Round(mousePosition.z) + (localScale.z - 1) / 2;
 
-                    var meshRenderer = _ghostGameObject != null ? _ghostGameObject.GetComponent<MeshRenderer>() : null;
+                    var building = GetBuildingAtPosition(mousePosition, Vector3.one);
 
-                    if (meshRenderer != null && IsPositionEmpty(mousePosition, _ghostGameObject.transform.localScale))
+                    if (building == null || building != null && !building.Equals(_lastHoverGameObject))
                     {
-                        if (!meshRenderer.material.color.Equals(_ghostMaterialColor))
-                            meshRenderer.material.color = _ghostMaterialColor;
+                        var lastHoverGameObjectMesh = _lastHoverGameObject != null
+                            ? _lastHoverGameObject.GetComponent<MeshRenderer>()
+                            : null;
 
-                        if (Input.GetMouseButtonDown(0))
-                        {
-                            var building = Instantiate(_selectedGameObject, mousePosition, Quaternion.identity);
-                            _buildings.Add(building);
-
-                            CleanMod();
-                        }
-                        else
-                        {
-                            _ghostGameObject.transform.position = mousePosition;
-                        }
+                        if (lastHoverGameObjectMesh != null && _lastHoverMaterialColor.HasValue)
+                            lastHoverGameObjectMesh.material.color = _lastHoverMaterialColor.Value;
                     }
-                    else if (_isInDeleteMode && Input.GetMouseButtonDown(0))
+
+                    if (_isInDeleteMode && Input.GetMouseButtonDown(0))
                     {
-                        var building = GetBuildingAtPosition(mousePosition, Vector3.one);
-
-                        Debug.Log("building : " + building);
-
                         _buildings.Remove(building);
                         Destroy(building);
                     }
-                    else if (meshRenderer != null)
+                    else if (_isInDeleteMode && building != null)
                     {
-                        meshRenderer.material.color = new Color(255, 0, 0, 0.5f);
-                        mousePosition.y = 1.1f;
-                        _ghostGameObject.transform.position = mousePosition;
+                        var buildingGameObjectMesh = building != null
+                            ? building.GetComponent<MeshRenderer>()
+                            : null;
+
+                        if (buildingGameObjectMesh != null)
+                        {
+                            var material = buildingGameObjectMesh.material;
+                            if (!material.color.Equals(new Color(255, 0, 0, 0.5f)))
+                            {
+                                _lastHoverMaterialColor = material.color;
+                                material.color = new Color(255, 0, 0, 0.5f);
+                            }
+                        }
                     }
+                    else
+                    {
+                        var meshRenderer = _ghostGameObject != null
+                            ? _ghostGameObject.GetComponent<MeshRenderer>()
+                            : null;
+
+                        if (meshRenderer != null &&
+                            IsPositionEmpty(mousePosition, _ghostGameObject.transform.localScale))
+                        {
+                            if (!meshRenderer.material.color.Equals(_ghostMaterialColor))
+                                meshRenderer.material.color = _ghostMaterialColor;
+
+                            if (Input.GetMouseButtonDown(0))
+                            {
+                                var buildingToCreate = Instantiate(_selectedGameObject, mousePosition,
+                                    Quaternion.identity);
+                                _buildings.Add(buildingToCreate);
+
+                                CleanMod();
+                            }
+                            else
+                            {
+                                _ghostGameObject.transform.position = mousePosition;
+                            }
+                        }
+                        else if (meshRenderer != null)
+                        {
+                            meshRenderer.material.color = new Color(255, 0, 0, 0.5f);
+                            mousePosition.y = 1.1f;
+                            _ghostGameObject.transform.position = mousePosition;
+                        }
+                    }
+
+                    if (building != null) _lastHoverGameObject = building;
                 }
         }
     }
@@ -124,6 +167,12 @@ public class BuildingManager : MonoBehaviour
         return GetBuildingAtPosition(position, scaleOfObject) == null;
     }
 
+    /// <summary>
+    ///     Récupère le batiment à la position.
+    /// </summary>
+    /// <param name="position">Position à vérifier.</param>
+    /// <param name="scaleOfObject">taille de l'objet.'</param>
+    /// <returns><see cref="GameObject" /> à la position.</returns>
     private GameObject GetBuildingAtPosition(Vector3 position, Vector3 scaleOfObject)
     {
         foreach (var building in _buildings)
