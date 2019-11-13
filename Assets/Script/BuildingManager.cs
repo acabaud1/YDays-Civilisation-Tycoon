@@ -60,6 +60,15 @@ public class BuildingManager : MonoBehaviour
             _isInGostMode = true;
             _ghostGameObject = Instantiate(script.GhostBuilding, new Vector3(0, -2, 0), Quaternion.identity);
             _ghostMaterialColor = _ghostGameObject.GetComponent<MeshRenderer>().material.color;
+            
+            var lastHoverGameObjectMesh = _lastHoverGameObject != null
+                ? _lastHoverGameObject.GetComponent<MeshRenderer>()
+                : null;
+
+            if (lastHoverGameObjectMesh != null && _lastHoverMaterialColor.HasValue)
+                lastHoverGameObjectMesh.material.color = _lastHoverMaterialColor.Value;
+            _lastHoverGameObject = null;
+            _lastHoverMaterialColor = null;
         }
     }
 
@@ -78,7 +87,12 @@ public class BuildingManager : MonoBehaviour
                 {
                     var mousePosition = hit.point;
 
-                    var localScale = _selectedGameObject.transform.localScale;
+                    Vector3 localScale = _selectedGameObject.transform.localScale;
+                    if (_isInDeleteMode)
+                    {
+                        localScale = Vector3.one;
+                    }
+                    
                     mousePosition.x = (int) Math.Round(mousePosition.x) + (localScale.x - 1) / 2;
                     mousePosition.y = 1;
                     mousePosition.z = (int) Math.Round(mousePosition.z) + (localScale.z - 1) / 2;
