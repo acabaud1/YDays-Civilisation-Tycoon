@@ -72,8 +72,6 @@ public class BuildingManager : MonoBehaviour
         {
             RaycastHit hit;
             var ray = Camera.main?.ScreenPointToRay(Input.mousePosition);
-            Vector3 ray2 = Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, 5f));
-            Debug.Log("ray2 : " + ray2);
 
             if (ray.HasValue && Physics.Raycast(ray.Value, out hit, 100.0f, layerMask))
                 if (hit.transform != null)
