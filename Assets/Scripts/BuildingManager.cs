@@ -116,11 +116,11 @@ public class BuildingManager : MonoBehaviour
 
                     if (_isInDeleteMode && Input.GetMouseButtonDown(0))
                     {
-                        if (Buildings.Contains(building))
-                        {
+                       if (Buildings.Contains(building))
+                       {
                             Buildings.Remove(building);
                             Destroy(building);
-                        }
+                       }
                     }
                     else if (_isInDeleteMode && building != null)
                     {
