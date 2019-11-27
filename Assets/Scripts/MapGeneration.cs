@@ -21,12 +21,14 @@ public class MapGeneration : MonoBehaviour
     public GameObject tree;
     public GameObject ironOre;
 
+    public GameObject robot;
+
     public float zoom = 20f;
     public float pnThreshold = 0.65f;
 
     private float offsetX;
     private float offsetY;
-
+    
     // Couroutine servant à générer tous les éléments qui seront placés au niveau du sol.
     IEnumerator GenerateChunk(int m, int n)
     {
@@ -72,6 +74,16 @@ public class MapGeneration : MonoBehaviour
 
         GenerateDoodads(tree, 0.3f);
         GenerateDoodads(ironOre, 0.1f);
+
+        PlaceRobot();
+    }
+
+    // Place le robot sur la map
+    private void PlaceRobot()
+    {
+        robot = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        robot.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        robot.transform.position = new Vector3(60, 0.75f, 60);
     }
 
     // 1+n itérations pour générer les différents éléments.
