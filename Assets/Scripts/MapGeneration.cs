@@ -43,7 +43,7 @@ public class MapGeneration : MonoBehaviour
                 {
                     mapArray[x, y] = Instantiate(water, new Vector3(x, 0 - 0.02f, y), Quaternion.identity, map);
                     var buildingWater = Instantiate(waterCollider, new Vector3(x, 1, y), Quaternion.identity, map);
-                    _buildingManager.GetComponent<BuildingManager>().Buildings.Add(buildingWater);
+                    _buildingManager.GetComponent<BuildingManager>().Doodads.Add(buildingWater);
                 }
                 else if (pnValue > pnThreshold - 0.05f)
                 {
@@ -100,7 +100,7 @@ public class MapGeneration : MonoBehaviour
                         if (mapArray[x, y].name == "Land(Clone)")
                         {
                             var newDoodads = Instantiate(Doodads, new Vector3(x, doodadHeight + plateformTop, y), Quaternion.identity, map);
-                            _buildingManager.GetComponent<BuildingManager>().Buildings.Add(newDoodads);
+                            _buildingManager.GetComponent<BuildingManager>().Doodads.Add(newDoodads);
                         }
                     }
                 }

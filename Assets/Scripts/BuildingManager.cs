@@ -7,7 +7,8 @@ using UnityEngine.Serialization;
 public class BuildingManager : MonoBehaviour
 {
     public List<GameObject> Buildings { get; set; }
-    private GameObject _ghostGameObject;
+    public List<GameObject> Doodads { get; set; }
+    private GameObject _ghostGameObject;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
     private Color _ghostMaterialColor;
     private bool _isInDeleteMode;
     private bool _isInGostMode;
@@ -23,6 +24,7 @@ public class BuildingManager : MonoBehaviour
     public BuildingManager()
     {
         Buildings = new List<GameObject>();
+        Doodads = new List<GameObject>();
         _isInGostMode = false;
     }
 
@@ -114,8 +116,11 @@ public class BuildingManager : MonoBehaviour
 
                     if (_isInDeleteMode && Input.GetMouseButtonDown(0))
                     {
-                        Buildings.Remove(building);
-                        Destroy(building);
+                        if (Buildings.Contains(building))
+                        {
+                            Buildings.Remove(building);
+                            Destroy(building);
+                        }
                     }
                     else if (_isInDeleteMode && building != null)
                     {
@@ -191,7 +196,9 @@ public class BuildingManager : MonoBehaviour
     /// <returns><see cref="GameObject" /> à la position.</returns>
     private GameObject GetBuildingAtPosition(Vector3 position, Vector3 scaleOfObject)
     {
-        foreach (var building in Buildings)
+        List<GameObject> allEntities = new List<GameObject>(Buildings);
+        allEntities.AddRange(Doodads);
+        foreach (var building in allEntities)
         {
             var buildingtranform = building.transform;
 
