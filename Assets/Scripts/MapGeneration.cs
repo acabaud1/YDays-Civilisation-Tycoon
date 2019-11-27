@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class MapGeneration : MonoBehaviour
 {
+    public GameObject _buildingManager;
+
     public int nbOfChunksPerRow = 4;
 
     public int width = 64;
@@ -18,6 +20,7 @@ public class MapGeneration : MonoBehaviour
     public GameObject land;
     public GameObject sand;
     public GameObject water;
+    public GameObject waterCollider;
     public GameObject tree;
     public GameObject ironOre;
 
@@ -39,6 +42,8 @@ public class MapGeneration : MonoBehaviour
                 if (pnValue > pnThreshold)
                 {
                     mapArray[x, y] = Instantiate(water, new Vector3(x, 0 - 0.02f, y), Quaternion.identity, map);
+                    var buildingWater = Instantiate(waterCollider, new Vector3(x, 1, y), Quaternion.identity, map);
+                    _buildingManager.GetComponent<BuildingManager>().Buildings.Add(buildingWater);
                 }
                 else if (pnValue > pnThreshold - 0.05f)
                 {
@@ -94,7 +99,8 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (mapArray[x, y].name == "Land(Clone)")
                         {
-                            Instantiate(Doodads, new Vector3(x, doodadHeight + plateformTop, y), Quaternion.identity, map);
+                            var newDoodads = Instantiate(Doodads, new Vector3(x, doodadHeight + plateformTop, y), Quaternion.identity, map);
+                            _buildingManager.GetComponent<BuildingManager>().Buildings.Add(newDoodads);
                         }
                     }
                 }

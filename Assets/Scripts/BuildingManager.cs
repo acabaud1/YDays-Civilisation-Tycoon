@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class BuildingManager : MonoBehaviour
 {
-    private readonly List<GameObject> _buildings;
+    public List<GameObject> Buildings { get; set; }
     private GameObject _ghostGameObject;
     private Color _ghostMaterialColor;
     private bool _isInDeleteMode;
@@ -22,7 +22,7 @@ public class BuildingManager : MonoBehaviour
     /// </summary>
     public BuildingManager()
     {
-        _buildings = new List<GameObject>();
+        Buildings = new List<GameObject>();
         _isInGostMode = false;
     }
 
@@ -114,7 +114,7 @@ public class BuildingManager : MonoBehaviour
 
                     if (_isInDeleteMode && Input.GetMouseButtonDown(0))
                     {
-                        _buildings.Remove(building);
+                        Buildings.Remove(building);
                         Destroy(building);
                     }
                     else if (_isInDeleteMode && building != null)
@@ -135,6 +135,7 @@ public class BuildingManager : MonoBehaviour
                     }
                     else
                     {
+                        Cursor.visible = false;
                         var meshRenderer = _ghostGameObject != null
                             ? _ghostGameObject.GetComponent<MeshRenderer>()
                             : null;
@@ -149,8 +150,8 @@ public class BuildingManager : MonoBehaviour
                             {
                                 var buildingToCreate = Instantiate(_selectedGameObject, mousePosition,
                                     Quaternion.identity);
-                                _buildings.Add(buildingToCreate);
-
+                                Buildings.Add(buildingToCreate);
+                                Cursor.visible = true;
                                 CleanMod();
                             }
                             else
@@ -190,7 +191,7 @@ public class BuildingManager : MonoBehaviour
     /// <returns><see cref="GameObject" /> à la position.</returns>
     private GameObject GetBuildingAtPosition(Vector3 position, Vector3 scaleOfObject)
     {
-        foreach (var building in _buildings)
+        foreach (var building in Buildings)
         {
             var buildingtranform = building.transform;
 
