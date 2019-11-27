@@ -31,6 +31,9 @@ public class BuildingManager : MonoBehaviour
     /// </summary>
     public void ToggleDeleteMod()
     {
+        Destroy(_ghostGameObject);
+        _ghostGameObject = null;
+        _isInGostMode = false;
         _isInDeleteMode = !_isInDeleteMode;
     }
 
@@ -43,6 +46,14 @@ public class BuildingManager : MonoBehaviour
         _ghostGameObject = null;
         _isInGostMode = false;
         _isInDeleteMode = false;
+        var lastHoverGameObjectMesh = _lastHoverGameObject != null
+            ? _lastHoverGameObject.GetComponent<MeshRenderer>()
+            : null;
+
+        if (lastHoverGameObjectMesh != null && _lastHoverMaterialColor.HasValue)
+            lastHoverGameObjectMesh.material.color = _lastHoverMaterialColor.Value;
+        _lastHoverGameObject = null;
+        _lastHoverMaterialColor = null;
     }
 
     /// <summary>
@@ -55,6 +66,7 @@ public class BuildingManager : MonoBehaviour
         var script = buildingManager.GetComponent<Building>();
         if (script != null)
         {
+            CleanMod();
             if (_ghostGameObject != null) Destroy(_ghostGameObject);
             _selectedGameObject = script.FullBuilding;
             _isInGostMode = true;
@@ -78,16 +90,19 @@ public class BuildingManager : MonoBehaviour
                 {
                     var mousePosition = hit.point;
 
-                    var localScale = _selectedGameObject.transform.localScale;
+                    Vector3 localScale = _selectedGameObject.transform.localScale;
+                    if (_isInDeleteMode)
+                    {
+                        localScale = Vector3.one;
+                    }
                     
-                    // error 
                     mousePosition.x = (int) Math.Round(mousePosition.x) + (localScale.x - 1) / 2;
                     mousePosition.y = 1;
                     mousePosition.z = (int) Math.Round(mousePosition.z) + (localScale.z - 1) / 2;
 
                     var building = GetBuildingAtPosition(mousePosition, Vector3.one);
 
-                    if (building == null || (building != null && !building.Equals(_lastHoverGameObject)))
+                    if (building == null || building != null && !building.Equals(_lastHoverGameObject))
                     {
                         var lastHoverGameObjectMesh = _lastHoverGameObject != null
                             ? _lastHoverGameObject.GetComponent<MeshRenderer>()
@@ -99,7 +114,6 @@ public class BuildingManager : MonoBehaviour
 
                     if (_isInDeleteMode && Input.GetMouseButtonDown(0))
                     {
-                        Debug.Log("Destroy mode in run");
                         _buildings.Remove(building);
                         Destroy(building);
                     }
@@ -192,7 +206,7 @@ public class BuildingManager : MonoBehaviour
             var ghostBuildingRightX = CalculateZone(position.x, scaleOfObject.x);
             var ghostBuildingBottomZ = CalculateZone(position.z, scaleOfObject.z);
 
-            // Regarde si le batiment à placé est dans le batiment à comparer.
+            // Regarde si le batiment à placer est dans le batiment à comparer.
             // OU
             // Regarde si le batiment à comparer est dans le batiment à placer.
             if ((buildingLeftX <= ghostBuildingLeftX && ghostBuildingLeftX <= buildingRightX ||
