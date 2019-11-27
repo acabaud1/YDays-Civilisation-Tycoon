@@ -2,33 +2,41 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
 /// This class containt the behavior of the drawer
+/// </summary>
 public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
-    bool open = false;
-    bool mouseOver = false;
-    private Animator drawerAnimationController;
+    private bool _open = false;
+    private bool _mouseOver = false;
+    private Animator _drawerAnimationController;
     public GameObject BottomButtons;
 
+    /// <summary>
     /// Get the animator component in Drawer prefab GameObject.
+    /// </summary>
     void Start()
     {
-        drawerAnimationController = GetComponent<Animator>();
+        _drawerAnimationController = GetComponent<Animator>();
     }
 
+    /// <summary>
     /// Click away listener behavior for close the drawer.
+    /// </summary>
     public void Update()
     {
-        if (drawerAnimationController && Input.GetMouseButtonDown(0) && open && !mouseOver)
+        if (_drawerAnimationController && Input.GetMouseButtonDown(0) && _open && !_mouseOver)
         {
             ReactivateButtons();
-            drawerAnimationController.Play("DrawerRewind");
-            open = false;
+            _drawerAnimationController.Play("DrawerRewind");
+            _open = false;
         }
     }
 
+    /// <summary>
     /// Desactivate all buttons in the bottom of the screen when you activate the drawer.
+    /// </summary>
     private void ReactivateButtons()
     {
         if (BottomButtons)
@@ -41,26 +49,34 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    /// <summary>
     /// Open the drawer with the DrawerAnim state in animator
+    /// </summary>
     public void OnOpen()
     {
-        if (drawerAnimationController && !open)
+        if (_drawerAnimationController && !_open)
         {
-            drawerAnimationController.Play("DrawerAnim");
-            open = true;
+            _drawerAnimationController.Play("DrawerAnim");
+            _open = true;
         }
     }
 
+    /// <summary>
     /// Implementation of IPointerEnterHandler.OnPointerEnter
+    /// </summary>
+    /// <param name="eventData">Unity's event system of eventData</param>
     public void OnPointerEnter(PointerEventData eventData) 
     {
-        mouseOver = true;
+        _mouseOver = true;
     }
 
+    /// <summary>
     /// Implementation of IPointerExitHandler.OnPointerExit
+    /// </summary>
+    /// <param name="eventData">Unity's event system of eventData</param>
     public void OnPointerExit(PointerEventData eventData)
     {
-        mouseOver = false;
+        _mouseOver = false;
     }
 
 }
