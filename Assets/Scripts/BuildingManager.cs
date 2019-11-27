@@ -120,6 +120,7 @@ public class BuildingManager : MonoBehaviour
                        {
                             Buildings.Remove(building);
                             Destroy(building);
+                            Cursor.visible = true;
                        }
                     }
                     else if (_isInDeleteMode && building != null)

@@ -28,10 +28,18 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (_drawerAnimationController && Input.GetMouseButtonDown(0) && _open && !_mouseOver)
         {
-            ReactivateButtons();
-            _drawerAnimationController.Play("DrawerRewind");
-            _open = false;
+            Close();
         }
+    }
+
+    /// <summary>
+    /// Close the drawer.
+    /// </summary>
+    public void Close()
+    {
+        ReactivateButtons();
+        _drawerAnimationController.Play("DrawerRewind");
+        _open = false;
     }
 
     /// <summary>
