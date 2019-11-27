@@ -87,7 +87,7 @@ public class BuildingManager : MonoBehaviour
             RaycastHit hit;
             var ray = Camera.main?.ScreenPointToRay(Input.mousePosition);
 
-            if (ray.HasValue && Physics.Raycast(ray.Value, out hit, 100.0f, layerMask))
+            if (ray.HasValue && Physics.Raycast(ray.Value, out hit, 200.0f, layerMask))
                 if (hit.transform != null)
                 {
                     var mousePosition = hit.point;
