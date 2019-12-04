@@ -158,7 +158,9 @@ MonoBehaviour:
   water: {fileID: 2947343326392313654, guid: 92e156c646235f84ea914da64eb75bb2, type: 3}
   tree: {fileID: -927199367670048503, guid: d43ee9e5298516e4fa02cde7d1af97e8, type: 3}
   ironOre: {fileID: -927199367670048503, guid: 7fabaf83071e82a4489e1d19be9d3a2b, type: 3}
-  zoom: 4
+  mapZoom: 4
+  treeZoom: 20
+  ironZoom: 60
   pnThreshold: 0.65
 --- !u!4 &185222213
 Transform:
@@ -289,9 +291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1357f006f9ed22b458f793e6dde1cc47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialFOV: 59.9
-  zoomInFOV: 30
-  speed: 800
 --- !u!1 &998534819
 GameObject:
   m_ObjectHideFlags: 0
