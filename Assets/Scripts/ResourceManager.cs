@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class ResourceManager : ResourceManagerCore
 {
-
     // Start is called before the first frame update
     void Start()
     {
@@ -106,7 +105,6 @@ public class ResourceManagerCore : MonoBehaviour
         if (resource != null && canAdd(resource, quantity))
         {
             resource.Quantity += quantity;
-
         }
     }
 
