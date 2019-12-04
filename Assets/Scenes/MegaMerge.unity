@@ -159,9 +159,13 @@ MonoBehaviour:
   water: {fileID: 2947343326392313654, guid: 92e156c646235f84ea914da64eb75bb2, type: 3}
   waterCollider: {fileID: 6777919429078482188, guid: a994a902219542d419a314ce9acde57c,
     type: 3}
-  tree: {fileID: -927199367670048503, guid: d43ee9e5298516e4fa02cde7d1af97e8, type: 3}
-  ironOre: {fileID: -927199367670048503, guid: 7fabaf83071e82a4489e1d19be9d3a2b, type: 3}
-  zoom: 4
+  tree: {fileID: -927199367670048503, guid: 975c19c235babb74ebc82f4925869067, type: 3}
+  ironOre: {fileID: -927199367670048503, guid: 908f15c6713497545820d3791db0d674, type: 3}
+  rock: {fileID: -927199367670048503, guid: 58c5e1e3baa491d48bb69469f9203666, type: 3}
+  mapZoom: 4
+  treeZoom: 15
+  ironZoom: 40
+  rockZoom: 40
   pnThreshold: 0.65
 --- !u!4 &185222213
 Transform:
