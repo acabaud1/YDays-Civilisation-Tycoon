@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scripts/GestionResourcesStock.cs.meta
 guid: 343e96eced7d7244c84dddc4be13108f
+=======
+guid: cbb0296ac4afa4204972ebcdc3252672
+>>>>>>> origin/adrien:Assets/Scripts/ResourceManager.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

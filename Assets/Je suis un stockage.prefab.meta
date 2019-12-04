@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Je suis un stockage.prefab.meta
 guid: 3041bb786d257f54b86ebed845891022
+=======
+guid: d01ce5365d7fb54419343a534d5f0740
+>>>>>>> origin/adrien:Assets/Scenes/prefab/ResourceManager.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
