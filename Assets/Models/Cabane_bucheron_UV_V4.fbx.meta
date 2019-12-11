@@ -31,7 +31,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -81,7 +81,11 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+<<<<<<< HEAD:Assets/Prefabs/Tree.fbx.meta
+    globalScale: 10
+=======
     globalScale: 1
+>>>>>>> f02bd7e512be6abd88df30bce30ca46192c545b6:Assets/Models/Cabane_bucheron_UV_V4.fbx.meta
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 1

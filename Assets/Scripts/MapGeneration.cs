@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Algorithme de génération de terrain utilisant la méthode de génération de bruit de Perlin.
@@ -10,13 +11,12 @@ public class MapGeneration : MonoBehaviour
     public GameObject _buildingManager;
 
     public int nbOfChunksPerRow = 4;
-
     public int width = 64;
     public int height = 64;
 
     public Transform map;
-    private Object[,] mapArray;
-    private bool[,] ressourceArray;
+    private GameObject[,] mapArray;
+    private GameObject[,] obstacles;
 
     public GameObject land;
     public GameObject sand;
@@ -24,6 +24,7 @@ public class MapGeneration : MonoBehaviour
     public GameObject waterCollider;
     public GameObject tree;
     public GameObject ironOre;
+    public GameObject robot;
     public GameObject rock;
 
     // Plus la valeur est faible plus les ressources sont rapprochés et abondantes
@@ -35,9 +36,9 @@ public class MapGeneration : MonoBehaviour
 
     private float offsetX;
     private float offsetY;
-
+    
     // Couroutine servant à générer tous les éléments qui seront placés au niveau du sol.
-    IEnumerator GenerateChunk(int m, int n)
+    void GenerateChunk(int m, int n)
     {
         for (int x = ((width / nbOfChunksPerRow) * m); x < ((width / nbOfChunksPerRow) * (m + 1)); x++)
         {
@@ -61,14 +62,12 @@ public class MapGeneration : MonoBehaviour
                 }
             }
         }
-        yield return new WaitForSeconds(0);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         mapArray = new GameObject[width, height];
-        ressourceArray = new bool[width, height];
+        obstacles = new GameObject[width, height];
 
         offsetX = Random.Range(0f, 999999f);
         offsetY = Random.Range(0f, 999999f);
@@ -78,13 +77,41 @@ public class MapGeneration : MonoBehaviour
         {
             for (int n = 0; n < nbOfChunksPerRow; n++)
             {
-                StartCoroutine(GenerateChunk(m % nbOfChunksPerRow, n % nbOfChunksPerRow));
+                GenerateChunk(m % nbOfChunksPerRow, n % nbOfChunksPerRow);
             }
         }
 
         GenerateDoodads(tree, 0.3f, treeZoom);
         GenerateDoodads(ironOre, 0.1f, ironZoom);
         GenerateDoodads(rock, 0.1f, rockZoom);
+
+        StartCoroutine(PlaceRobot());
+    }
+
+    /// <summary>
+    /// Provisoire : Place un robot sur la map en position 1,1 en NavMeshAgent et règle la destination sur 60,60
+    /// </summary>
+    private bool isCoroutineExecuting = false;
+
+    IEnumerator PlaceRobot()
+    {
+        if (isCoroutineExecuting)
+        {
+            yield break;
+        }
+
+        isCoroutineExecuting = true;
+
+        yield return new WaitForSeconds(10);
+
+        isCoroutineExecuting = false;
+
+        robot = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        robot.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        robot.transform.position = new Vector3(1, 0.70f, 1);
+
+        NavMeshAgent agent = robot.AddComponent<NavMeshAgent>();
+        agent.destination = new Vector3(60, 0.70f, 60);
     }
 
     // 1+n itérations pour générer les différents éléments.
@@ -93,6 +120,7 @@ public class MapGeneration : MonoBehaviour
     {
         offsetX = Random.Range(0f, 999999f);
         offsetY = Random.Range(0f, 999999f);
+
         if (Doodads.GetComponent<Renderer>() && land.GetComponent<Renderer>())
         {
             float doodadHeight = Doodads.GetComponent<Renderer>().bounds.size.y / 2;
@@ -108,8 +136,8 @@ public class MapGeneration : MonoBehaviour
                         if (mapArray[x, y].name == "Land(Clone)")
                         {
                             var newDoodads = Instantiate(Doodads, new Vector3(x, doodadHeight + plateformTop, y), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0), map);
+                            newDoodads.AddComponent<NavMeshObstacle>().carving = true;
                             _buildingManager.GetComponent<BuildingManager>().Doodads.Add(newDoodads);
-                            ressourceArray[x, y] = true;
                         }
                     }
                 }
