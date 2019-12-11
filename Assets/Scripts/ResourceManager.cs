@@ -1,25 +1,29 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UniRx;
 
 public class ResourceManager : ResourceManagerCore
 {
     // Start is called before the first frame update
     void Start()
     {
-        resources = new List<Resources>();
-        resources.Add(new Iron("Fer", 0));
-        resources.Add(new Wood("Bois", 10));
-        resources.Add(new Stone("Pierre", 45));
-        Init(resources);
+        Resources = new List<ResourcesGame>();
+        Resources.Add(new Iron(0));
+        Resources.Add(new Wood(10));
+        Resources.Add(new Stone(45));
+        Init(Resources);
     }
 
-    private List<Resources> resources;
+    private void Update()
+    {
+    }
+
+    private List<ResourcesGame> Resources;
 }
 
-public abstract class Resources
+public abstract class ResourcesGame
 {
     public string Name { get; set; }
     public int Quantity { get; set; }
@@ -27,68 +31,37 @@ public abstract class Resources
     public int Maximum { get; set; }
     public bool IsAccepted { get; set; }
 
-    public Resources(string name, int quantity, int minimum = 0, int maximum = 30, bool isAccepted = true)
+    public ReactiveProperty<int> Obs { get; }
+
+    public ResourcesGame(string name, int quantity, int minimum = 0, int maximum = 30, bool isAccepted = true)
     {
         Name = name;
         Quantity = quantity;
         Minimum = minimum;
         Maximum = maximum;
         IsAccepted = isAccepted;
-    }
-}
-
-public class Iron : Resources
-{
-    /// <summary>
-    /// Instancie une nouvelle instance de la classe <see cref="Iron"/>
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="quantity"></param>
-    public Iron(string name, int quantity, int minimum = 0, int maximum = int.MaxValue, bool isAccepted = true) : base(name, quantity, minimum, maximum, isAccepted)
-    {
-    }
-}
-public class Wood : Resources
-{
-    /// <summary>
-    /// Instancie une nouvelle instance de la classe <see cref="Wood"/>
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="quantity"></param>
-    public Wood(string name, int quantity, int minimum = 0, int maximum = int.MaxValue, bool isAccepted = true) : base(name, quantity, minimum, maximum, isAccepted)
-    {
-    }
-}
-public class Stone : Resources
-{
-    /// <summary>
-    /// Instancie une nouvelle instance de la classe <see cref="Stone"/>
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="quantity"></param>
-    public Stone(string name, int quantity, int minimum = 0, int maximum = int.MaxValue, bool isAccepted = true) : base(name, quantity, minimum, maximum, isAccepted)
-    {
+        Obs = new ReactiveProperty<int>(quantity);
     }
 }
 
 public class ResourceManagerCore : MonoBehaviour
 {
-    private List<Resources> _resources;
+    private List<ResourcesGame> _resources;
 
     /// <summary>
     /// Instancie une nouvelle instance de la classe <see cref="ResourceManagerCore"/>
     /// </summary>
-    public void Init(List<Resources> resources)
+    public void Init(List<ResourcesGame> Resources)
     {
-        _resources = resources;
+        _resources = Resources;
     }
 
     /// <summary>
-    /// Récupère un objet de type Resources
+    /// Récupère un objet de type ResourcesGame
     /// </summary>
     /// <param name="type">Type de la ressource voulue</param>
     /// <returns></returns>
-    public Resources Get(Type type)
+    public ResourcesGame Get(Type type) // Wood
     {
         return _resources.FirstOrDefault(w => w.GetType() == type);
     }
@@ -105,12 +78,13 @@ public class ResourceManagerCore : MonoBehaviour
         if (resource != null && canAdd(resource, quantity))
         {
             resource.Quantity += quantity;
+            resource.Obs.Value = resource.Quantity;
         }
     }
 
-    protected virtual bool canAdd(Resources resources, int quantity)
+    protected virtual bool canAdd(ResourcesGame ResourcesGame, int quantity)
     {
-        if (resources.Quantity + quantity > resources.Minimum && resources.Quantity + quantity < resources.Maximum && resources.IsAccepted)
+        if (ResourcesGame.Quantity + quantity > ResourcesGame.Minimum && ResourcesGame.Quantity + quantity < ResourcesGame.Maximum && ResourcesGame.IsAccepted)
         {
             return true;
         }

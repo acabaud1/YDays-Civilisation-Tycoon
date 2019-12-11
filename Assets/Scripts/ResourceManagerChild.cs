@@ -7,21 +7,21 @@ public class ResourceManagerChild : ResourceManagerCore
 {
     public int Max;
     private int TotalResource => resources == null ? 0 : resources.Sum(resources => resources.Quantity);
-    private List<Resources> resources;
+    private List<ResourcesGame> resources;
 
     // Start is called before the first frame update
     void Start()
     {
-        resources = new List<Resources>
+        resources = new List<ResourcesGame>
         {
-            new Iron("Fer", 0),
-            new Wood("Bois", 0),
-            new Stone("Pierre", 0)
+            new Iron(0),
+            new Wood(0),
+            new Stone(0)
         };
         Init(resources);
     }
 
-    protected override bool canAdd(Resources resources, int quantity)
+    protected override bool canAdd(ResourcesGame resources, int quantity)
     {
         return base.canAdd(resources, quantity) && TotalResource + quantity < Max;
     }
