@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Gestion des mouvement de caméra.
+/// </summary>
 public class CameraMovement : MonoBehaviour
 {
     public float moveSpeed = 20.0f;
-    public float borderThickness = 10.0f;
+    public float borderThickness = 5.0f;
     public float scrollSpeed = 20.0f;
 
     private float inputHor;
@@ -15,7 +18,9 @@ public class CameraMovement : MonoBehaviour
     public Vector2 zLimit;
     public Vector2 yLimit;
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
     void Update()
     {
         Vector3 pos = transform.position;

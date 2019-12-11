@@ -160,7 +160,7 @@ MonoBehaviour:
   waterCollider: {fileID: 6777919429078482188, guid: a994a902219542d419a314ce9acde57c,
     type: 3}
   tree: {fileID: -927199367670048503, guid: 975c19c235babb74ebc82f4925869067, type: 3}
-  ironOre: {fileID: -927199367670048503, guid: 908f15c6713497545820d3791db0d674, type: 3}
+  ironOre: {fileID: -927199367670048503, guid: dd67bc7f1980ea44f959b49401f3fa75, type: 3}
   rock: {fileID: -927199367670048503, guid: 58c5e1e3baa491d48bb69469f9203666, type: 3}
   mapZoom: 4
   treeZoom: 15
@@ -3397,6 +3397,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1393868044}
   m_CullTransparentMesh: 0
+--- !u!1 &1474503207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1474503209}
+  - component: {fileID: 1474503208}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1474503208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474503207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 115dfe7b0938447cbbf9507076f54049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tracked: {fileID: 0}
+  m_Size: {x: 200, y: 200, z: 200}
+--- !u!4 &1474503209
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474503207}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1487921957
 GameObject:
   m_ObjectHideFlags: 0

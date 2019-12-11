@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Algorithme de génération de terrain utilisant la méthode de génération de bruit de Perlin.
@@ -8,6 +9,7 @@ using UnityEngine;
 public class MapGeneration : MonoBehaviour
 {
     public GameObject _buildingManager;
+    private BuildingManager buildingManagerScript;
 
     public int nbOfChunksPerRow = 4;
 
@@ -15,7 +17,7 @@ public class MapGeneration : MonoBehaviour
     public int height = 64;
 
     public Transform map;
-    private Object[,] mapArray;
+    private GameObject[,] mapArray;
     private bool[,] ressourceArray;
 
     public GameObject land;
@@ -49,7 +51,7 @@ public class MapGeneration : MonoBehaviour
                 {
                     mapArray[x, y] = Instantiate(water, new Vector3(x, 0 - 0.02f, y), Quaternion.identity, map);
                     var buildingWater = Instantiate(waterCollider, new Vector3(x, 1, y), Quaternion.identity, map);
-                    _buildingManager.GetComponent<BuildingManager>().Doodads.Add(buildingWater);
+                    buildingManagerScript.Doodads.Add(buildingWater);
                 }
                 else if (pnValue > pnThreshold - 0.05f)
                 {
@@ -69,6 +71,7 @@ public class MapGeneration : MonoBehaviour
     {
         mapArray = new GameObject[width, height];
         ressourceArray = new bool[width, height];
+        buildingManagerScript = _buildingManager.GetComponent<BuildingManager>();
 
         offsetX = Random.Range(0f, 999999f);
         offsetY = Random.Range(0f, 999999f);
@@ -93,10 +96,12 @@ public class MapGeneration : MonoBehaviour
     {
         offsetX = Random.Range(0f, 999999f);
         offsetY = Random.Range(0f, 999999f);
-        if (Doodads.GetComponent<Renderer>() && land.GetComponent<Renderer>())
+        var doodadsRenderer = Doodads.GetComponent<Renderer>();
+        var landRenderer = land.GetComponent<Renderer>();
+        if (doodadsRenderer && landRenderer)
         {
-            float doodadHeight = Doodads.GetComponent<Renderer>().bounds.size.y / 2;
-            float plateformTop = land.GetComponent<Renderer>().bounds.size.y / 2;
+            float doodadHeight = doodadsRenderer.bounds.size.y / 2;
+            float plateformTop = landRenderer.bounds.size.y / 2;
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
@@ -107,8 +112,8 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (mapArray[x, y].name == "Land(Clone)")
                         {
-                            var newDoodads = Instantiate(Doodads, new Vector3(x, doodadHeight + plateformTop, y), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0), map);
-                            _buildingManager.GetComponent<BuildingManager>().Doodads.Add(newDoodads);
+                            var newDoodads = Instantiate(0, new Vector3(x, doodadHeight + plateformTop, y), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0), map);
+                            buildingManagerScript.Doodads.Add(newDoodads);
                             ressourceArray[x, y] = true;
                         }
                     }
