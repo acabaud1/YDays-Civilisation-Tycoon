@@ -8,6 +8,8 @@ using UnityEngine.AI;
 /// </summary>
 public class MapGeneration : MonoBehaviour
 {
+    public GameObject _buildingManager;
+
     public int nbOfChunksPerRow = 4;
     public int width = 64;
     public int height = 64;
@@ -19,11 +21,17 @@ public class MapGeneration : MonoBehaviour
     public GameObject land;
     public GameObject sand;
     public GameObject water;
+    public GameObject waterCollider;
     public GameObject tree;
     public GameObject ironOre;
     public GameObject robot;
+    public GameObject rock;
 
-    public float zoom = 20f;
+    // Plus la valeur est faible plus les ressources sont rapprochés et abondantes
+    public float mapZoom = 10f;
+    public float treeZoom = 20f;
+    public float ironZoom = 40f;
+    public float rockZoom = 40f;
     public float pnThreshold = 0.65f;
 
     private float offsetX;
@@ -36,11 +44,13 @@ public class MapGeneration : MonoBehaviour
         {
             for (int y = ((height / nbOfChunksPerRow) * n); y < ((height / nbOfChunksPerRow) * (n + 1)); y++)
             {
-                float pnValue = CalcPerlin(x, y);
+                float pnValue = CalcPerlin(x, y, mapZoom);
 
                 if (pnValue > pnThreshold)
                 {
                     mapArray[x, y] = Instantiate(water, new Vector3(x, 0 - 0.02f, y), Quaternion.identity, map);
+                    var buildingWater = Instantiate(waterCollider, new Vector3(x, 1, y), Quaternion.identity, map);
+                    _buildingManager.GetComponent<BuildingManager>().Doodads.Add(buildingWater);
                 }
                 else if (pnValue > pnThreshold - 0.05f)
                 {
@@ -71,8 +81,9 @@ public class MapGeneration : MonoBehaviour
             }
         }
 
-        GenerateDoodads(tree, 0.3f);
-        GenerateDoodads(ironOre, 0.1f);
+        GenerateDoodads(tree, 0.3f, treeZoom);
+        GenerateDoodads(ironOre, 0.1f, ironZoom);
+        GenerateDoodads(rock, 0.1f, rockZoom);
 
         StartCoroutine(PlaceRobot());
     }
@@ -100,13 +111,12 @@ public class MapGeneration : MonoBehaviour
         robot.transform.position = new Vector3(1, 0.70f, 1);
 
         NavMeshAgent agent = robot.AddComponent<NavMeshAgent>();
-        //Debug.Log(agent.isOnNavMesh);
         agent.destination = new Vector3(60, 0.70f, 60);
     }
 
     // 1+n itérations pour générer les différents éléments.
     // requiredPnValue = La valeur renvoyé par le calcul de Perlin à laquelle vous souhaitez placer vos éléments.
-    private void GenerateDoodads(GameObject Doodads, float requiredPnValue)
+    private void GenerateDoodads(GameObject Doodads, float requiredPnValue, float zoom)
     {
         offsetX = Random.Range(0f, 999999f);
         offsetY = Random.Range(0f, 999999f);
@@ -119,14 +129,15 @@ public class MapGeneration : MonoBehaviour
             {
                 for (int y = 0; y < height; y++)
                 {
-                    float pnValue = CalcPerlin(x, y);
+                    float pnValue = CalcPerlin(x, y, zoom);
 
                     if (pnValue < requiredPnValue)
                     {
                         if (mapArray[x, y].name == "Land(Clone)")
                         {
-                            obstacles[x, y] = Instantiate(Doodads, new Vector3(x, doodadHeight + plateformTop, y), Quaternion.identity, map);
-                            obstacles[x, y].AddComponent<NavMeshObstacle>().carving = true;
+                            var newDoodads = Instantiate(Doodads, new Vector3(x, doodadHeight + plateformTop, y), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0), map);
+                            newDoodads.AddComponent<NavMeshObstacle>().carving = true;
+                            _buildingManager.GetComponent<BuildingManager>().Doodads.Add(newDoodads);
                         }
                     }
                 }
@@ -135,7 +146,7 @@ public class MapGeneration : MonoBehaviour
 
     }
 
-    private float CalcPerlin(int x, int y)
+    private float CalcPerlin(int x, int y, float zoom)
     {
 
         float xCoord = (float)x / width * zoom + offsetX;
