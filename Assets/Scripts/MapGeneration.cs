@@ -138,7 +138,7 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (mapArray[x, y].name == "Land(Clone)")
                         {
-                            var newDoodads = Instantiate(0, new Vector3(x, doodadHeight + plateformTop, y), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0), map);
+                            var newDoodads = Instantiate(Doodads, new Vector3(x, doodadHeight + plateformTop, y), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0), map);
                             newDoodads.AddComponent<NavMeshObstacle>().carving = true;
                             buildingManagerScript.Doodads.Add(newDoodads);
                         }
