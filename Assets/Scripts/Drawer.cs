@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -26,6 +27,7 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     public void Update()
     {
+        Console.WriteLine("oui");
         if (_drawerAnimationController && Input.GetMouseButtonDown(0) && _open && !_mouseOver)
         {
             Close();

@@ -87,7 +87,8 @@ public class BuildingManager : MonoBehaviour
             RaycastHit hit;
             var ray = Camera.main?.ScreenPointToRay(Input.mousePosition);
 
-            if (ray.HasValue && Physics.Raycast(ray.Value, out hit, 200.0f, layerMask))
+            if (ray.HasValue && Physics.Raycast(ray.Value, out hit, 200.0f, layerMask)) 
+            {
                 if (hit.transform != null)
                 {
                     var mousePosition = hit.point;
@@ -97,10 +98,10 @@ public class BuildingManager : MonoBehaviour
                     {
                         localScale = Vector3.one;
                     }
-                    
-                    mousePosition.x = (int) Math.Round(mousePosition.x) + (localScale.x - 1) / 2;
+
+                    mousePosition.x = (int)Math.Round(mousePosition.x) + (localScale.x - 1) / 2;
                     mousePosition.y = 1;
-                    mousePosition.z = (int) Math.Round(mousePosition.z) + (localScale.z - 1) / 2;
+                    mousePosition.z = (int)Math.Round(mousePosition.z) + (localScale.z - 1) / 2;
 
                     var building = GetBuildingAtPosition(mousePosition, Vector3.one);
 
@@ -116,12 +117,12 @@ public class BuildingManager : MonoBehaviour
 
                     if (_isInDeleteMode && Input.GetMouseButtonDown(0))
                     {
-                       if (Buildings.Contains(building))
-                       {
+                        if (Buildings.Contains(building))
+                        {
                             Buildings.Remove(building);
                             Destroy(building);
                             Cursor.visible = true;
-                       }
+                        }
                     }
                     else if (_isInDeleteMode && building != null)
                     {
@@ -175,6 +176,7 @@ public class BuildingManager : MonoBehaviour
 
                     if (building != null) _lastHoverGameObject = building;
                 }
+            }
         }
     }
 
