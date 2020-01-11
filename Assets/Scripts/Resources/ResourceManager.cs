@@ -42,6 +42,7 @@ public abstract class ResourcesGame
         IsAccepted = isAccepted;
         Obs = new ReactiveProperty<int>(quantity);
     }
+
 }
 
 public class ResourceManagerCore : MonoBehaviour

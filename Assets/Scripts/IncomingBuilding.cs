@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
+using System;
 
 public class IncomingBuilding : MonoBehaviour
 {
 
     public string ResourceName;
-    private ParticleSystemAnimationType.
+    public ResourceManager ResourceManager;
+    private ResourcesGame _resource;
 
     void Start()
     {
         try
         {
-            
+            Type ResourceType = Type.GetType(ResourceName);
+            ResourceManager.Get(ResourceType);
         } 
         catch (System.NullReferenceException e)
         {
