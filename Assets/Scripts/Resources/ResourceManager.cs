@@ -10,14 +10,10 @@ public class ResourceManager : ResourceManagerCore
     void Start()
     {
         Resources = new List<ResourcesGame>();
-        Resources.Add(new Iron(0));
-        Resources.Add(new Wood(10));
-        Resources.Add(new Stone(45));
+        Resources.Add(new Iron(0, maximum : 100));
+        Resources.Add(new Wood(0, maximum : 100));
+        Resources.Add(new Stone(0, maximum : 100));
         Init(Resources);
-    }
-
-    private void Update()
-    {
     }
 
     private List<ResourcesGame> Resources;
