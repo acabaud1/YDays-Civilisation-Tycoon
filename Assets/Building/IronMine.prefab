@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7faa697d027df4b4ca0798717091d1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 10
-  WaitingTime: 1
-  NbByResources: 5
+  Radius: 5
+  WaitingTime: 5
+  NbByResources: 1
   RessourceEnum: 1

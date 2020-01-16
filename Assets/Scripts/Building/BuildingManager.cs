@@ -120,16 +120,17 @@ public class BuildingManager : MonoBehaviour
                        {
                             Buildings.Remove(building);
                             Destroy(building);
-                            Cursor.visible = true;
+                            //Cursor.visible = true;
+                            _isInDeleteMode = false;
                        }
                     }
-                    else if (_isInDeleteMode && building != null)
+                    else if (_isInDeleteMode && building != null )
                     {
                         var buildingGameObjectMesh = building != null
                             ? building.GetComponent<MeshRenderer>()
                             : null;
 
-                        if (buildingGameObjectMesh != null)
+                        if (buildingGameObjectMesh != null && !Doodads.Contains(building))
                         {
                             var material = buildingGameObjectMesh.material;
                             if (!material.color.Equals(new Color(255, 0, 0, 0.5f)))
@@ -139,7 +140,7 @@ public class BuildingManager : MonoBehaviour
                             }
                         }
                     }
-                    else
+                    else if(_isInGostMode)
                     {
                         Cursor.visible = false;
                         var meshRenderer = _ghostGameObject != null
@@ -173,7 +174,7 @@ public class BuildingManager : MonoBehaviour
                         }
                     }
 
-                    if (building != null) _lastHoverGameObject = building;
+                    if (building != null && !Doodads.Contains(building)) _lastHoverGameObject = building;
                 }
         }
     }

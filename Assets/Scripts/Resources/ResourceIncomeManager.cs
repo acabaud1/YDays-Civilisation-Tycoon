@@ -27,15 +27,16 @@ public class ResourceIncomeManager : MonoBehaviour
             BuildingManager = GameObject.Find("Building Manager");
             buildingManagerScript = BuildingManager.GetComponent<BuildingManager>();
 
-            ResourceManager = GameObject.Find("ResourceManager");
+            ResourceManager = GameObject.Find("Resource Manager");
             resourceManagerScript = ResourceManager.GetComponent<ResourceManager>();
 
             getAllResources();
             InvokeRepeating(nameof(AddResources), WaitingTime, WaitingTime);
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            throw new Exception();
+            Debug.Log(e);
+            throw e;
         }
     }
 
