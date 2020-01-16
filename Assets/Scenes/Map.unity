@@ -194,17 +194,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13518d195635c7748a0c539f59ae60e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buildingManager: {fileID: 5519931000796807459, guid: dd9703782f28e7f498e09cf96cfb5393,
+    type: 3}
   nbOfChunksPerRow: 4
   width: 64
   height: 64
+  nbRobots: 5
+  nbAnimals: 5
   map: {fileID: 998534820}
   land: {fileID: 4218895845373506685, guid: f964f11a008a95a4b8f41d54f310033b, type: 3}
   sand: {fileID: 5056111968920637446, guid: 6c350349d7b04ce49b8fcf9fd60d7f8e, type: 3}
   water: {fileID: 2947343326392313654, guid: 92e156c646235f84ea914da64eb75bb2, type: 3}
-  tree: {fileID: -927199367670048503, guid: d43ee9e5298516e4fa02cde7d1af97e8, type: 3}
-  ironOre: {fileID: -927199367670048503, guid: 7fabaf83071e82a4489e1d19be9d3a2b, type: 3}
-  robot: {fileID: 0}
-  zoom: 4
+  waterCollider: {fileID: 6777919429078482188, guid: a994a902219542d419a314ce9acde57c,
+    type: 3}
+  tree: {fileID: -927199367670048503, guid: dad28bbeb2c169b4ebe2d551cf210506, type: 3}
+  ironOre: {fileID: -927199367670048503, guid: dd67bc7f1980ea44f959b49401f3fa75, type: 3}
+  rock: {fileID: -927199367670048503, guid: 58c5e1e3baa491d48bb69469f9203666, type: 3}
+  raptorobot: {fileID: 8372288272221998708, guid: ae79baf2b92ae422ba3eb700f76ec789,
+    type: 3}
+  bison: {fileID: 2420084723650370859, guid: 283ce422bc5b147b694a3aeeb47d87fc, type: 3}
+  mapZoom: 10
+  treeZoom: 20
+  ironZoom: 40
+  rockZoom: 40
   pnThreshold: 0.65
 --- !u!4 &185222213
 Transform:

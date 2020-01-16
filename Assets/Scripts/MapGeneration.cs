@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,6 +15,11 @@ public class MapGeneration : MonoBehaviour
     public int width = 64;
     public int height = 64;
 
+    List<Animal> _animals = new List<Animal>();
+    List<Robot> _robots = new List<Robot>();
+    public int nbRobots = 5;
+    public int nbAnimals = 5;
+
     public Transform map;
     private GameObject[,] mapArray;
     private GameObject[,] obstacles;
@@ -24,8 +30,10 @@ public class MapGeneration : MonoBehaviour
     public GameObject waterCollider;
     public GameObject tree;
     public GameObject ironOre;
-    public GameObject robot;
     public GameObject rock;
+
+    public GameObject raptorobot;
+    public GameObject bison;
 
     // Plus la valeur est faible plus les ressources sont rapprochés et abondantes
     public float mapZoom = 10f;
@@ -36,8 +44,9 @@ public class MapGeneration : MonoBehaviour
 
     private float offsetX;
     private float offsetY;
-    
-    // Couroutine servant à générer tous les éléments qui seront placés au niveau du sol.
+    private bool _isCoroutineExecuting = false;
+
+    // Couroutine servant à générer tous les éléments qui seront placés au niveau du sol
     void GenerateChunk(int m, int n)
     {
         for (int x = ((width / nbOfChunksPerRow) * m); x < ((width / nbOfChunksPerRow) * (m + 1)); x++)
@@ -85,33 +94,54 @@ public class MapGeneration : MonoBehaviour
         GenerateDoodads(ironOre, 0.1f, ironZoom);
         GenerateDoodads(rock, 0.1f, rockZoom);
 
-        StartCoroutine(PlaceRobot());
+        StartCoroutine(RandomPnj());
     }
 
-    /// <summary>
-    /// Provisoire : Place un robot sur la map en position 1,1 en NavMeshAgent et règle la destination sur 60,60
-    /// </summary>
-    private bool isCoroutineExecuting = false;
-
-    IEnumerator PlaceRobot()
+    void Update()
     {
-        if (isCoroutineExecuting)
+        // Animaux
+        foreach (Animal myAnimal in _animals)
         {
-            yield break;
+            myAnimal.CheckDestination();
         }
 
-        isCoroutineExecuting = true;
+        // Robots
+        foreach (Robot myRobot in _robots)
+        {
+            myRobot.CheckDestination();
+        }
+    }
 
-        yield return new WaitForSeconds(10);
+    private IEnumerator RandomPnj()
+    {
+        if (_isCoroutineExecuting)
+          yield break;
 
-        isCoroutineExecuting = false;
+        _isCoroutineExecuting = true;
 
-        robot = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        robot.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        robot.transform.position = new Vector3(1, 0.70f, 1);
+        yield return new WaitForSeconds(5);
 
-        NavMeshAgent agent = robot.AddComponent<NavMeshAgent>();
-        agent.destination = new Vector3(60, 0.70f, 60);
+        _isCoroutineExecuting = false;
+
+        Random.InitState(System.DateTime.Now.Millisecond);
+
+        // Animaux
+        for (int i = 0; i < nbAnimals; i++)
+        {
+            var randomAnimal = new Animal(Instantiate(bison));
+            _animals.Add(randomAnimal);
+
+            randomAnimal.Spawn(Random.Range(1, width), Random.Range(1, height));
+        }
+
+        // Robots
+        for (int i = 0; i < nbRobots; i++)
+        {
+            var randomRobot = new Robot(Instantiate(raptorobot));
+            _robots.Add(randomRobot);
+
+            randomRobot.Spawn(Random.Range(1, width), Random.Range(1, height));
+        }
     }
 
     // 1+n itérations pour générer les différents éléments.
@@ -143,7 +173,6 @@ public class MapGeneration : MonoBehaviour
                 }
             }
         }
-
     }
 
     private float CalcPerlin(int x, int y, float zoom)
