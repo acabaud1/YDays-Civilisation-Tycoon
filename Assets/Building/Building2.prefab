@@ -91,7 +91,7 @@ PrefabInstance:
         type: 3}
       propertyPath: FloatingTextPrefab
       value: 
-      objectReference: {fileID: 8101028247105472448, guid: e95c6ba0ffad08c41abdd0d7b2c1838c,
+      objectReference: {fileID: 8053453887061122444, guid: e95c6ba0ffad08c41abdd0d7b2c1838c,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26b3391fb2950134cbb96fae46915725, type: 3}

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8101028247105472448
+--- !u!1 &8053453887061122444
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1020016751290788248}
-  - component: {fileID: 2902933774245025453}
-  - component: {fileID: 1464259772186660346}
-  - component: {fileID: 6802905806493490455}
-  - component: {fileID: 722448560116202473}
+  - component: {fileID: 8053453887061122441}
+  - component: {fileID: 8053453887061122440}
+  - component: {fileID: 8053453887061122447}
+  - component: {fileID: 8053453887061122446}
+  - component: {fileID: 8053453887061122445}
   m_Layer: 0
   m_Name: FloatingText
   m_TagString: Untagged
@@ -20,27 +20,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1020016751290788248
+--- !u!4 &8053453887061122441
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8101028247105472448}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1536.56, y: 735.1101, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_GameObject: {fileID: 8053453887061122444}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 1536.56, y: 736.7595, z: 0.5399482}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &2902933774245025453
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!23 &8053453887061122440
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8101028247105472448}
+  m_GameObject: {fileID: 8053453887061122444}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -51,7 +51,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: e9515d55f52580f41a911a68e63519d9, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -72,14 +72,14 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!102 &1464259772186660346
+--- !u!102 &8053453887061122447
 TextMesh:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8101028247105472448}
+  m_GameObject: {fileID: 8053453887061122444}
   m_Text: Je suis du Texte
   m_OffsetZ: 0
   m_CharacterSize: 1
@@ -87,21 +87,21 @@ TextMesh:
   m_Anchor: 0
   m_Alignment: 0
   m_TabSize: 4
-  m_FontSize: 0
+  m_FontSize: 128
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 0}
+  m_Font: {fileID: 12800000, guid: e9515d55f52580f41a911a68e63519d9, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
---- !u!95 &6802905806493490455
+--- !u!95 &8053453887061122446
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8101028247105472448}
+  m_GameObject: {fileID: 8053453887061122444}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 14a14f7d27ec9c244b68d6b4f8474cb2, type: 2}
@@ -113,17 +113,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &722448560116202473
+--- !u!114 &8053453887061122445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8101028247105472448}
-  m_Enabled: 1
+  m_GameObject: {fileID: 8053453887061122444}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f39b40be2f72bdf46b957e448cdc1760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DestroyTime: 3
   Offset: {x: 0, y: 2, z: 0}
+  RandomizeItensity: {x: 0.5, y: 0, z: 0}

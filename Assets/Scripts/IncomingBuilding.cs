@@ -45,7 +45,11 @@ public class IncomingBuilding : MonoBehaviour
     {
         if (FloatingTextPrefab)
         {
-            var GoFloatText = Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity, transform);
+            var GoFloatText = Instantiate(
+                FloatingTextPrefab, 
+                transform.position, 
+                Quaternion.Euler(45f, 0f, 0f), 
+                transform);
             GoFloatText.GetComponent<TextMesh>().text = IncomeQuantity.ToString();
         }
     }

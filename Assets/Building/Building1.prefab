@@ -108,5 +108,5 @@ MonoBehaviour:
   ResourceName: Wood
   IncomeQuantity: 10
   IntervalTime: 3
-  FloatingTextPrefab: {fileID: 8101028247105472448, guid: e95c6ba0ffad08c41abdd0d7b2c1838c,
+  FloatingTextPrefab: {fileID: 8053453887061122444, guid: e95c6ba0ffad08c41abdd0d7b2c1838c,
     type: 3}
