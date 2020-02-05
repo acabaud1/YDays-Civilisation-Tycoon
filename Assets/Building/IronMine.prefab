@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3008609844265995815}
   - component: {fileID: 2822205755672038300}
   - component: {fileID: 3592754971557208438}
-  - component: {fileID: 7548200839255657762}
+  - component: {fileID: 7145441679647746117}
   m_Layer: 0
   m_Name: IronMine
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4020330638043335821}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.7060962, y: -0.14328285, z: -5.1152105}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.00025, y: 0.00025, z: 0.00025}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4020330638043335821}
-  m_Mesh: {fileID: 9024716141790812113, guid: d8a05ae7fa461be46bb67c40a38efa2d, type: 3}
+  m_Mesh: {fileID: -7760074845545069097, guid: e624126bb0a73664086ce34be8f01c6b, type: 3}
 --- !u!23 &2822205755672038300
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -93,3 +93,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7145441679647746117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020330638043335821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7faa697d027df4b4ca0798717091d1ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 6
+  WaitingTime: 0
+  ResourceInterval: 5
+  NbByResources: 5
+  RessourceEnum: 1
+  FloatingTextPrefab: {fileID: 8053453887061122444, guid: e95c6ba0ffad08c41abdd0d7b2c1838c,
+    type: 3}

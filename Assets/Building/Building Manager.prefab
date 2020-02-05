@@ -29,8 +29,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6480838976077592931}
-  - {fileID: 6480838975560541381}
-  - {fileID: 6480838975633677107}
   - {fileID: 8736032157589935052}
   - {fileID: 7099369598788490209}
   m_Father: {fileID: 0}
@@ -80,7 +78,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1543093418519798308}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5190793837593749616
 MonoBehaviour:
@@ -97,100 +95,6 @@ MonoBehaviour:
   FullBuilding: {fileID: 2967766981948459905, guid: 397e9e067153a5f4a8d5e8d254c7a6d3,
     type: 3}
   GhostBuilding: {fileID: 9086308442266892482, guid: b828fde6f289f7c4e99f0ef095ee7670,
-    type: 3}
---- !u!1 &6480838975560541380
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6480838975560541381}
-  - component: {fileID: 6480838975560541382}
-  m_Layer: 0
-  m_Name: Building2Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6480838975560541381
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6480838975560541380}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1543093418519798308}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6480838975560541382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6480838975560541380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a40390f7585ba0b46b6ddfba849aef0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FullBuilding: {fileID: 5198401704755458343, guid: 0c677f28f702a2e48a7b17341b2f1536,
-    type: 3}
-  GhostBuilding: {fileID: 189788129716662601, guid: 8599e346966b778479c0d5cf5c13616a,
-    type: 3}
---- !u!1 &6480838975633677106
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6480838975633677107}
-  - component: {fileID: 6480838975633677108}
-  m_Layer: 0
-  m_Name: Building3Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6480838975633677107
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6480838975633677106}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1543093418519798308}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6480838975633677108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6480838975633677106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a40390f7585ba0b46b6ddfba849aef0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FullBuilding: {fileID: 7257134147548372957, guid: ca0eb676859c6ad4686d04d5c017ecfe,
-    type: 3}
-  GhostBuilding: {fileID: 1785121095096026780, guid: e4eb78c5d3921d94da5772cc76eb047d,
     type: 3}
 --- !u!1 &6480838976077592930
 GameObject:
@@ -268,7 +172,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1543093418519798308}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6805357413436287554
 MonoBehaviour:

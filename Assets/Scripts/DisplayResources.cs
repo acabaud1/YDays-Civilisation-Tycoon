@@ -1,32 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
+﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using UniRx;
+using Assets.Scripts.Resources;
 
 public class DisplayResources : MonoBehaviour
 {
     public ResourceManager ResourceManager;
-    public TextMeshProUGUI TextMeshProText;
-    public string ResourceType;
-    private Type _resourceType;
+    public Text TextComponent;
+    public RessourceEnum RessourceEnum = RessourceEnum.None;
 
     void Start()
     {
-        try
+        Type ResourceType = RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum);
+        ResourceManager.Get(ResourceType).Obs.AsObservable().Subscribe(resourceQuantity =>
         {
-            // Si ResourceType ne décrit pas un type valide, C# renvoi une exception.
-            _resourceType = Type.GetType(ResourceType.ToString());
-            ResourceManager.Get(_resourceType).Obs.AsObservable().Subscribe(resourceQuantity =>
-            {
-                TextMeshProText.SetText(resourceQuantity.ToString());
-            });
-        }
-        catch (NullReferenceException e)
-        {
-            Debug.LogError($"Le type {ResourceType} n'existe pas... Les Resources existantes sont Iron, Stone et Wood. {e}");
-        }
+            TextComponent.text = resourceQuantity.ToString();
+        });
     }
 
 }

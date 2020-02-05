@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7447152664002786395}
-  - component: {fileID: 5693264090704822165}
   - component: {fileID: 1283393500886234712}
   - component: {fileID: 345539723246863255}
   - component: {fileID: 5076755571633557611}
+  - component: {fileID: 5125301442505243350}
   m_Layer: 0
   m_Name: LumberJackCamp
   m_TagString: Untagged
@@ -34,14 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5693264090704822165
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7417882198421234265}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1283393500886234712
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -107,5 +99,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Radius: 5
   WaitingTime: 5
+  ResourceInterval: 5
   NbByResources: 1
   RessourceEnum: 3
+  FloatingTextPrefab: {fileID: 8053453887061122444, guid: e95c6ba0ffad08c41abdd0d7b2c1838c,
+    type: 3}
+--- !u!33 &5125301442505243350
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7417882198421234265}
+  m_Mesh: {fileID: 435957211148159721, guid: 83cb2b2e0e77be040b11ebe2a681770e, type: 3}

@@ -1,18 +1,17 @@
 ﻿using Assets.Scripts.Resources;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using UnityEditor;
 using UnityEngine;
 
 public class ResourceIncomeManager : MonoBehaviour
 {
     public float Radius;
     public float WaitingTime;
+    public float ResourceInterval;
     public int NbByResources;
     public RessourceEnum RessourceEnum = RessourceEnum.None;
+    public GameObject FloatingTextPrefab;
+
     private GameObject BuildingManager;
     private BuildingManager buildingManagerScript;
     private GameObject ResourceManager;
@@ -30,30 +29,27 @@ public class ResourceIncomeManager : MonoBehaviour
             ResourceManager = GameObject.Find("Resource Manager");
             resourceManagerScript = ResourceManager.GetComponent<ResourceManager>();
 
-            getAllResources();
-            InvokeRepeating(nameof(AddResources), WaitingTime, WaitingTime);
+            GetAllResources();
+            InvokeRepeating(nameof(AddResources), WaitingTime, ResourceInterval);
         }
         catch (Exception e)
         {
-            Debug.Log(e);
+            Debug.LogError($"Le building Manager ou le ressource Manager ne sont pas présent dans la scène actuelle.");
+            Debug.LogError(e);
             throw e;
         }
     }
 
-    private bool getGameObjetWithRessourceEnum(GameObject go)
+    private bool GetGameObjetWithRessourceEnum(GameObject go)
     {
         RessourceType ressourceType = go.GetComponent<RessourceType>();
-        if(ressourceType != null && ressourceType.Ressource == RessourceEnum)
-        {
-            return true;
-        }
-        return false;
+        return ressourceType != null && ressourceType.Ressource == RessourceEnum;
     }
 
-    void getAllResources()
+    void GetAllResources()
     {
         nbOres = 0;
-        foreach (GameObject element in buildingManagerScript.Doodads.Where(go => getGameObjetWithRessourceEnum(go)))
+        foreach (GameObject element in buildingManagerScript.Doodads.Where(go => GetGameObjetWithRessourceEnum(go)))
         {
             if (Vector3.Distance(element.transform.position, this.transform.position) < Radius)
             {
@@ -65,6 +61,29 @@ public class ResourceIncomeManager : MonoBehaviour
     void AddResources()
     {
         int resources = nbOres * NbByResources;
+        ShowFloatingText();
         resourceManagerScript.Add(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum), resources);
+    }
+
+    void ShowFloatingText()
+    {
+        if (FloatingTextPrefab)
+        {
+            var GoFloatText = Instantiate(
+                FloatingTextPrefab,
+                transform.position,
+                Quaternion.Euler(45f, 0f, 0f),
+                transform);
+
+            GoFloatText.transform.position = new Vector3(
+                GoFloatText.transform.position.x,
+                GoFloatText.transform.position.y + 1,
+                GoFloatText.transform.position.z
+            );
+
+            GoFloatText.GetComponent<TextMesh>().text = (NbByResources * nbOres).ToString();
+
+            Destroy(GoFloatText, 1.5f);
+        }
     }
 }
