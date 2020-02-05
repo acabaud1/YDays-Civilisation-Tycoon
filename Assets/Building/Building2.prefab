@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &7786564064377006322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198401704755458343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0cfac12833bb54fb5021b7295e7932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Max: 500
 --- !u!1001 &9218722909970415018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82,16 +95,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2c1317db52434964a81f753fb40bd9ad, type: 2}
-    - target: {fileID: -1575017865759046751, guid: 26b3391fb2950134cbb96fae46915725,
-        type: 3}
-      propertyPath: ResourceName
-      value: Iron
-      objectReference: {fileID: 0}
-    - target: {fileID: -1575017865759046751, guid: 26b3391fb2950134cbb96fae46915725,
-        type: 3}
-      propertyPath: FloatingTextPrefab
-      value: 
-      objectReference: {fileID: 8053453887061122444, guid: e95c6ba0ffad08c41abdd0d7b2c1838c,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26b3391fb2950134cbb96fae46915725, type: 3}
+--- !u!1 &5198401704755458343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4020330638043335821, guid: 26b3391fb2950134cbb96fae46915725,
+    type: 3}
+  m_PrefabInstance: {fileID: 9218722909970415018}
+  m_PrefabAsset: {fileID: 0}

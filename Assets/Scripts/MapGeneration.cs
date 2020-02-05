@@ -83,9 +83,9 @@ public class MapGeneration : MonoBehaviour
             }
         }
 
-        GenerateDoodads(tree, 0.3f, treeZoom);
-        GenerateDoodads(ironOre, 0.1f, ironZoom);
-        GenerateDoodads(rock, 0.1f, rockZoom);
+        GenerateDoodads(tree, 0.3f, treeZoom, RessourceEnum.Wood);
+        GenerateDoodads(ironOre, 0.1f, ironZoom, RessourceEnum.Iron);
+        GenerateDoodads(rock, 0.1f, rockZoom, RessourceEnum.Stone);
 
         StartCoroutine(PlaceRobot());
     }
@@ -118,7 +118,7 @@ public class MapGeneration : MonoBehaviour
 
     // 1+n itérations pour générer les différents éléments.
     // requiredPnValue = La valeur renvoyé par le calcul de Perlin à laquelle vous souhaitez placer vos éléments.
-    private void GenerateDoodads(GameObject Doodads, float requiredPnValue, float zoom)
+    private void GenerateDoodads(GameObject Doodads, float requiredPnValue, float zoom, RessourceEnum ressourceEnum = RessourceEnum.None)
     {
         offsetX = Random.Range(0f, 999999f);
         offsetY = Random.Range(0f, 999999f);
@@ -139,6 +139,11 @@ public class MapGeneration : MonoBehaviour
                         if (mapArray[x, y].name == "Land(Clone)")
                         {
                             var newDoodads = Instantiate(Doodads, new Vector3(x, doodadHeight + plateformTop, y), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0), map);
+                            RessourceType ressourceTypeScript = newDoodads.AddComponent<RessourceType>() as RessourceType;
+                            if(ressourceTypeScript != null)
+                            {
+                                ressourceTypeScript.Ressource = ressourceEnum;
+                            }
                             newDoodads.AddComponent<NavMeshObstacle>().carving = true;
                             buildingManagerScript.Doodads.Add(newDoodads);
                         }
