@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,8 +18,9 @@ public class MapGeneration : MonoBehaviour
 
     List<Animal> _animals = new List<Animal>();
     List<Robot> _robots = new List<Robot>();
-    public int nbRobots = 5;
-    public int nbAnimals = 5;
+
+    public int nbRobots = 10;
+    public int nbAnimals = 10;
 
     public Transform map;
     private GameObject[,] mapArray;
@@ -32,8 +34,16 @@ public class MapGeneration : MonoBehaviour
     public GameObject ironOre;
     public GameObject rock;
 
-    public GameObject raptorobot;
-    public GameObject bison;
+    // Animaux
+    //public GameObject bison;
+    //public GameObject hippopotamus;
+    public GameObject[] animals;
+
+    // Robots
+    //public GameObject raptoRobot;
+    //public GameObject catRobot1;
+    //public GameObject catRobot2;
+    public GameObject[] robots;
 
     // Plus la valeur est faible plus les ressources sont rapprochés et abondantes
     public float mapZoom = 10f;
@@ -128,7 +138,7 @@ public class MapGeneration : MonoBehaviour
         // Animaux
         for (int i = 0; i < nbAnimals; i++)
         {
-            var randomAnimal = new Animal(Instantiate(bison));
+            var randomAnimal = new Animal(Instantiate(animals[Random.Range(0, animals.Length)]));
             _animals.Add(randomAnimal);
 
             randomAnimal.Spawn(Random.Range(1, width), Random.Range(1, height));
@@ -137,7 +147,7 @@ public class MapGeneration : MonoBehaviour
         // Robots
         for (int i = 0; i < nbRobots; i++)
         {
-            var randomRobot = new Robot(Instantiate(raptorobot));
+            var randomRobot = new Robot(Instantiate(robots[Random.Range(0, robots.Length)]));
             _robots.Add(randomRobot);
 
             randomRobot.Spawn(Random.Range(1, width), Random.Range(1, height));

@@ -210,9 +210,13 @@ MonoBehaviour:
   tree: {fileID: -927199367670048503, guid: dad28bbeb2c169b4ebe2d551cf210506, type: 3}
   ironOre: {fileID: -927199367670048503, guid: dd67bc7f1980ea44f959b49401f3fa75, type: 3}
   rock: {fileID: -927199367670048503, guid: 58c5e1e3baa491d48bb69469f9203666, type: 3}
-  raptorobot: {fileID: 8372288272221998708, guid: ae79baf2b92ae422ba3eb700f76ec789,
-    type: 3}
-  bison: {fileID: 2420084723650370859, guid: 283ce422bc5b147b694a3aeeb47d87fc, type: 3}
+  animals:
+  - {fileID: 2420084723650370859, guid: 283ce422bc5b147b694a3aeeb47d87fc, type: 3}
+  - {fileID: 8182118195644321004, guid: 7dbc9cd296ca54320ae798bd1d50a140, type: 3}
+  robots:
+  - {fileID: 8372288272221998708, guid: ae79baf2b92ae422ba3eb700f76ec789, type: 3}
+  - {fileID: 5951378747014242897, guid: 7324efabfa6a54e9e9230e3117a44cb6, type: 3}
+  - {fileID: 3298522713451822025, guid: 0ddb87b4146dc476a84b6c6ff02f27c0, type: 3}
   mapZoom: 10
   treeZoom: 20
   ironZoom: 40
