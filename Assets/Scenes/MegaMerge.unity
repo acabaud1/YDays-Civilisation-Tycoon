@@ -997,6 +997,21 @@ PrefabInstance:
       propertyPath: gridType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4028625722112312034, guid: 92e156c646235f84ea914da64eb75bb2,
+        type: 3}
+      propertyPath: sizeX
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: -4028625722112312034, guid: 92e156c646235f84ea914da64eb75bb2,
+        type: 3}
+      propertyPath: displayProgress
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4028625722112312034, guid: 92e156c646235f84ea914da64eb75bb2,
+        type: 3}
+      propertyPath: sizeZ
+      value: 37
+      objectReference: {fileID: 0}
     - target: {fileID: 2947343326392313654, guid: 92e156c646235f84ea914da64eb75bb2,
         type: 3}
       propertyPath: m_Name
