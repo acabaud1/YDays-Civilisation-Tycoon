@@ -21,7 +21,6 @@ public class MapGeneration : MonoBehaviour
 
     public GameObject land;
     public GameObject sand;
-    public GameObject water;
     public GameObject waterCollider;
     public GameObject tree;
     public GameObject ironOre;
@@ -49,7 +48,7 @@ public class MapGeneration : MonoBehaviour
 
                 if (pnValue > pnThreshold)
                 {
-                    mapArray[x, y] = Instantiate(water, new Vector3(x, 0 - 0.02f, y), Quaternion.identity, map);
+                    mapArray[x, y] = Instantiate(waterCollider, new Vector3(x, 0 - 0.02f, y), Quaternion.identity, map);
                     var buildingWater = Instantiate(waterCollider, new Vector3(x, 1, y), Quaternion.identity, map);
                     buildingManagerScript.Doodads.Add(buildingWater);
                 }

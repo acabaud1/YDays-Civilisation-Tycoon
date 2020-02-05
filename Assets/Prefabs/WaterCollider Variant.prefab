@@ -7,10 +7,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4028625722112312034, guid: 92e156c646235f84ea914da64eb75bb2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2947343326392313654, guid: 92e156c646235f84ea914da64eb75bb2,
         type: 3}
       propertyPath: m_Name
-      value: WaterCollider
+      value: WaterCollider Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2947343326392313650, guid: 92e156c646235f84ea914da64eb75bb2,
         type: 3}
