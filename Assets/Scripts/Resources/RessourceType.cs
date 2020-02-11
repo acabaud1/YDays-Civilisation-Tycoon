@@ -7,7 +7,8 @@ public class RessourceType : MonoBehaviour
     public RessourceEnum Ressource { get; set; }
 }
 
-public enum RessourceEnum{
+public enum RessourceEnum
+{
     None,
     Iron,
     Stone,

@@ -9,12 +9,12 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: LPWaterCustom
   m_Shader: {fileID: 4800000, guid: 8165be4dd0b12774d80426d906df9c38, type: 3}
-  m_ShaderKeywords: LPW_FOAM LPW_SHADOWS WATER_REFLECTIVE WATER_REFRACTIVE _CUSTOM_SHAPE
-    _DISTORT_ON _EDGEBLEND_ON _EMISSION _LIGHTABS_ON _SHADING_FLAT _WAVES_OFF _ZWRITE_ON
+  m_ShaderKeywords: LPW_FOAM _CUSTOM_SHAPE _DISTORT_ON _EDGEBLEND_ON _EMISSION _LIGHTABS_ON
+    _SHADING_FLAT _WAVES_OFF _ZWRITE_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2500
+  m_CustomRenderQueue: 2501
   stringTagMap:
     QUEUE: AlphaTest+50
   disabledShaderPasses: []
@@ -95,5 +95,5 @@ Material:
     - _FresColor: {r: 0.305, g: 0.371, b: 0.395, a: 1}
     - _ShoreColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 1, g: 0.9572973, b: 0.5808823, a: 1}
-    - _Sun: {r: 0.3213938, g: 0.76604444, b: -0.5566705, a: 0}
+    - _Sun: {r: -0.757438, g: 0.3015378, b: -0.579105, a: 0}
     - _SunColor: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}

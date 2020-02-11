@@ -6,16 +6,26 @@ using UniRx;
 
 public class ResourceManager : ResourceManagerCore
 {
-    // Start is called before the first frame update
-    void Start()
+    private static ResourceManager _instance;
+
+    public static ResourceManager GetInstance()
     {
-        Resources = new List<ResourcesGame>();
-        Resources.Add(new Iron(0, maximum : 100));
-        Resources.Add(new Wood(0, maximum : 100));
-        Resources.Add(new Stone(0, maximum : 100));
-        Init(Resources);
+        if (_instance == null)
+        {
+            _instance = new ResourceManager();
+        }
+        return _instance;
     }
 
+    private ResourceManager()
+    {
+        Resources = new List<ResourcesGame>();
+        Resources.Add(new Iron(0, maximum: 100));
+        Resources.Add(new Wood(0, maximum: 100));
+        Resources.Add(new Stone(0, maximum: 100));
+        Init(Resources);
+    }
+    
     private List<ResourcesGame> Resources;
 }
 

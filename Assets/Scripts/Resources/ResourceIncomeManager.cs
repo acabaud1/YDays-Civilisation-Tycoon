@@ -1,6 +1,7 @@
-﻿using Assets.Scripts.Resources;
-using System;
+﻿using System;
 using System.Linq;
+using Assets.Scripts.Resources;
+using Ressource;
 using UnityEngine;
 
 public class ResourceIncomeManager : MonoBehaviour
@@ -12,22 +13,17 @@ public class ResourceIncomeManager : MonoBehaviour
     public RessourceEnum RessourceEnum = RessourceEnum.None;
     public GameObject FloatingTextPrefab;
 
-    private GameObject BuildingManager;
     private BuildingManager buildingManagerScript;
-    private GameObject ResourceManager;
     private ResourceManager resourceManagerScript;
     private int nbOres;
-    
+
     // Start is called before the first frame update
     void Start()
     {
         try
         {
-            BuildingManager = GameObject.Find("Building Manager");
-            buildingManagerScript = BuildingManager.GetComponent<BuildingManager>();
-
-            ResourceManager = GameObject.Find("Resource Manager");
-            resourceManagerScript = ResourceManager.GetComponent<ResourceManager>();
+            resourceManagerScript = ResourceManager.GetInstance();
+            buildingManagerScript = BuildingManager.GetInstance();
 
             GetAllResources();
             InvokeRepeating(nameof(AddResources), WaitingTime, ResourceInterval);
@@ -49,11 +45,16 @@ public class ResourceIncomeManager : MonoBehaviour
     void GetAllResources()
     {
         nbOres = 0;
-        foreach (GameObject element in buildingManagerScript.Doodads.Where(go => GetGameObjetWithRessourceEnum(go)))
+        var tileArray = BuildingManager.GetInstance().TileArray;
+        for (int i = 0; i < tileArray.GetLength(0); i++)
         {
-            if (Vector3.Distance(element.transform.position, this.transform.position) < Radius)
+            for (int j = 0; j < tileArray.GetLength(1); j++)
             {
-                nbOres++;
+                if (tileArray[i, j].Resource && tileArray[i, j].RessourceEnum == RessourceEnum && 
+                    Vector3.Distance(tileArray[i, j].Resource.transform.position, this.transform.position) < Radius)
+                {
+                    nbOres++;
+                }
             }
         }
     }
@@ -61,7 +62,7 @@ public class ResourceIncomeManager : MonoBehaviour
     void AddResources()
     {
         int resources = nbOres * NbByResources;
-        ShowFloatingText();
+        // ShowFloatingText();
         resourceManagerScript.Add(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum), resources);
     }
 

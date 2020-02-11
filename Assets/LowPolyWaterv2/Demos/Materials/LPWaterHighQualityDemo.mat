@@ -9,12 +9,12 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: LPWaterHighQualityDemo
   m_Shader: {fileID: 4800000, guid: 8165be4dd0b12774d80426d906df9c38, type: 3}
-  m_ShaderKeywords: LPW_FOAM LPW_SHADOWS WATER_REFLECTIVE WATER_REFRACTIVE _EDGEBLEND_ON
-    _EMISSION _LIGHTABS_ON _SHADING_FLAT _WAVES_HIGHQUALITY _ZWRITE_ON
+  m_ShaderKeywords: LPW_FOAM WATER_REFLECTIVE _EDGEBLEND_ON _EMISSION _LIGHTABS_ON
+    _SHADING_FLAT _WAVES_HIGHQUALITY _ZWRITE_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2500
+  m_CustomRenderQueue: 2501
   stringTagMap:
     QUEUE: AlphaTest+50
   disabledShaderPasses: []
