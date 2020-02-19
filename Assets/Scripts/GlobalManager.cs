@@ -38,7 +38,7 @@ public class GlobalManager : MonoBehaviour
 
     void Update()
     {
-        buildingManager.Update();
+        BuildingManager.GetInstance().Update();
     }
 
     private void MapManagerInit()

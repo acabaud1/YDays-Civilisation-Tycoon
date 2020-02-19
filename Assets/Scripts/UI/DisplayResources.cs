@@ -10,23 +10,17 @@ using UniRx;
 
 public class DisplayResources : MonoBehaviour
 {
-    private ResourceManager ResourceManager;
     public TextMeshProUGUI TextMeshProText;
     public RessourceEnum ResourceType;
 
     void Start()
     {
+        // Si ResourceType ne décrit pas un type valide, C# renvoi une exception.
         try
         {
-            // Si ResourceType ne décrit pas un type valide, C# renvoi une exception.
-            ResourceManager = ResourceManager.GetInstance();
-
             var ressourceType = RessourceHelper.GetRessourceGameTypeFromRessourceEnum(ResourceType);
 
-            var tttt = ResourceManager.Get(ressourceType);
-            var ttttt = tttt.Obs.AsObservable();
-
-            ttttt.Subscribe(resourceQuantity =>
+            ResourceManager.GetInstance().Get(ressourceType).Obs.AsObservable().Subscribe(resourceQuantity =>
             {
                 TextMeshProText.SetText(resourceQuantity.ToString());
             });

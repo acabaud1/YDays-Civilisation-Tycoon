@@ -49,7 +49,8 @@ MonoBehaviour:
   ResourceInterval: 1
   NbByResources: 1
   RessourceEnum: 3
-  FloatingTextPrefab: {fileID: 0}
+  FloatingTextPrefab: {fileID: 8053453887061122444, guid: e95c6ba0ffad08c41abdd0d7b2c1838c,
+    type: 3}
 --- !u!1001 &4075237436322063276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,16 +118,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9190557371933875740, guid: b0c8f365145f320428f6a07a2d8322ab,
-        type: 3}
-      propertyPath: m_RenderMode
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9190557371933875740, guid: b0c8f365145f320428f6a07a2d8322ab,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 9190557371933875741, guid: b0c8f365145f320428f6a07a2d8322ab,
         type: 3}
       propertyPath: ShapeModule.m_Position.x
@@ -147,6 +138,16 @@ PrefabInstance:
       propertyPath: InitialModule.startSize.scalar
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 9190557371933875740, guid: b0c8f365145f320428f6a07a2d8322ab,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9190557371933875740, guid: b0c8f365145f320428f6a07a2d8322ab,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0c8f365145f320428f6a07a2d8322ab, type: 3}
 --- !u!4 &180136468252789789 stripped

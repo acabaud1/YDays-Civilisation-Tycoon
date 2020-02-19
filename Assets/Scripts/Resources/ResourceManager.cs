@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using UniRx;
 
 public class ResourceManager : ResourceManagerCore
@@ -19,10 +18,12 @@ public class ResourceManager : ResourceManagerCore
 
     private ResourceManager()
     {
-        Resources = new List<ResourcesGame>();
-        Resources.Add(new Iron(0, maximum: 100));
-        Resources.Add(new Wood(0, maximum: 100));
-        Resources.Add(new Stone(0, maximum: 100));
+        Resources = new List<ResourcesGame>
+        {
+            new Iron(0, maximum: 100),
+            new Wood(0, maximum: 100),
+            new Stone(0, maximum: 100)
+        };
         Init(Resources);
     }
     
@@ -37,7 +38,7 @@ public abstract class ResourcesGame
     public int Maximum { get; set; }
     public bool IsAccepted { get; set; }
 
-    public ReactiveProperty<int> Obs { get; }
+    public ReactiveProperty<int> Obs { get; private set; }
 
     public ResourcesGame(string name, int quantity, int minimum = 0, int maximum = 30, bool isAccepted = true)
     {
@@ -51,7 +52,7 @@ public abstract class ResourcesGame
 
 }
 
-public class ResourceManagerCore : MonoBehaviour
+public class ResourceManagerCore
 {
     private List<ResourcesGame> _resources;
 
@@ -82,19 +83,29 @@ public class ResourceManagerCore : MonoBehaviour
     {
         var resource = Get(type);
 
-        if (resource != null && canAdd(resource, quantity))
+        if (resource != null && CanAdd(resource, quantity))
         {
-            resource.Quantity += quantity;
+            if (resource.Quantity + quantity > resource.Maximum)
+            {
+                resource.Quantity = resource.Maximum;
+            }
+            else
+            {
+                resource.Quantity += quantity;
+            }
+
             resource.Obs.Value = resource.Quantity;
         }
     }
 
-    protected virtual bool canAdd(ResourcesGame ResourcesGame, int quantity)
+    protected virtual bool CanAdd(ResourcesGame ResourcesGame, int quantity)
     {
-        if (ResourcesGame.Quantity + quantity > ResourcesGame.Minimum && ResourcesGame.Quantity + quantity < ResourcesGame.Maximum && ResourcesGame.IsAccepted)
+
+        if (ResourcesGame.Quantity + quantity > ResourcesGame.Minimum && ResourcesGame.IsAccepted)
         {
             return true;
         }
+
         return false;
     }
 
@@ -102,7 +113,7 @@ public class ResourceManagerCore : MonoBehaviour
     {
         var resource = Get(type);
 
-        if (resource != null && canAdd(resource, quantity))
+        if (resource != null && CanAdd(resource, quantity))
         {
             return true;
         }
