@@ -49,7 +49,8 @@ MonoBehaviour:
   ResourceInterval: 1
   NbByResources: 1
   RessourceEnum: 2
-  FloatingTextPrefab: {fileID: 0}
+  FloatingTextPrefab: {fileID: 8053453887061122444, guid: e95c6ba0ffad08c41abdd0d7b2c1838c,
+    type: 3}
 --- !u!1001 &3278420068029389822
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Assets.Scripts.Resources;
 using Ressource;
 using UnityEngine;
@@ -61,11 +60,21 @@ public class ResourceIncomeManager : MonoBehaviour
         GetAllResources();
 
         int resources = nbOres * NbByResources;
-        // ShowFloatingText();
+
+        var resourceType = RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum);
+        var resourceTarget = ResourceManager.GetInstance().Get(resourceType);
+
+        if (resourceTarget.Quantity < resourceTarget.Maximum)
+        {
+            ShowFloatingText(resources.ToString(), Color.green);
+        } else
+        {
+            ShowFloatingText("Full", Color.red);
+        }
         resourceManagerScript.Add(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum), resources);
     }
 
-    void ShowFloatingText()
+    void ShowFloatingText(String text, Color color)
     {
         if (FloatingTextPrefab)
         {
@@ -81,7 +90,11 @@ public class ResourceIncomeManager : MonoBehaviour
                 GoFloatText.transform.position.z
             );
 
-            GoFloatText.GetComponent<TextMesh>().text = (NbByResources * nbOres).ToString();
+            var textComponent = GoFloatText.GetComponent<TextMesh>();
+
+            textComponent.text = text;
+            textComponent.color = color;
+
 
             Destroy(GoFloatText, 1.5f);
         }
