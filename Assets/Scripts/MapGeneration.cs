@@ -133,24 +133,20 @@ public class MapGeneration : MonoBehaviour
 
         _isCoroutineExecuting = false;
 
-        Random.InitState(System.DateTime.Now.Millisecond);
-
         // Animaux
-        for (int i = 0; i < nbAnimals; i++)
+        for (var i = 0; i < nbAnimals; i++)
         {
             var randomAnimal = new Animal(Instantiate(animals[Random.Range(0, animals.Length)]));
             _animals.Add(randomAnimal);
-
-            randomAnimal.Spawn(Random.Range(1, width), Random.Range(1, height));
+            randomAnimal.Spawn(Random.Range(0, width), Random.Range(0, height));
         }
 
         // Robots
-        for (int i = 0; i < nbRobots; i++)
+        for (var i = 0; i < nbRobots; i++)
         {
             var randomRobot = new Robot(Instantiate(robots[Random.Range(0, robots.Length)]));
             _robots.Add(randomRobot);
-
-            randomRobot.Spawn(Random.Range(1, width), Random.Range(1, height));
+            randomRobot.Spawn(Random.Range(0, width), Random.Range(0, height));
         }
     }
 
@@ -165,6 +161,7 @@ public class MapGeneration : MonoBehaviour
         {
             float doodadHeight = Doodads.GetComponent<Renderer>().bounds.size.y / 2;
             float plateformTop = land.GetComponent<Renderer>().bounds.size.y / 2;
+
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)

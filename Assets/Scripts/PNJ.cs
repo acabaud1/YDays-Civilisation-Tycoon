@@ -12,6 +12,7 @@ public class PNJ
     private void Create()
     {
         _gAgent = GObject.AddComponent<NavMeshAgent>();
+        //_gAgent.baseOffset = 0f;
     }
 
     /// <summary>
@@ -19,10 +20,13 @@ public class PNJ
     /// </summary>
     public void Spawn(int x, int z)
     {
+        // Création du NavMeshAgent
         Create();
-        GObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        GObject.transform.position = new Vector3(x, 0.70f, z);
 
+        // Définition de la position
+        GObject.transform.position = new Vector3(x, 1, z);
+
+        // Définition de la première destination
         Move(Random.Range(1, 64), Random.Range(1, 64));
     }
 
@@ -31,7 +35,7 @@ public class PNJ
     /// </summary>
     private void Move(int x, int z)
     {
-        _gAgent.destination = new Vector3(x, 0.70f, z);
+        _gAgent.destination = new Vector3(x, 1, z);
     }
 
     public void CheckDestination()
