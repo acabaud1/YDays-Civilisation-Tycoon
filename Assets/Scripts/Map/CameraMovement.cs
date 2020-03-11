@@ -18,33 +18,57 @@ public class CameraMovement : MonoBehaviour
     public Vector2 zLimit;
     public Vector2 yLimit;
 
+    private Vector3 lastDragPosition;
+    private bool isPanning;
+    public float panSpeed;
+
     /// <summary>
     /// Update is called once per frame
     /// </summary>
     void Update()
     {
         Vector3 pos = transform.position;
-        inputHor = Input.GetAxis("Horizontal");
-        inputVer = Input.GetAxis("Vertical");
+        if (!isPanning)
+        {
+            inputHor = Input.GetAxis("Horizontal");
+            inputVer = Input.GetAxis("Vertical");
 
-        //Horizontal axis
-        if (inputVer > 0 || Input.mousePosition.y >= Screen.height - borderThickness)
-        {
-            pos.z += moveSpeed * Time.deltaTime;
-        }
-        if (inputVer < 0 || Input.mousePosition.y <= borderThickness)
-        {
-            pos.z -= moveSpeed * Time.deltaTime;
+            //Horizontal axis
+            if (inputVer > 0 || Input.mousePosition.y >= Screen.height - borderThickness)
+            {
+                pos.z += moveSpeed * Time.deltaTime;
+            }
+            if (inputVer < 0 || Input.mousePosition.y <= borderThickness)
+            {
+                pos.z -= moveSpeed * Time.deltaTime;
+            }
+
+            //Vertical axis
+            if (inputHor > 0 || Input.mousePosition.x >= Screen.width - borderThickness)
+            {
+                pos.x += moveSpeed * Time.deltaTime;
+            }
+            if (inputHor < 0 || Input.mousePosition.x <= borderThickness)
+            {
+                pos.x -= moveSpeed * Time.deltaTime;
+            } 
         }
 
-        //Vertical axis
-        if (inputHor > 0 || Input.mousePosition.x >= Screen.width - borderThickness)
+
+        if (Input.GetMouseButtonDown(0))
         {
-            pos.x += moveSpeed * Time.deltaTime;
+            lastDragPosition = Input.mousePosition;
+            isPanning = true;
         }
-        if (inputHor < 0 || Input.mousePosition.x <= borderThickness)
+        if (Input.GetMouseButton(0))
         {
-            pos.x -= moveSpeed * Time.deltaTime;
+            var delta = lastDragPosition - Input.mousePosition;
+            pos += new Vector3(delta.x * Time.deltaTime * panSpeed, 0, delta.y * Time.deltaTime * panSpeed);
+            lastDragPosition = Input.mousePosition;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            isPanning = false;
         }
 
         //Zoom

@@ -397,6 +397,7 @@ MonoBehaviour:
   xLimit: {x: 10, y: 50}
   zLimit: {x: -5, y: 50}
   yLimit: {x: 5, y: 50}
+  panSpeed: 5
 --- !u!1 &970724150
 GameObject:
   m_ObjectHideFlags: 0
