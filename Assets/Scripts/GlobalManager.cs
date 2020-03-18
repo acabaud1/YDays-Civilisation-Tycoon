@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class GlobalManager : MonoBehaviour
 {
     private MapManager mapManager;
-
     private ResourceManager resourceManager;
 
     private BuildingManager buildingManager;
@@ -44,7 +43,6 @@ public class GlobalManager : MonoBehaviour
     private void MapManagerInit()
     {
         resourceManager = ResourceManager.GetInstance();
-
         mapManager = MapManager.GetInstance();
 
         mapManager.rock = rock;
