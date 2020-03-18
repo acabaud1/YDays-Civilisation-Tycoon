@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using System.Resources;
 using UniRx;
 
 public class DisplayResources : MonoBehaviour

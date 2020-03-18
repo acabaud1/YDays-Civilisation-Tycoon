@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/MegaMerge - Copie.unity
+    guid: 368f495d54ffc9a408c3a93fb3d45f9d
+  - enabled: 1
+    path: Assets/Scenes/UiScene.unity
+    guid: 29f8142ecc240dd41b92e4f5d97ef319
   m_configObjects: {}
