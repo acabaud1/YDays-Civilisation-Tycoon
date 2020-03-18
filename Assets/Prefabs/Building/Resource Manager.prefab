@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4672412080554011371}
   - component: {fileID: 4672412080554011370}
   m_Layer: 0
-  m_Name: ResourceManager 1
+  m_Name: Resource Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,6 +40,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4672412080554011369}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d66156c2b0ab82b42b856e2fad641e0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 77712ec1702c6b849852006c60db5cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

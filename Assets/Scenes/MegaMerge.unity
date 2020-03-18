@@ -120,24 +120,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &177286396 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1543093418519798306, guid: dd9703782f28e7f498e09cf96cfb5393,
-    type: 3}
-  m_PrefabInstance: {fileID: 1379443676277788523}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &177286397 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1543093418519798307, guid: dd9703782f28e7f498e09cf96cfb5393,
-    type: 3}
-  m_PrefabInstance: {fileID: 1379443676277788523}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 177286396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 579dbc77a59492c4f95c8010337693c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &185222211
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,28 +146,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 185222211}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13518d195635c7748a0c539f59ae60e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e288c6fe532d9f4ab8f159997e85bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildingManager: {fileID: 177286396}
-  nbOfChunksPerRow: 4
-  width: 64
-  height: 64
-  map: {fileID: 998534820}
-  land: {fileID: 4218895845373506685, guid: f964f11a008a95a4b8f41d54f310033b, type: 3}
-  sand: {fileID: 5056111968920637446, guid: 6c350349d7b04ce49b8fcf9fd60d7f8e, type: 3}
-  water: {fileID: 2947343326392313654, guid: 92e156c646235f84ea914da64eb75bb2, type: 3}
-  waterCollider: {fileID: 6777919429078482188, guid: a994a902219542d419a314ce9acde57c,
-    type: 3}
-  tree: {fileID: 8038687346575895720, guid: 3b67749c53bf54f498d9d56c65dccc02, type: 3}
-  ironOre: {fileID: -927199367670048503, guid: 908f15c6713497545820d3791db0d674, type: 3}
-  robot: {fileID: 0}
-  rock: {fileID: -927199367670048503, guid: 58c5e1e3baa491d48bb69469f9203666, type: 3}
-  mapZoom: 4
-  treeZoom: 15
-  ironZoom: 40
-  rockZoom: 40
-  pnThreshold: 0.65
 --- !u!4 &185222213
 Transform:
   m_ObjectHideFlags: 0
@@ -209,7 +172,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d66156c2b0ab82b42b856e2fad641e0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 77712ec1702c6b849852006c60db5cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &347838703
@@ -461,7 +424,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 177286397}
+      - m_Target: {fileID: 0}
         m_MethodName: SetBuilding
         m_Mode: 2
         m_Arguments:
@@ -905,7 +868,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 177286397}
+      objectReference: {fileID: 0}
     - target: {fileID: 2255509737963724091, guid: 758f415ea7c314c43920dced162028e0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -920,7 +883,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 177286397}
+      objectReference: {fileID: 0}
     - target: {fileID: 2255509738073455806, guid: 758f415ea7c314c43920dced162028e0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -930,7 +893,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 177286397}
+      objectReference: {fileID: 0}
     - target: {fileID: 2255509738765967677, guid: 758f415ea7c314c43920dced162028e0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -940,7 +903,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 177286397}
+      objectReference: {fileID: 0}
     - target: {fileID: 2255509738880101141, guid: 758f415ea7c314c43920dced162028e0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -975,6 +938,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LumberJackCamp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194547486344084506, guid: 758f415ea7c314c43920dced162028e0,
+        type: 3}
+      propertyPath: ResourceType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6854224129584105476, guid: 758f415ea7c314c43920dced162028e0,
+        type: 3}
+      propertyPath: ResourceType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5845352551830168530, guid: 758f415ea7c314c43920dced162028e0,
+        type: 3}
+      propertyPath: ResourceType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 758f415ea7c314c43920dced162028e0, type: 3}
@@ -1495,7 +1473,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 177286397}
+      - m_Target: {fileID: 0}
         m_MethodName: SetBuilding
         m_Mode: 2
         m_Arguments:
