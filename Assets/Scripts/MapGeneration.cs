@@ -1,6 +1,7 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using Map;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -191,4 +192,4 @@ public class MapGeneration : MonoBehaviour
         return Mathf.PerlinNoise(xCoord, yCoord);
     }
 
-}
+}*/

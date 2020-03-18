@@ -25,20 +25,17 @@ public class PNJ
 
         // Définition de la position
         GObject.transform.position = new Vector3(x, 1, z);
-
-        // Définition de la première destination
-        Move(Random.Range(1, 64), Random.Range(1, 64));
     }
 
     /// <summary>
     /// Règle la destination du PNJ sur la position donnée
     /// </summary>
-    private void Move(int x, int z)
+    private void Move(Vector3 destination)
     {
-        _gAgent.destination = new Vector3(x, 1, z);
+        _gAgent.destination = destination;
     }
 
-    public void CheckDestination()
+    /*public void CheckDestination()
     {
         if (!_gAgent.pathPending)
         {
@@ -50,5 +47,5 @@ public class PNJ
                 }
             }
         }
-    }
+    }*/
 }

@@ -19,10 +19,9 @@ public class DisplayResources : MonoBehaviour
         {
             // Si ResourceType ne décrit pas un type valide, C# renvoi une exception.
             _resourceType = Type.GetType(ResourceType.ToString());
-            ResourceManager.Get(_resourceType).Obs.AsObservable().Subscribe(resourceQuantity =>
-              {
-                TextMeshProText.SetText(resourceQuantity.ToString());
-              });
+            ResourceManager.Get(_resourceType).Obs.AsObservable().Subscribe(resourceQuantity => {
+              TextMeshProText.SetText(resourceQuantity.ToString());
+            });
         }
         catch (NullReferenceException e)
         {

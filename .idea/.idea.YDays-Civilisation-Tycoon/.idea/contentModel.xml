@@ -326,12 +326,10 @@
             <e p="LocalNavMeshBuilder.cs" t="Include" />
             <e p="NavMeshSourceTag.cs" t="Include" />
           </e>
-          <e p="Animal.cs" t="Include" />
           <e p="Building" t="Include">
             <e p="Building.cs" t="Include" />
             <e p="BuildingManager.cs" t="Include" />
           </e>
-          <e p="DisplayResources.cs" t="Include" />
           <e p="GlobalManager.cs" t="Include" />
           <e p="Map" t="Include">
             <e p="CameraMovement.cs" t="Include" />
@@ -341,8 +339,13 @@
             <e p="TileEnum.cs" t="Include" />
           </e>
           <e p="MapGeneration.cs" t="Include" />
-          <e p="PNJ.cs" t="Include" />
+          <e p="PNJ" t="Include">
+            <e p="Animal.cs" t="Include" />
+            <e p="PNJ.cs" t="Include" />
+            <e p="Robot.cs" t="Include" />
+          </e>
           <e p="Resources" t="Include">
+            <e p="DisplayResources.cs" t="Include" />
             <e p="Iron.cs" t="Include" />
             <e p="ResourceIncomeManager.cs" t="Include" />
             <e p="ResourceManager.cs" t="Include" />
@@ -352,10 +355,11 @@
             <e p="Stone.cs" t="Include" />
             <e p="Wood.cs" t="Include" />
           </e>
-          <e p="Robot.cs" t="Include" />
+          <e p="Sound" t="Include">
+            <e p="SoundManager.cs" t="Include" />
+          </e>
           <e p="UI" t="Include">
             <e p="BuildingProxy.cs" t="Include" />
-            <e p="DisplayResources.cs" t="Include" />
             <e p="Drawer.cs" t="Include" />
             <e p="Quit.cs" t="Include" />
           </e>
