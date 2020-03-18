@@ -12,7 +12,6 @@ public class PNJ
     private void Create()
     {
         _gAgent = GObject.AddComponent<NavMeshAgent>();
-        //_gAgent.baseOffset = 0f;
     }
 
     /// <summary>
@@ -30,12 +29,23 @@ public class PNJ
     /// <summary>
     /// Règle la destination du PNJ sur la position donnée
     /// </summary>
-    private void Move(Vector3 destination)
+    public void Move(Vector3 destination)
     {
         _gAgent.destination = destination;
     }
 
-    /*public void CheckDestination()
+    /// <summary>
+    /// Arrête le déplacement du PNJ
+    /// </summary>
+    public void Stop()
+    {
+        _gAgent.isStopped = true;
+    }
+
+    /// <summary>
+    /// TODO: Gestion de la distance du PNJ par rapport à la destination
+    /// </summary>
+    public void CheckDestination()
     {
         if (!_gAgent.pathPending)
         {
@@ -43,9 +53,10 @@ public class PNJ
             {
                 if (!_gAgent.hasPath || _gAgent.velocity.sqrMagnitude == 0f)
                 {
-                    Move(Random.Range(1, 64), Random.Range(1, 64));
+                    //Move(Random.Range(1, 64), Random.Range(1, 64));
                 }
             }
         }
-    }*/
+    }
+
 }
