@@ -22,7 +22,7 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     /// <summary>
     /// Click away listener behavior for close the drawer.
-    /// </summary>
+    /// </summary>f
     public void Update()
     {
         if (_drawerAnimationController && Input.GetMouseButtonDown(0) && _open && !_mouseOver)
@@ -63,6 +63,11 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (_drawerAnimationController && !_open)
         {
+            var bottomButtons = BottomButtons.GetComponentsInChildren<Button>();
+            foreach (Button btn in bottomButtons)
+            {
+                btn.interactable = false;
+            }
             _drawerAnimationController.Play("DrawerAnim");
             _open = true;
         }
