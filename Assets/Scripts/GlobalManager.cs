@@ -12,6 +12,7 @@ public class GlobalManager : MonoBehaviour
     private BuildingManager buildingManager;
     public LayerMask layerMask;
 
+    public GameObject hub;
     public GameObject rock;
     public GameObject sand;
     public GameObject tree;
@@ -33,11 +34,18 @@ public class GlobalManager : MonoBehaviour
         buildingManager.TileArray = TileArray;
 
         SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
+
+        InitHub();
     }
 
     void Update()
     {
         buildingManager.Update();
+    }
+
+    private void InitHub()
+    {
+        buildingManager.SetBuilding(hub);
     }
 
     private void MapManagerInit()
