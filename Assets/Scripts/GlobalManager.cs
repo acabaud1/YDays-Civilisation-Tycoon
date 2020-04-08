@@ -10,6 +10,7 @@ public class GlobalManager : MonoBehaviour
     private ResourceManager resourceManager;
 
     private BuildingManager buildingManager;
+    private ClickableSingleton clickableSingleton;
     public LayerMask layerMask;
 
     public GameObject rock;
@@ -28,6 +29,7 @@ public class GlobalManager : MonoBehaviour
         MapManagerInit();
 
         buildingManager = BuildingManager.GetInstance();
+        clickableSingleton = ClickableSingleton.GetInstance();
 
         buildingManager.layerMask = layerMask;
         buildingManager.TileArray = TileArray;
@@ -38,6 +40,7 @@ public class GlobalManager : MonoBehaviour
     void Update()
     {
         buildingManager.Update();
+        clickableSingleton.Update();
     }
 
     private void MapManagerInit()
