@@ -25,6 +25,7 @@ public class BuildingManager
     private Building _lastBuilding;
 
     [FormerlySerializedAs("LayerMask")] public LayerMask layerMask;
+    public PNJManager pnjManager;
 
     /// <summary>
     ///     Initialise une nouvelle instance de la classe <see cref="BuildingManager" />
@@ -165,13 +166,23 @@ public class BuildingManager
                     {
                         if (Input.GetMouseButtonDown(0))
                         {
-                            // Pose du batiment.
+                            // Pose du batiment
                             GameObject created = GameObject.Instantiate(_selectedGameObject, mousePosition,
                                 Quaternion.identity);
+
+                            // Désactivation temporaire du bâtiment jusqu'à ce que le robot arrive
+                            created.SetActive(false);
 
                             TileArray.SetBuildingInZone(mousePosition, created.transform.localScale, created);
                             TileArray.ClearDoodadsInZone(mousePosition, created.transform.localScale);
                             CleanMod();
+
+                            Debug.Log("Bâtiment posé, robot destination OK");
+
+                            // Création du robot et déplacement jusqu'au batiment
+                            var robot = pnjManager.CreateRobot(new Vector3(1, 1, 1));
+                            robot.attachedBuilding = created;
+                            robot.Move(mousePosition);
                         }
                         else
                         {

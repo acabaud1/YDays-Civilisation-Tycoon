@@ -8,8 +8,8 @@ public class GlobalManager : MonoBehaviour
 {
     private MapManager mapManager;
     private ResourceManager resourceManager;
-
     private BuildingManager buildingManager;
+    private PNJManager pnjManager;
     public LayerMask layerMask;
 
     public GameObject rock;
@@ -19,18 +19,24 @@ public class GlobalManager : MonoBehaviour
     public GameObject land;
     public GameObject ironOre;
     public GameObject[] LandDoodads;
+    public GameObject[] animals;
+    public GameObject[] robots;
 
     public TileModel[,] TileArray;
 
-    // Start is called before the first frame update
     void Start()
     {
         MapManagerInit();
 
         buildingManager = BuildingManager.GetInstance();
-
         buildingManager.layerMask = layerMask;
         buildingManager.TileArray = TileArray;
+
+        pnjManager = PNJManager.GetInstance();
+        pnjManager.animals = animals;
+        pnjManager.robots = robots;
+
+        buildingManager.pnjManager = pnjManager;
 
         SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
     }
@@ -38,6 +44,7 @@ public class GlobalManager : MonoBehaviour
     void Update()
     {
         buildingManager.Update();
+        pnjManager.Update();
     }
 
     private void MapManagerInit()

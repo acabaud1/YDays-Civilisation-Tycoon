@@ -5,6 +5,7 @@ public class PNJ
 {
     protected GameObject GObject;
     private NavMeshAgent _gAgent;
+    public GameObject attachedBuilding;
 
     /// <summary>
     /// Crée le GameObject correspondant au modèle
@@ -17,13 +18,13 @@ public class PNJ
     /// <summary>
     /// Spawn un PNJ à la position donnée
     /// </summary>
-    public void Spawn(int x, int z)
+    public void Spawn(Vector3 position)
     {
         // Création du NavMeshAgent
         Create();
 
         // Définition de la position
-        GObject.transform.position = new Vector3(x, 1, z);
+        GObject.transform.position = position;
     }
 
     /// <summary>
@@ -43,9 +44,17 @@ public class PNJ
     }
 
     /// <summary>
-    /// TODO: Gestion de la distance du PNJ par rapport à la destination
+    /// Détruit le PNJ
     /// </summary>
-    public void CheckDestination()
+    public void Destroy()
+    {
+        UnityEngine.Object.Destroy(GObject);
+    }
+
+    /// <summary>
+    /// Gestion de la distance du PNJ par rapport à la destination
+    /// </summary>
+    public bool CheckDestination()
     {
         if (!_gAgent.pathPending)
         {
@@ -53,10 +62,14 @@ public class PNJ
             {
                 if (!_gAgent.hasPath || _gAgent.velocity.sqrMagnitude == 0f)
                 {
-                    //Move(Random.Range(1, 64), Random.Range(1, 64));
+                    // Arrivé à destination
+                    if(attachedBuilding != null) attachedBuilding.SetActive(true);
+                    return true;
                 }
             }
         }
+
+        return false;
     }
 
 }
