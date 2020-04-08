@@ -10,6 +10,7 @@ public class GlobalManager : MonoBehaviour
     private ResourceManager resourceManager;
 
     private BuildingManager buildingManager;
+    private ClickableSingleton clickableSingleton;
     public LayerMask layerMask;
 
     public GameObject hub;
@@ -31,6 +32,7 @@ public class GlobalManager : MonoBehaviour
         MapManagerInit();
 
         buildingManager = BuildingManager.GetInstance();
+        clickableSingleton = ClickableSingleton.GetInstance();
 
         buildingManager.layerMask = layerMask;
         buildingManager.TileArray = TileArray;
@@ -46,6 +48,7 @@ public class GlobalManager : MonoBehaviour
         if (isInit)
         {
             buildingManager.Update();
+            clickableSingleton.Update();
         }
     }
 
