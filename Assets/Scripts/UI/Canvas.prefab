@@ -499,7 +499,6 @@ GameObject:
   - component: {fileID: 1193594392087898903}
   - component: {fileID: 1193594392087898905}
   - component: {fileID: 1193594392087898902}
-  - component: {fileID: 1193594392087898904}
   m_Layer: 5
   m_Name: RockText
   m_TagString: Untagged
@@ -644,20 +643,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1193594392087898904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1193594392087898900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c25a92efb352542aeacfe7a6e4f0bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextMeshProText: {fileID: 1193594392087898902}
-  ResourceType: Stone
 --- !u!1 &1193594392123068230
 GameObject:
   m_ObjectHideFlags: 0
@@ -1520,7 +1505,6 @@ GameObject:
   - component: {fileID: 1193594392411543850}
   - component: {fileID: 1193594392411543852}
   - component: {fileID: 1193594392411543853}
-  - component: {fileID: 1193594392411543855}
   m_Layer: 5
   m_Name: IronText
   m_TagString: Untagged
@@ -1665,20 +1649,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1193594392411543855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1193594392411543851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c25a92efb352542aeacfe7a6e4f0bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextMeshProText: {fileID: 1193594392411543853}
-  ResourceType: Iron
 --- !u!1 &1193594392515349907
 GameObject:
   m_ObjectHideFlags: 0
@@ -1728,7 +1698,6 @@ GameObject:
   - component: {fileID: 1193594392541638752}
   - component: {fileID: 1193594392541638757}
   - component: {fileID: 1193594392541638754}
-  - component: {fileID: 1193594392541638755}
   m_Layer: 5
   m_Name: FoodText
   m_TagString: Untagged
@@ -1873,20 +1842,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1193594392541638755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1193594392541638753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c25a92efb352542aeacfe7a6e4f0bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextMeshProText: {fileID: 1193594392541638754}
-  ResourceType: Wood
 --- !u!1 &1193594392552947459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2413,7 +2368,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.9921875, y: -0.4749756}
+  m_AnchoredPosition: {x: 0.9921875, y: -0.47485352}
   m_SizeDelta: {x: 0.8000488, y: 0.9000244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1193594392755510797
@@ -3360,7 +3315,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -349, y: -98.0199}
+  m_AnchoredPosition: {x: -349, y: -98.019775}
   m_SizeDelta: {x: 101, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1193594393254132766
@@ -3483,28 +3438,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1193594392197786810}
         m_MethodName: OnOpen
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1193594393254132736}
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1193594393703456186}
-        m_MethodName: set_interactable
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

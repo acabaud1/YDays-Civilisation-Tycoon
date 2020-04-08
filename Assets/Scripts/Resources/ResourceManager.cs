@@ -51,7 +51,7 @@ public abstract class ResourcesGame
 
 }
 
-public class ResourceManagerCore : MonoBehaviour
+public class ResourceManagerCore
 {
     private List<ResourcesGame> _resources;
 

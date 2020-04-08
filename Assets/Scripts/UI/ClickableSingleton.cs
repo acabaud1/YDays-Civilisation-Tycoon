@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ClickableSingleton
 {
@@ -31,7 +32,15 @@ public class ClickableSingleton
 
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider.gameObject.name);
+                try
+                {
+                    ClickAction action = hit.collider.gameObject.GetComponent<ClickAction>();
+
+                    action.HandleClick();
+                } catch (Exception e)
+                {
+                    Debug.LogError(e);
+                }
             }
         }
     }
