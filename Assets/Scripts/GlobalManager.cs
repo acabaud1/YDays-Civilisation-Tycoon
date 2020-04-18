@@ -19,7 +19,7 @@ public class GlobalManager : MonoBehaviour
     public GameObject water;
     public GameObject land;
     public GameObject ironOre;
-    public GameObject[] LandDoodads;
+    public DoodadProbability[] LandDoodads;
 
     public TileModel[,] TileArray;
 
