@@ -1,16 +1,20 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UniRx;
 
 /// <summary>
 /// This class containt the behavior of the drawer
 /// </summary>
-public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class Drawer : MonoBehaviour
 {
     private bool _open = false;
-    private bool _mouseOver = false;
+    public ReactiveProperty<bool> Obs { get; set; }
     private Animator _drawerAnimationController;
-    public GameObject BottomButtons;
+
+    public bool IsOpen()
+    {
+        return _open;
+    }
 
     /// <summary>
     /// Get the animator component in Drawer prefab GameObject.
@@ -18,6 +22,7 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     void Start()
     {
         _drawerAnimationController = GetComponent<Animator>();
+        Obs = new ReactiveProperty<bool>(_open);
     }
 
     /// <summary>
@@ -25,10 +30,6 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>f
     public void Update()
     {
-        if (_drawerAnimationController && Input.GetMouseButtonDown(0) && _open && !_mouseOver)
-        {
-            Close();
-        }
     }
 
     /// <summary>
@@ -36,24 +37,9 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     public void Close()
     {
-        ReactivateButtons();
         _drawerAnimationController.Play("DrawerRewind");
         _open = false;
-    }
-
-    /// <summary>
-    /// Desactivate all buttons in the bottom of the screen when you activate the drawer.
-    /// </summary>
-    private void ReactivateButtons()
-    {
-        if (BottomButtons)
-        {
-            var bottomButtons = BottomButtons.GetComponentsInChildren<Button>();
-            foreach (Button btn in bottomButtons)
-            {
-                btn.interactable = true;
-            }
-        }
+        Obs.Value = false;
     }
 
     /// <summary>
@@ -61,34 +47,23 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     public void OnOpen()
     {
-        if (_drawerAnimationController && !_open)
+        if (_drawerAnimationController)
         {
-            var bottomButtons = BottomButtons.GetComponentsInChildren<Button>();
-            foreach (Button btn in bottomButtons)
+            Transform allTransform = gameObject.GetComponentInChildren<Transform>();
+
+            foreach (Transform child in allTransform)
             {
-                btn.interactable = false;
+                child.gameObject.SetActive(false);
+                if (child.name == "BuildingList")
+                {
+                    child.gameObject.SetActive(true);
+                }
             }
+
             _drawerAnimationController.Play("DrawerAnim");
             _open = true;
+            Obs.Value = true;
         }
-    }
-
-    /// <summary>
-    /// Implementation of IPointerEnterHandler.OnPointerEnter
-    /// </summary>
-    /// <param name="eventData">Unity's event system of eventData</param>
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        _mouseOver = true;
-    }
-
-    /// <summary>
-    /// Implementation of IPointerExitHandler.OnPointerExit
-    /// </summary>
-    /// <param name="eventData">Unity's event system of eventData</param>
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        _mouseOver = false;
     }
 
 }

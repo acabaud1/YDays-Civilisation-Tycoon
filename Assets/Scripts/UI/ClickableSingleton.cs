@@ -4,10 +4,11 @@ using UnityEngine;
 public class ClickableSingleton
 {
 
-    private static ClickableSingleton _instance; 
+    private static ClickableSingleton _instance;
+    private GameObject _lastClickedGameObject { get; set; }
 
 
-    private ClickableSingleton()
+    private ClickableSingleton()    
     {
 
     }
@@ -32,15 +33,16 @@ public class ClickableSingleton
 
             if (Physics.Raycast(ray, out hit))
             {
-                try
-                {
-                    ClickAction action = hit.collider.gameObject.GetComponent<ClickAction>();
+                GameObject target = hit.collider.gameObject;
 
-                    action.HandleClick();
-                } catch (Exception e)
+                if (target != _lastClickedGameObject)
                 {
-                    Debug.LogError(e);
+                    if (target.TryGetComponent(out ClickAction action))
+                    {
+                        action.HandleClick();
+                    }
                 }
+                _lastClickedGameObject = target;
             }
         }
     }
