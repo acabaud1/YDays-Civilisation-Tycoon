@@ -120,7 +120,7 @@ namespace UniRx
                     //
                     // List<T> doesn't shrink the size of the underlying array but does collapse the array
                     // by copying the tail one position to the left of the removal index. We don't need
-                    // index-based lookup but only ordering for sequential disposal. So, instead of spending
+                    // index-d lookup but only ordering for sequential disposal. So, instead of spending
                     // cycles on the Array.Copy imposed by Remove, we use a null sentinel value. We also
                     // do manual Swiss cheese detection to shrink the list if there's a lot of holes in it.
                     //
