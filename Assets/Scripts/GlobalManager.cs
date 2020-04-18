@@ -34,7 +34,11 @@ public class GlobalManager : MonoBehaviour
         buildingManager.layerMask = layerMask;
         buildingManager.TileArray = TileArray;
 
-        SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
+        if (SceneManager.sceneCount < 2)
+        {
+            SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
+        }
+        
     }
 
     void Update()
