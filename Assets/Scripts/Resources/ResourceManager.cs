@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UniRx;
+using Ressource;
+using Assets.Scripts.Resources;
 
 public class ResourceManager : ResourceManagerCore
 {
     private static ResourceManager _instance;
+    public List<ResourceManagerCore> ResourceManagerCores { get; set; }
+   
 
     public static ResourceManager GetInstance()
     {
@@ -17,8 +21,10 @@ public class ResourceManager : ResourceManagerCore
         return _instance;
     }
 
-    private ResourceManager()
+    private ResourceManager():base()
     {
+        ResourceManagerCores = new List<ResourceManagerCore>();
+
         Resources = new List<ResourcesGame>();
         Resources.Add(new Iron(0, maximum: 100));
         Resources.Add(new Wood(0, maximum: 100));
@@ -26,6 +32,79 @@ public class ResourceManager : ResourceManagerCore
         Init(Resources);
     }
     
+    public int GetAllQuantity(Type type)
+    {
+        // Rafraichissement de l'UI pour contenir les maximums et le contenu actuel des ressources
+
+        // ex : Iron 60 / 100
+
+
+        return Get(type).Quantity + ResourceManagerCores.Sum(rmc => rmc.Get(type).Quantity);
+
+        
+    }
+    public int GetAllStock(Type type)
+    {
+        // Rafraichissement de l'UI pour contenir les maximums et le contenu actuel des ressources
+
+        // ex : Iron 60 / 100
+
+        return Get(type).Maximum + ResourceManagerCores.Sum(rmc => rmc.Get(type).Maximum);
+
+    }
+
+    public void AddAndDistribute(Type type, int quantity)
+    {
+        // en fonction du type et de la quantité => distribution de la ressources dans les entrepos
+
+        // Calcul de la place :
+
+        int remain = quantity;
+
+        remain = addPossible(this, type, remain);
+
+        if (remain > 0)
+        {
+            foreach (var rmc in ResourceManagerCores)
+            {
+                remain = addPossible(rmc, type, remain);
+                if (remain > 0)
+                {
+                    break;
+                }
+            }
+        }
+    }
+
+    private int addPossible(ResourceManagerCore resourceManagerCore, Type type, int quantity)
+    {
+        if (resourceManagerCore.Get(type).Quantity + quantity > resourceManagerCore.Get(type).Maximum)
+        {
+            int remain = Math.Abs(resourceManagerCore.Get(type).Maximum - resourceManagerCore.Get(type).Quantity - quantity);
+            resourceManagerCore.Add(type, quantity - remain);
+            return remain;
+        } 
+        else
+        {
+            resourceManagerCore.Add(type, quantity);
+            return 0;
+        }
+    }
+
+    public bool CanAddAndDistribute(Type type, int quantity)
+    {
+        int quantityStock = Get(type).Quantity + ResourceManagerCores.Sum(rmc => rmc.Get(type).Quantity);
+        int quantityStockMaximum = Get(type).Maximum + ResourceManagerCores.Sum(rmc => rmc.Get(type).Maximum);
+        
+        // Vérification s'il y a de la place et distribution dans les stocks
+        if (quantityStock + quantity > quantityStockMaximum)
+        {
+            return false;
+        }
+        return true;
+        // TODO: sinon affichage d'un message
+    }
+
     private List<ResourcesGame> Resources;
 }
 
