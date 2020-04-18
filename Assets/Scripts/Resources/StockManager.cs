@@ -14,7 +14,6 @@ public class StockManager : ResourceManagerCore
         try
         {
             resourceManagerScript.ResourceManagerCores.Add(this);
-            Debug.Log("Quantité ajouté : " + quantity);
         }
         catch (Exception e)
         {

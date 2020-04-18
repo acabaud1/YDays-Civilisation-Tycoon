@@ -22,7 +22,9 @@ public class DisplayResources : MonoBehaviour
             _resourceManager = ResourceManager.GetInstance();
             // Si ResourceType ne décrit pas un type valide, C# renvoi une exception.
             _resourceType = RessourceHelper.GetRessourceGameTypeFromRessourceEnum(ResourceType);
-            _resourceManager.Get(_resourceType).Obs.AsObservable().Subscribe(resourceQuantity => {
+            var resource = _resourceManager.Get(_resourceType);
+            var observable = resource.Obs.AsObservable();
+            observable.Subscribe(resourceQuantity => {
               updateTextMeshValue();
             });
             foreach (var resourceManagerCore in _resourceManager.ResourceManagerCores)
