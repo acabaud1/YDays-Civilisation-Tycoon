@@ -61,11 +61,18 @@ public class ResourceIncomeManager : MonoBehaviour
         GetAllResources();
 
         int resources = nbOres * NbByResources;
-        // ShowFloatingText();
-        resourceManagerScript.Add(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum), resources);
+        if (!resourceManagerScript.CanAddAndDistribute(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum), resources))
+        {
+            ShowFloatingText("Stocks pleins");
+        }
+        else
+        {
+            ShowFloatingText(resources.ToString());
+        }
+        resourceManagerScript.AddAndDistribute(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum), resources);
     }
 
-    void ShowFloatingText()
+    void ShowFloatingText(string text)
     {
         if (FloatingTextPrefab)
         {
@@ -81,7 +88,7 @@ public class ResourceIncomeManager : MonoBehaviour
                 GoFloatText.transform.position.z
             );
 
-            GoFloatText.GetComponent<TextMesh>().text = (NbByResources * nbOres).ToString();
+            GoFloatText.GetComponent<TextMesh>().text = text;
 
             Destroy(GoFloatText, 1.5f);
         }

@@ -5,23 +5,32 @@ using TMPro;
 using System;
 using System.Resources;
 using UniRx;
+using Ressource;
+using Assets.Scripts.Resources;
 
 public class DisplayResources : MonoBehaviour
 {
-    public ResourceManager ResourceManager;
+    private ResourceManager _resourceManager;
     public TextMeshProUGUI TextMeshProText;
-    public string ResourceType;
+    public RessourceEnum ResourceType;
     private Type _resourceType;
 
     void Start()
     {
         try
         {
+            _resourceManager = ResourceManager.GetInstance();
             // Si ResourceType ne décrit pas un type valide, C# renvoi une exception.
-            _resourceType = Type.GetType(ResourceType.ToString());
-            ResourceManager.Get(_resourceType).Obs.AsObservable().Subscribe(resourceQuantity => {
-              TextMeshProText.SetText(resourceQuantity.ToString());
+            _resourceType = RessourceHelper.GetRessourceGameTypeFromRessourceEnum(ResourceType);
+            _resourceManager.Get(_resourceType).Obs.AsObservable().Subscribe(resourceQuantity => {
+              updateTextMeshValue();
             });
+            foreach (var resourceManagerCore in _resourceManager.ResourceManagerCores)
+            {
+                resourceManagerCore.Get(_resourceType).Obs.AsObservable().Subscribe(resourceQuantity => {
+                    updateTextMeshValue();
+                });
+            }
         }
         catch (NullReferenceException e)
         {
@@ -29,4 +38,8 @@ public class DisplayResources : MonoBehaviour
         }
     }
 
+    private void updateTextMeshValue()
+    {
+        TextMeshProText.SetText($"{_resourceManager.GetAllQuantity(_resourceType)}/{_resourceManager.GetAllStock(_resourceType)}");
+    }
 }
