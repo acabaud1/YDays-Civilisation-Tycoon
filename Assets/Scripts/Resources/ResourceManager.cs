@@ -17,6 +17,7 @@ public class ResourceManager : ResourceManagerCore
         return _instance;
     }
 
+
     private ResourceManager()
     {
         Resources = new List<ResourcesGame>();
