@@ -146,7 +146,6 @@ public class BuildingManager
                                 buildingMeshRenderer.material.color = new Color(255, 0, 0, 0.5f);
                             }
 
-
                             var lastHoverGameObjectMeshRenderer = tileModel.Building.GetComponent<MeshRenderer>();
                             if (_lastHoverGameObject != tileModel.Building && lastHoverGameObjectMeshRenderer != null &&
                                 _lastHoverGameObjectColor.HasValue)

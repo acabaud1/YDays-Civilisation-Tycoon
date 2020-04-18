@@ -23,6 +23,8 @@ public class GlobalManager : MonoBehaviour
 
     public TileModel[,] TileArray;
 
+    private bool isInit = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,12 +37,16 @@ public class GlobalManager : MonoBehaviour
 
         SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
 
+        isInit = true;
         InitHub();
     }
 
     void Update()
     {
-        buildingManager.Update();
+        if (isInit)
+        {
+            buildingManager.Update();
+        }
     }
 
     private void InitHub()
