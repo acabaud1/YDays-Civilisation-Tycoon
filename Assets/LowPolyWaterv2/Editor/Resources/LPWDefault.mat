@@ -9,11 +9,11 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: LPWDefault
   m_Shader: {fileID: 4800000, guid: 8165be4dd0b12774d80426d906df9c38, type: 3}
-  m_ShaderKeywords: LPW_SHADOWS _SHADING_FLAT _WAVES_HIGHQUALITY
+  m_ShaderKeywords: _SHADING_FLAT _WAVES_HIGHQUALITY
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2500
+  m_CustomRenderQueue: 2501
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -42,7 +42,7 @@ Material:
     m_Floats:
     - _Absorption: 5
     - _BumpScale: 35
-    - _BumpScale_: 42.7945
+    - _BumpScale_: 35
     - _BumpSpeed: 0.2
     - _Cull: 0
     - _Cull_: 2
@@ -58,38 +58,38 @@ Material:
     - _FresPower: 1.5
     - _HQFoam: 0
     - _Height: 0.5
-    - _Height_: 0.61135
+    - _Height_: 0.5
     - _Length: 4
     - _LightAbs: 0
     - _NormalOffset: 1
     - _Opacity: 0.7
     - _PointLights: 0
     - _RHeight: 0.25
-    - _RHeight_: 0.305675
+    - _RHeight_: 0.25
     - _RSpeed: 1
-    - _RSpeed_: 1.2227
+    - _RSpeed_: 1
     - _Reflection: 1.2
     - _Refraction: 2
     - _Scale: 1
-    - _Scale_: 1.2227
+    - _Scale_: 1
     - _Shading: 0
     - _Shadow: 0.7
     - _ShoreDistance: 0.5
     - _ShoreIntensity: 1
     - _Specular: 70
     - _Speed: 0.5
-    - _Speed_: 0.61135
+    - _Speed_: 0.5
     - _Steepness: 0.2
     - _Stretch: 10
-    - _TexSize_: 78.2528
+    - _TexSize_: 64
     - _Time_: 0
-    - _TransformScale_: 1.2227
+    - _TransformScale_: 1
     - _Waves: 2
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0, g: 0.5, b: 0.7, a: 1}
     - _DeepColor: {r: 0, g: 0.1, b: 0.2, a: 1}
-    - _Direction_: {r: -1, g: -0.00000008742278, b: -0.97816, a: -0.00000008551346}
+    - _Direction_: {r: -1, g: -0.00000008742278, b: -0.8, a: -0.000000069938224}
     - _FresColor: {r: 0.305, g: 0.371, b: 0.395, a: 1}
     - _ShoreColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.703, g: 0.676, b: 0.438, a: 1}

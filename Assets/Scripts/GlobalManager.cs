@@ -12,6 +12,7 @@ public class GlobalManager : MonoBehaviour
     private PNJManager pnjManager;
     public LayerMask layerMask;
 
+    public GameObject hub;
     public GameObject rock;
     public GameObject sand;
     public GameObject tree;
@@ -24,6 +25,9 @@ public class GlobalManager : MonoBehaviour
 
     public TileModel[,] TileArray;
 
+    private bool isInit = false;
+
+    // Start is called before the first frame update
     void Start()
     {
         MapManagerInit();
@@ -39,12 +43,23 @@ public class GlobalManager : MonoBehaviour
         buildingManager.pnjManager = pnjManager;
 
         SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
+
+        isInit = true;
+        InitHub();
     }
 
     void Update()
     {
-        buildingManager.Update();
-        pnjManager.Update();
+        if (isInit)
+        {
+            buildingManager.Update();
+            pnjManager.Update();
+        }
+    }
+
+    private void InitHub()
+    {
+        buildingManager.SetBuilding(hub);
     }
 
     private void MapManagerInit()
