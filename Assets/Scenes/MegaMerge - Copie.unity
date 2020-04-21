@@ -447,6 +447,13 @@ MonoBehaviour:
   - {fileID: 8814465468251380601, guid: 41aca8088ae6f4e4fa94c688a8929cdb, type: 3}
   - {fileID: 8315170610503939119, guid: a3fc267678f828a4d975fdb7565bf0c5, type: 3}
   - {fileID: 1606043400708753374, guid: 0abf83be42f3a454f839760ddf2c5b12, type: 3}
+  animals:
+  - {fileID: 1186975914126428259, guid: 7dbf0244c31724a8fbd6d7a8ee62f3d7, type: 3}
+  - {fileID: 8842131497472058431, guid: 08652c64c708246a3b6c260a0a65d810, type: 3}
+  robots:
+  - {fileID: 3832275571483260830, guid: 7fefbbc1f3efb4592b5c2a45ce999da7, type: 3}
+  - {fileID: 6864922729172984129, guid: f6c0c6a092c8d4df1b0ca9cb0d91b08a, type: 3}
+  - {fileID: 6304746607550612984, guid: f84605d3720424786bb0d6b752315838, type: 3}
 --- !u!4 &970724152
 Transform:
   m_ObjectHideFlags: 0
