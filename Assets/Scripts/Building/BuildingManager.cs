@@ -101,7 +101,7 @@ public class BuildingManager
     /// </summary>
     public void Update()
     {
-        if ((_isInGostMode || _isInDeleteMode) && !EventSystem.current.IsPointerOverGameObject())
+        if ((_isInGostMode || _isInDeleteMode) && EventSystem.current != null && !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit hit;
             var ray = Camera.main?.ScreenPointToRay(Input.mousePosition);
