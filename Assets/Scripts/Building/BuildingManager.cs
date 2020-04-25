@@ -53,6 +53,11 @@ public class BuildingManager
         return instance;
     }
 
+    public bool IsInGhostMode()
+    {
+        return _isInGostMode;
+    }
+
     /// <summary>
     ///     Active / Désactive le mode de suppression.
     /// </summary>

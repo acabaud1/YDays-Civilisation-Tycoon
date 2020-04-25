@@ -10,6 +10,7 @@ public class GlobalManager : MonoBehaviour
     private ResourceManager resourceManager;
     private BuildingManager buildingManager;
     private PNJManager pnjManager;
+    private ClickableSingleton clickableSingleton;
     public LayerMask layerMask;
 
     public GameObject hub;
@@ -33,17 +34,21 @@ public class GlobalManager : MonoBehaviour
         MapManagerInit();
 
         buildingManager = BuildingManager.GetInstance();
+        clickableSingleton = ClickableSingleton.GetInstance();
+
         buildingManager.layerMask = layerMask;
         buildingManager.TileArray = TileArray;
-
+        
         pnjManager = PNJManager.GetInstance();
         pnjManager.animals = animals;
         pnjManager.robots = robots;
 
         buildingManager.pnjManager = pnjManager;
-
-        SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
-
+        if (SceneManager.sceneCount < 2)
+        {
+            SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
+        }
+        
         isInit = true;
         InitHub();
     }
@@ -54,6 +59,7 @@ public class GlobalManager : MonoBehaviour
         {
             buildingManager.Update();
             pnjManager.Update();
+            clickableSingleton.Update();
         }
     }
 
