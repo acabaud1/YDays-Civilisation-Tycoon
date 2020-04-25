@@ -1,99 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\git\Ydays\YDays-Civilisation-Tycoon - Reworked" t="IncludeRecursive">
-      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="Plugins" t="Include">
-          <e p="TextMesh Pro" t="Include">
-            <e p="Examples &amp; Extras" t="Include">
-              <e p="Fonts" t="Include">
-                <e p="Anton OFL.txt" t="Include" />
-                <e p="Bangers - OFL.txt" t="Include" />
-                <e p="Oswald-Bold - OFL.txt" t="Include" />
-              </e>
-              <e p="Scripts" t="Include">
-                <e p="Benchmark01.cs" t="Include" />
-                <e p="Benchmark01_UGUI.cs" t="Include" />
-                <e p="Benchmark02.cs" t="Include" />
-                <e p="Benchmark03.cs" t="Include" />
-                <e p="Benchmark04.cs" t="Include" />
-                <e p="CameraController.cs" t="Include" />
-                <e p="ChatController.cs" t="Include" />
-                <e p="EnvMapAnimator.cs" t="Include" />
-                <e p="ObjectSpin.cs" t="Include" />
-                <e p="ShaderPropAnimator.cs" t="Include" />
-                <e p="SimpleScript.cs" t="Include" />
-                <e p="SkewTextExample.cs" t="Include" />
-                <e p="TeleType.cs" t="Include" />
-                <e p="TextConsoleSimulator.cs" t="Include" />
-                <e p="TextMeshProFloatingText.cs" t="Include" />
-                <e p="TextMeshSpawner.cs" t="Include" />
-                <e p="TMP_DigitValidator.cs" t="Include" />
-                <e p="TMP_ExampleScript_01.cs" t="Include" />
-                <e p="TMP_FrameRateCounter.cs" t="Include" />
-                <e p="TMP_PhoneNumberValidator.cs" t="Include" />
-                <e p="TMP_TextEventCheck.cs" t="Include" />
-                <e p="TMP_TextEventHandler.cs" t="Include" />
-                <e p="TMP_TextInfoDebugTool.cs" t="Include" />
-                <e p="TMP_TextSelector_A.cs" t="Include" />
-                <e p="TMP_TextSelector_B.cs" t="Include" />
-                <e p="TMP_UiFrameRateCounter.cs" t="Include" />
-                <e p="TMPro_InstructionOverlay.cs" t="Include" />
-                <e p="VertexColorCycler.cs" t="Include" />
-                <e p="VertexJitter.cs" t="Include" />
-                <e p="VertexShakeA.cs" t="Include" />
-                <e p="VertexShakeB.cs" t="Include" />
-                <e p="VertexZoom.cs" t="Include" />
-                <e p="WarpTextExample.cs" t="Include" />
-              </e>
-            </e>
-            <e p="Fonts" t="Include">
-              <e p="LiberationSans - OFL.txt" t="Include" />
-            </e>
-            <e p="Resources" t="Include">
-              <e p="LineBreaking Following Characters.txt" t="Include" />
-              <e p="LineBreaking Leading Characters.txt" t="Include" />
-              <e p="Shaders" t="Include">
-                <e p="TMP_Bitmap-Custom-Atlas.shader" t="Include" />
-                <e p="TMP_Bitmap-Mobile.shader" t="Include" />
-                <e p="TMP_Bitmap.shader" t="Include" />
-                <e p="TMP_SDF Overlay.shader" t="Include" />
-                <e p="TMP_SDF-Mobile Masking.shader" t="Include" />
-                <e p="TMP_SDF-Mobile Overlay.shader" t="Include" />
-                <e p="TMP_SDF-Mobile.shader" t="Include" />
-                <e p="TMP_SDF-Surface-Mobile.shader" t="Include" />
-                <e p="TMP_SDF-Surface.shader" t="Include" />
-                <e p="TMP_SDF.shader" t="Include" />
-                <e p="TMP_Sprite.shader" t="Include" />
-                <e p="TMPro.cginc" t="Include" />
-                <e p="TMPro_Properties.cginc" t="Include" />
-                <e p="TMPro_Surface.cginc" t="Include" />
-              </e>
-            </e>
-            <e p="Sprites" t="Include">
-              <e p="EmojiOne Attribution.txt" t="Include" />
+        <e p="Low Poly Rocks Pack" t="Include">
+          <e p="Bonus Assets" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="LowPolyRocks_CameraControl.cs" t="Include" />
+              <e p="LowPolyRocks_CloudsControl.cs" t="Include" />
+              <e p="LowPolyRocks_FireLightControl.cs" t="Include" />
+              <e p="LowPolyRocks_SunControl.cs" t="Include" />
             </e>
           </e>
-          <e p="UniRx" t="Include">
-            <e p="Examples" t="Include">
-              <e p="Sample01_ObservableWWW.cs" t="Include" />
-              <e p="Sample02_ObservableTriggers.cs" t="Include" />
-              <e p="Sample03_GameObjectAsObservable.cs" t="Include" />
-              <e p="Sample04_ConvertFromUnityCallback.cs" t="Include" />
-              <e p="Sample05_ConvertFromCoroutine.cs" t="Include" />
-              <e p="Sample06_ConvertToCoroutine.cs" t="Include" />
-              <e p="Sample07_OrchestratIEnumerator.cs" t="Include" />
-              <e p="Sample08_DetectDoubleClick.cs" t="Include" />
-              <e p="Sample09_EventHandling.cs" t="Include" />
-              <e p="Sample10_MainThreadDispatcher.cs" t="Include" />
-              <e p="Sample11_Logger.cs" t="Include" />
-              <e p="Sample12_ReactiveProperty.cs" t="Include" />
-              <e p="Sample13_ToDoApp.cs" t="Include" />
-              <e p="UniRx.Examples.asmdef" t="Include" />
+          <e p="Demo" t="Include">
+            <e p="Asset _Scenes" t="Include">
+              <e p="Info.txt" t="Include" />
             </e>
-            <e p="ReadMe.txt" t="Include" />
+          </e>
+        </e>
+        <e p="LowPolyWaterv2" t="Include">
+          <e p="Demos" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="DemoFreeFlyCamera.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Editor" t="Include">
+            <e p="LPWInspector.cs" t="Include" />
+            <e p="LPWShaderGUI.cs" t="Include" />
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="LowPolyWaterScript.cs" t="Include" />
+            <e p="src" t="Include">
+              <e p="LPWDepthEffect.cs" t="Include" />
+              <e p="LPWDisplace.cs" t="Include" />
+              <e p="LPWHiddenProps.cs" t="Include" />
+              <e p="LPWNoise.cs" t="Include" />
+              <e p="LPWNormalSolver.cs" t="Include" />
+              <e p="LPWReflection.cs" t="Include" />
+              <e p="LPWWaterChunk.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Shaders" t="Include">
+            <e p="LowPolyWaterAdvanced.shader" t="Include" />
+            <e p="LowPolyWaterLite.shader" t="Include" />
+            <e p="LPWCompatibility.cginc" t="Include" />
+            <e p="LPWLighting.cginc" t="Include" />
+            <e p="LPWLite.cginc" t="Include" />
+            <e p="LPWNoise.cginc" t="Include" />
+            <e p="LPWReflection.cginc" t="Include" />
+            <e p="LPWRenderDepth.shader" t="Include" />
+            <e p="LPWRipples.cginc" t="Include" />
+            <e p="LPWShoreBlend.cginc" t="Include" />
+            <e p="LPWStandard.cginc" t="Include" />
+            <e p="LPWWaves.cginc" t="Include" />
+          </e>
+        </e>
+        <e p="Plugins" t="Include">
+          <e p="UniRx" t="Include">
             <e p="Scripts" t="Include">
               <e p="Asynchronous" t="Include">
                 <e p="WebRequestExtensions.cs" t="Include" />
@@ -246,7 +211,7 @@
                 <e p="Subject.cs" t="Include" />
                 <e p="SubjectExtensions.cs" t="Include" />
               </e>
-              <e p="system" t="Include">
+              <e p="System" t="Include">
                 <e p="IObservable.cs" t="Include" />
                 <e p="IObserver.cs" t="Include" />
                 <e p="IOptimizedObservable.cs" t="Include" />
@@ -357,34 +322,116 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="AI" t="Include">
+            <e p="LocalNavMeshBuilder.cs" t="Include" />
+            <e p="NavMeshSourceTag.cs" t="Include" />
+          </e>
           <e p="Building" t="Include">
             <e p="Building.cs" t="Include" />
             <e p="BuildingManager.cs" t="Include" />
           </e>
-          <e p="CameraMovement.cs" t="Include" />
-          <e p="DisplayResources.cs" t="Include" />
-          <e p="Drawer.cs" t="Include" />
-          <e p="LocalNavMeshBuilder.cs" t="Include" />
+          <e p="GlobalManager.cs" t="Include" />
           <e p="Map" t="Include">
+            <e p="CameraMovement.cs" t="Include" />
             <e p="MapManager.cs" t="Include" />
             <e p="Tile.cs" t="Include" />
+            <e p="TileArrayExtension.cs" t="Include" />
             <e p="TileEnum.cs" t="Include" />
           </e>
           <e p="MapGeneration.cs" t="Include" />
-          <e p="NavMeshSourceTag.cs" t="Include" />
-          <e p="Quit.cs" t="Include" />
+          <e p="PNJ" t="Include">
+            <e p="Animal.cs" t="Include" />
+            <e p="PNJ.cs" t="Include" />
+            <e p="Robot.cs" t="Include" />
+          </e>
           <e p="Resources" t="Include">
+            <e p="DisplayResources.cs" t="Include" />
             <e p="Iron.cs" t="Include" />
             <e p="ResourceIncomeManager.cs" t="Include" />
             <e p="ResourceManager.cs" t="Include" />
-            <e p="ResourceManagerChild.cs" t="Include" />
+            <e p="RessourceEnum.cs" t="Include" />
             <e p="RessourceHelper.cs" t="Include" />
             <e p="RessourceType.cs" t="Include" />
             <e p="Stone.cs" t="Include" />
             <e p="Wood.cs" t="Include" />
           </e>
-          <e p="Ressource" t="Include">
-            <e p="RessourceEnum.cs" t="Include" />
+          <e p="Sound" t="Include">
+            <e p="SoundManager.cs" t="Include" />
+          </e>
+          <e p="UI" t="Include">
+            <e p="BuildingProxy.cs" t="Include" />
+            <e p="Drawer.cs" t="Include" />
+            <e p="Quit.cs" t="Include" />
+          </e>
+        </e>
+        <e p="TextMesh Pro" t="Include">
+          <e p="Examples &amp; Extras" t="Include">
+            <e p="Fonts" t="Include">
+              <e p="Anton OFL.txt" t="Include" />
+              <e p="Bangers - OFL.txt" t="Include" />
+              <e p="Oswald-Bold - OFL.txt" t="Include" />
+            </e>
+            <e p="Scripts" t="Include">
+              <e p="Benchmark01.cs" t="Include" />
+              <e p="Benchmark01_UGUI.cs" t="Include" />
+              <e p="Benchmark02.cs" t="Include" />
+              <e p="Benchmark03.cs" t="Include" />
+              <e p="Benchmark04.cs" t="Include" />
+              <e p="CameraController.cs" t="Include" />
+              <e p="ChatController.cs" t="Include" />
+              <e p="EnvMapAnimator.cs" t="Include" />
+              <e p="ObjectSpin.cs" t="Include" />
+              <e p="ShaderPropAnimator.cs" t="Include" />
+              <e p="SimpleScript.cs" t="Include" />
+              <e p="SkewTextExample.cs" t="Include" />
+              <e p="TeleType.cs" t="Include" />
+              <e p="TextConsoleSimulator.cs" t="Include" />
+              <e p="TextMeshProFloatingText.cs" t="Include" />
+              <e p="TextMeshSpawner.cs" t="Include" />
+              <e p="TMP_DigitValidator.cs" t="Include" />
+              <e p="TMP_ExampleScript_01.cs" t="Include" />
+              <e p="TMP_FrameRateCounter.cs" t="Include" />
+              <e p="TMP_PhoneNumberValidator.cs" t="Include" />
+              <e p="TMP_TextEventCheck.cs" t="Include" />
+              <e p="TMP_TextEventHandler.cs" t="Include" />
+              <e p="TMP_TextInfoDebugTool.cs" t="Include" />
+              <e p="TMP_TextSelector_A.cs" t="Include" />
+              <e p="TMP_TextSelector_B.cs" t="Include" />
+              <e p="TMP_UiFrameRateCounter.cs" t="Include" />
+              <e p="TMPro_InstructionOverlay.cs" t="Include" />
+              <e p="VertexColorCycler.cs" t="Include" />
+              <e p="VertexJitter.cs" t="Include" />
+              <e p="VertexShakeA.cs" t="Include" />
+              <e p="VertexShakeB.cs" t="Include" />
+              <e p="VertexZoom.cs" t="Include" />
+              <e p="WarpTextExample.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Fonts" t="Include">
+            <e p="LiberationSans - OFL.txt" t="Include" />
+          </e>
+          <e p="Resources" t="Include">
+            <e p="LineBreaking Following Characters.txt" t="Include" />
+            <e p="LineBreaking Leading Characters.txt" t="Include" />
+            <e p="Shaders" t="Include">
+              <e p="TMP_Bitmap-Custom-Atlas.shader" t="Include" />
+              <e p="TMP_Bitmap-Mobile.shader" t="Include" />
+              <e p="TMP_Bitmap.shader" t="Include" />
+              <e p="TMP_SDF Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Masking.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface.shader" t="Include" />
+              <e p="TMP_SDF.shader" t="Include" />
+              <e p="TMP_Sprite.shader" t="Include" />
+              <e p="TMPro.cginc" t="Include" />
+              <e p="TMPro_Properties.cginc" t="Include" />
+              <e p="TMPro_Surface.cginc" t="Include" />
+            </e>
+          </e>
+          <e p="Sprites" t="Include">
+            <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
         <e p="Z ! Low Poly Nature Pack" t="Include">
@@ -396,12 +443,11 @@
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
-      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="Temp/bin" t="ExcludeRecursive" />
       <e p="UniRx.csproj" t="IncludeRecursive" />
-      <e p="UniRx.Examples.csproj" t="IncludeRecursive" />
       <e p="YDays-Civilisation-Tycoon.sln" t="IncludeFlat" />
     </e>
-    <e p="C:\Users\Bnj\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Bnj\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_YDays-Civilisation-Tycoon.504534761.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_YDays-Civilisation-Tycoon.-668724888.00" t="ExcludeRecursive" />
   </component>
 </project>

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BuildingProxy : MonoBehaviour
 {
     private BuildingManager buildingManager;
-    // Start is called before the first frame update
+
     void Start()
     {
         buildingManager = BuildingManager.GetInstance();

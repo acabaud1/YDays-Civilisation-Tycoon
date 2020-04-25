@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 public class GlobalManager : MonoBehaviour
 {
     private MapManager mapManager;
-
     private ResourceManager resourceManager;
 
     private BuildingManager buildingManager;
     public LayerMask layerMask;
 
+    public GameObject hub;
     public GameObject rock;
     public GameObject sand;
     public GameObject tree;
@@ -22,6 +22,8 @@ public class GlobalManager : MonoBehaviour
     public GameObject[] LandDoodads;
 
     public TileModel[,] TileArray;
+
+    private bool isInit = false;
 
     // Start is called before the first frame update
     void Start()
@@ -34,17 +36,27 @@ public class GlobalManager : MonoBehaviour
         buildingManager.TileArray = TileArray;
 
         SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
+
+        isInit = true;
+        InitHub();
     }
 
     void Update()
     {
-        buildingManager.Update();
+        if (isInit)
+        {
+            buildingManager.Update();
+        }
+    }
+
+    private void InitHub()
+    {
+        buildingManager.SetBuilding(hub);
     }
 
     private void MapManagerInit()
     {
         resourceManager = ResourceManager.GetInstance();
-
         mapManager = MapManager.GetInstance();
 
         mapManager.rock = rock;

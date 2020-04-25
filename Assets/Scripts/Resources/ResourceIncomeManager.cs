@@ -13,7 +13,6 @@ public class ResourceIncomeManager : MonoBehaviour
     public RessourceEnum RessourceEnum = RessourceEnum.None;
     public GameObject FloatingTextPrefab;
 
-    private BuildingManager buildingManagerScript;
     private ResourceManager resourceManagerScript;
     private int nbOres;
 
@@ -23,9 +22,7 @@ public class ResourceIncomeManager : MonoBehaviour
         try
         {
             resourceManagerScript = ResourceManager.GetInstance();
-            buildingManagerScript = BuildingManager.GetInstance();
 
-            GetAllResources();
             InvokeRepeating(nameof(AddResources), WaitingTime, ResourceInterval);
         }
         catch (Exception e)
@@ -61,12 +58,21 @@ public class ResourceIncomeManager : MonoBehaviour
 
     void AddResources()
     {
+        GetAllResources();
+
         int resources = nbOres * NbByResources;
-        // ShowFloatingText();
-        resourceManagerScript.Add(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum), resources);
+        if (!resourceManagerScript.CanAddAndDistribute(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum), resources))
+        {
+            ShowFloatingText("Stocks pleins");
+        }
+        else
+        {
+            ShowFloatingText(resources.ToString());
+        }
+        resourceManagerScript.AddAndDistribute(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum), resources);
     }
 
-    void ShowFloatingText()
+    void ShowFloatingText(string text)
     {
         if (FloatingTextPrefab)
         {
@@ -82,7 +88,7 @@ public class ResourceIncomeManager : MonoBehaviour
                 GoFloatText.transform.position.z
             );
 
-            GoFloatText.GetComponent<TextMesh>().text = (NbByResources * nbOres).ToString();
+            GoFloatText.GetComponent<TextMesh>().text = text;
 
             Destroy(GoFloatText, 1.5f);
         }

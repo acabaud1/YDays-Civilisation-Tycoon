@@ -20,8 +20,6 @@ namespace Map
         public GameObject ironOre;
         private readonly float ironZoom = 40f;
         public GameObject land;
-
-
         public Transform map;
 
         // Plus la valeur est faible plus les ressources sont rapprochés et abondantes
