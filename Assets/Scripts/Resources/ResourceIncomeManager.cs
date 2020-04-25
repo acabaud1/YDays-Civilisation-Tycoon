@@ -13,7 +13,6 @@ public class ResourceIncomeManager : MonoBehaviour
     public RessourceEnum RessourceEnum = RessourceEnum.None;
     public GameObject FloatingTextPrefab;
 
-    private BuildingManager buildingManagerScript;
     private ResourceManager resourceManagerScript;
     private int nbOres;
 
@@ -23,9 +22,7 @@ public class ResourceIncomeManager : MonoBehaviour
         try
         {
             resourceManagerScript = ResourceManager.GetInstance();
-            buildingManagerScript = BuildingManager.GetInstance();
 
-            GetAllResources();
             InvokeRepeating(nameof(AddResources), WaitingTime, ResourceInterval);
         }
         catch (Exception e)
@@ -61,6 +58,8 @@ public class ResourceIncomeManager : MonoBehaviour
 
     void AddResources()
     {
+        GetAllResources();
+
         int resources = nbOres * NbByResources;
         // ShowFloatingText();
         resourceManagerScript.Add(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum), resources);

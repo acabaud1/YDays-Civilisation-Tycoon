@@ -7,7 +7,6 @@ using UnityEngine.UI;
 /// </summary>
 public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-
     private bool _open = false;
     private bool _mouseOver = false;
     private Animator _drawerAnimationController;
@@ -73,7 +72,7 @@ public class Drawer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// Implementation of IPointerEnterHandler.OnPointerEnter
     /// </summary>
     /// <param name="eventData">Unity's event system of eventData</param>
-    public void OnPointerEnter(PointerEventData eventData) 
+    public void OnPointerEnter(PointerEventData eventData)
     {
         _mouseOver = true;
     }

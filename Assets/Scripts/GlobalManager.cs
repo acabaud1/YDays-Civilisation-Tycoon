@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 public class GlobalManager : MonoBehaviour
 {
     private MapManager mapManager;
-
     private ResourceManager resourceManager;
-
     private BuildingManager buildingManager;
+    private PNJManager pnjManager;
     public LayerMask layerMask;
 
+    public GameObject hub;
     public GameObject rock;
     public GameObject sand;
     public GameObject tree;
@@ -20,8 +20,12 @@ public class GlobalManager : MonoBehaviour
     public GameObject land;
     public GameObject ironOre;
     public GameObject[] LandDoodads;
+    public GameObject[] animals;
+    public GameObject[] robots;
 
     public TileModel[,] TileArray;
+
+    private bool isInit = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,22 +33,38 @@ public class GlobalManager : MonoBehaviour
         MapManagerInit();
 
         buildingManager = BuildingManager.GetInstance();
-
         buildingManager.layerMask = layerMask;
         buildingManager.TileArray = TileArray;
 
+        pnjManager = PNJManager.GetInstance();
+        pnjManager.animals = animals;
+        pnjManager.robots = robots;
+
+        buildingManager.pnjManager = pnjManager;
+
         SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
+
+        isInit = true;
+        InitHub();
     }
 
     void Update()
     {
-        buildingManager.Update();
+        if (isInit)
+        {
+            buildingManager.Update();
+            pnjManager.Update();
+        }
+    }
+
+    private void InitHub()
+    {
+        buildingManager.SetBuilding(hub);
     }
 
     private void MapManagerInit()
     {
         resourceManager = ResourceManager.GetInstance();
-
         mapManager = MapManager.GetInstance();
 
         mapManager.rock = rock;
