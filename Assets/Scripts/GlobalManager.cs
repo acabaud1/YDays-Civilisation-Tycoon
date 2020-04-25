@@ -10,6 +10,7 @@ public class GlobalManager : MonoBehaviour
     private ResourceManager resourceManager;
 
     private BuildingManager buildingManager;
+    private ClickableSingleton clickableSingleton;
     public LayerMask layerMask;
 
     public GameObject hub;
@@ -31,12 +32,16 @@ public class GlobalManager : MonoBehaviour
         MapManagerInit();
 
         buildingManager = BuildingManager.GetInstance();
+        clickableSingleton = ClickableSingleton.GetInstance();
 
         buildingManager.layerMask = layerMask;
         buildingManager.TileArray = TileArray;
 
-        SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
-
+        if (SceneManager.sceneCount < 2)
+        {
+            SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
+        }
+        
         isInit = true;
         InitHub();
     }
@@ -46,6 +51,7 @@ public class GlobalManager : MonoBehaviour
         if (isInit)
         {
             buildingManager.Update();
+            clickableSingleton.Update();
         }
     }
 
