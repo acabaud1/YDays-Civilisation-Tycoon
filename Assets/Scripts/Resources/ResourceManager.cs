@@ -10,7 +10,7 @@ public class ResourceManager : ResourceManagerCore
 {
     private static ResourceManager _instance;
     public List<ResourceManagerCore> ResourceManagerCores { get; set; }
-   
+
 
     public static ResourceManager GetInstance()
     {
@@ -18,10 +18,11 @@ public class ResourceManager : ResourceManagerCore
         {
             _instance = new ResourceManager();
         }
+
         return _instance;
     }
 
-    private ResourceManager():base()
+    private ResourceManager() : base()
     {
         ResourceManagerCores = new List<ResourceManagerCore>();
 
@@ -31,7 +32,7 @@ public class ResourceManager : ResourceManagerCore
         Resources.Add(new Stone(0, maximum: 100));
         Init(Resources);
     }
-    
+
     public int GetAllQuantity(Type type)
     {
         // Rafraichissement de l'UI pour contenir les maximums et le contenu actuel des ressources
@@ -40,9 +41,8 @@ public class ResourceManager : ResourceManagerCore
 
 
         return Get(type).Quantity + ResourceManagerCores.Sum(rmc => rmc.Get(type).Quantity);
-
-        
     }
+
     public int GetAllStock(Type type)
     {
         // Rafraichissement de l'UI pour contenir les maximums et le contenu actuel des ressources
@@ -50,7 +50,6 @@ public class ResourceManager : ResourceManagerCore
         // ex : Iron 60 / 100
 
         return Get(type).Maximum + ResourceManagerCores.Sum(rmc => rmc.Get(type).Maximum);
-
     }
 
     public void AddAndDistribute(Type type, int quantity)
@@ -80,10 +79,11 @@ public class ResourceManager : ResourceManagerCore
     {
         if (resourceManagerCore.Get(type).Quantity + quantity > resourceManagerCore.Get(type).Maximum)
         {
-            int remain = Math.Abs(resourceManagerCore.Get(type).Maximum - resourceManagerCore.Get(type).Quantity - quantity);
+            int remain = Math.Abs(resourceManagerCore.Get(type).Maximum - resourceManagerCore.Get(type).Quantity -
+                                  quantity);
             resourceManagerCore.Add(type, quantity - remain);
             return remain;
-        } 
+        }
         else
         {
             resourceManagerCore.Add(type, quantity);
@@ -95,12 +95,13 @@ public class ResourceManager : ResourceManagerCore
     {
         int quantityStock = Get(type).Quantity + ResourceManagerCores.Sum(rmc => rmc.Get(type).Quantity);
         int quantityStockMaximum = Get(type).Maximum + ResourceManagerCores.Sum(rmc => rmc.Get(type).Maximum);
-        
+
         // Vérification s'il y a de la place et distribution dans les stocks
         if (quantityStock + quantity > quantityStockMaximum)
         {
             return false;
         }
+
         return true;
         // TODO: sinon affichage d'un message
     }
@@ -127,10 +128,9 @@ public abstract class ResourcesGame
         IsAccepted = isAccepted;
         Obs = new ReactiveProperty<int>(quantity);
     }
-
 }
 
-public class ResourceManagerCore
+public class ResourceManagerCore : MonoBehaviour
 {
     private List<ResourcesGame> _resources;
 
@@ -170,10 +170,12 @@ public class ResourceManagerCore
 
     protected virtual bool canAdd(ResourcesGame ResourcesGame, int quantity)
     {
-        if (ResourcesGame.Quantity + quantity > ResourcesGame.Minimum && ResourcesGame.Quantity + quantity < ResourcesGame.Maximum && ResourcesGame.IsAccepted)
+        if (ResourcesGame.Quantity + quantity > ResourcesGame.Minimum &&
+            ResourcesGame.Quantity + quantity < ResourcesGame.Maximum && ResourcesGame.IsAccepted)
         {
             return true;
         }
+
         return false;
     }
 
@@ -185,6 +187,7 @@ public class ResourceManagerCore
         {
             return true;
         }
+
         return false;
     }
 }

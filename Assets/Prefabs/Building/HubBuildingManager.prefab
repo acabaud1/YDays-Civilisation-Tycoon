@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40390f7585ba0b46b6ddfba849aef0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FullBuilding: {fileID: 8705604396242070946, guid: aab9a0372a5743745ab05ed9a8ba93e6,
+  FullBuilding: {fileID: 557587715288802409, guid: aab9a0372a5743745ab05ed9a8ba93e6,
     type: 3}
-  GhostBuilding: {fileID: 4696251194914372164, guid: 592921b8c91b09943bfba8b4ce6aa22f,
+  GhostBuilding: {fileID: 868668247545420710, guid: 592921b8c91b09943bfba8b4ce6aa22f,
     type: 3}
