@@ -47,3 +47,5 @@ MonoBehaviour:
     type: 3}
   GhostBuilding: {fileID: 868668247545420710, guid: 592921b8c91b09943bfba8b4ce6aa22f,
     type: 3}
+  GhostBuildingBlocked: {fileID: 868668247545420710, guid: a1343c4e156fc3c44979fdc117c9009a,
+    type: 3}

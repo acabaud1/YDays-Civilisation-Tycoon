@@ -191,19 +191,55 @@ PrefabInstance:
         type: 3}
       propertyPath: FullBuilding
       value: 
-      objectReference: {fileID: 4075237436523829324, guid: 46f97de46305cbe42a2868f42408f952,
+      objectReference: {fileID: 4075237436523829324, guid: 0e429ec805b09294a8a74c063c07230a,
+        type: 3}
+    - target: {fileID: 6805357413436287554, guid: dd9703782f28e7f498e09cf96cfb5393,
+        type: 3}
+      propertyPath: GhostBuildingBlocked
+      value: 
+      objectReference: {fileID: 4075237436523829324, guid: 2df6706b3e4678241a0e57d8b0693105,
+        type: 3}
+    - target: {fileID: 6805357413436287554, guid: dd9703782f28e7f498e09cf96cfb5393,
+        type: 3}
+      propertyPath: GhostBuilding
+      value: 
+      objectReference: {fileID: 4075237436523829324, guid: 935a7d88c3843504196979a3332e8b5d,
         type: 3}
     - target: {fileID: 5190793837593749616, guid: dd9703782f28e7f498e09cf96cfb5393,
         type: 3}
       propertyPath: FullBuilding
       value: 
-      objectReference: {fileID: 3278420068947036213, guid: ae37310b73a70e44d846299fe911bf9b,
+      objectReference: {fileID: 3278420068947036213, guid: f984ca61c218a734f8aac58c748c209a,
+        type: 3}
+    - target: {fileID: 5190793837593749616, guid: dd9703782f28e7f498e09cf96cfb5393,
+        type: 3}
+      propertyPath: GhostBuildingBlocked
+      value: 
+      objectReference: {fileID: 3278420068947036213, guid: fc67b3ede7d83a04e8e93a0f7979ab16,
+        type: 3}
+    - target: {fileID: 5190793837593749616, guid: dd9703782f28e7f498e09cf96cfb5393,
+        type: 3}
+      propertyPath: GhostBuilding
+      value: 
+      objectReference: {fileID: 3278420068947036213, guid: 37b88cfdf24d87e48874965bad8b4dab,
         type: 3}
     - target: {fileID: 6480838976077592933, guid: dd9703782f28e7f498e09cf96cfb5393,
         type: 3}
       propertyPath: FullBuilding
       value: 
-      objectReference: {fileID: 476797562827213113, guid: fcf4dcf364da51545a914009dda547d6,
+      objectReference: {fileID: 476797562827213113, guid: 5bd5ab76bb267af4796b83ba5ec3e971,
+        type: 3}
+    - target: {fileID: 6480838976077592933, guid: dd9703782f28e7f498e09cf96cfb5393,
+        type: 3}
+      propertyPath: GhostBuildingBlocked
+      value: 
+      objectReference: {fileID: 476797562827213113, guid: 1eb20968eb3fe914a9402b6fe9715fc8,
+        type: 3}
+    - target: {fileID: 6480838976077592933, guid: dd9703782f28e7f498e09cf96cfb5393,
+        type: 3}
+      propertyPath: GhostBuilding
+      value: 
+      objectReference: {fileID: 476797562827213113, guid: 73f900b0321b95b4fbcd8140745a5dcf,
         type: 3}
     m_RemovedComponents:
     - {fileID: 1543093418519798307, guid: dd9703782f28e7f498e09cf96cfb5393, type: 3}
@@ -259,7 +295,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FullBuilding: {fileID: 1097879183406132006, guid: 80717f582ca18f6469636b2f5b5a0032,
     type: 3}
-  GhostBuilding: {fileID: 1097879183406132006, guid: 80717f582ca18f6469636b2f5b5a0032,
+  GhostBuilding: {fileID: 1097879183406132006, guid: 503ab8dcd3798a24baba1b45fb080496,
+    type: 3}
+  GhostBuildingBlocked: {fileID: 1097879183406132006, guid: addb84e22b386cc479211d5c866955cc,
     type: 3}
 --- !u!1 &1023125509 stripped
 GameObject:

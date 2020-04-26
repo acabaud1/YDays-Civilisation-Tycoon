@@ -17,11 +17,11 @@ public class BuildingManager
     private bool _isInDeleteMode;
     private bool _isInGostMode;
 
-    private Color? _lastHoverGameObjectColor;
     private GameObject _lastHoverGameObject;
     private GameObject _selectedGameObject;
     private GameObject _ghostGameObject;
-    private Color? _ghostGameObjectColor;
+    private GameObject _ghostBlockedGameObject;
+
     private Building _lastBuilding;
 
     [FormerlySerializedAs("LayerMask")] public LayerMask layerMask;
@@ -64,7 +64,9 @@ public class BuildingManager
     public void ToggleDeleteMod()
     {
         GameObject.Destroy(_ghostGameObject);
+        GameObject.Destroy(_ghostBlockedGameObject);
         _ghostGameObject = null;
+        _ghostBlockedGameObject = null;
         _lastBuilding = null;
         _isInGostMode = false;
         _isInDeleteMode = !_isInDeleteMode;
@@ -76,7 +78,9 @@ public class BuildingManager
     public void CleanMod()
     {
         GameObject.Destroy(_ghostGameObject);
+        GameObject.Destroy(_ghostBlockedGameObject);
         _ghostGameObject = null;
+        _ghostBlockedGameObject = null;
         _isInGostMode = false;
         _isInDeleteMode = false;
         _lastBuilding = null;
@@ -95,9 +99,12 @@ public class BuildingManager
             CleanMod();
             _lastBuilding = script;
             if (_ghostGameObject != null) GameObject.Destroy(_ghostGameObject);
+            if (_ghostBlockedGameObject != null) GameObject.Destroy(_ghostBlockedGameObject);
             _selectedGameObject = script.FullBuilding;
             _isInGostMode = true;
             _ghostGameObject = GameObject.Instantiate(script.GhostBuilding, new Vector3(0, -2, 0), Quaternion.identity);
+            _ghostBlockedGameObject = GameObject.Instantiate(script.GhostBuildingBlocked, new Vector3(0, -2, 0), Quaternion.identity);
+            _ghostBlockedGameObject.SetActive(false);
         }
     }
 
@@ -138,29 +145,17 @@ public class BuildingManager
                         }
                         else
                         {
-                            // fantome de suppression
-                            var buildingMeshRenderer = tileModel.Building.GetComponent<MeshRenderer>();
-                            // Enregistrement de la couleur et ajout de la couleur rouge.
-                            if (buildingMeshRenderer != null)
-                            {
-                                var color = buildingMeshRenderer.material.color;
-                                if (!color.Equals(new Color(255, 0, 0, 0.5f)))
-                                {
-                                    _lastHoverGameObjectColor = color;
-                                }
 
-                                buildingMeshRenderer.material.color = new Color(255, 0, 0, 0.5f);
+                            var buildingBehaviorScript = tileModel.Building.GetComponent<BuildingBehavior>();
+
+                            if (!buildingBehaviorScript.IsInError())
+                            {
+                                buildingBehaviorScript.ToggleMaterial();
                             }
-
-                            var lastHoverGameObjectMeshRenderer = tileModel.Building.GetComponent<MeshRenderer>();
-                            if (_lastHoverGameObject != tileModel.Building && lastHoverGameObjectMeshRenderer != null &&
-                                _lastHoverGameObjectColor.HasValue)
+                            
+                            if (_lastHoverGameObject != tileModel.Building && buildingBehaviorScript.IsInError())
                             {
-                                var color = lastHoverGameObjectMeshRenderer.material.color;
-                                if (!color.Equals(_lastHoverGameObjectColor.Value))
-                                {
-                                    lastHoverGameObjectMeshRenderer.material.color = _lastHoverGameObjectColor.Value;
-                                }
+                                buildingBehaviorScript.ToggleMaterial();
                             }
                         }
 
@@ -168,7 +163,8 @@ public class BuildingManager
                     }
                     else if (_isInGostMode)
                     {
-                        if (Input.GetMouseButtonDown(0))
+                        if (Input.GetMouseButtonDown(0) && !TileArray.AnyInZone(mousePosition, _ghostGameObject.transform.localScale,
+                            new List<TileEnum>() { TileEnum.Water }))
                         {
                             // Pose du batiment
                             GameObject created = GameObject.Instantiate(_selectedGameObject, mousePosition,
@@ -192,35 +188,18 @@ public class BuildingManager
                         {
                             // Deplacement du batiment.
                             _ghostGameObject.transform.position = mousePosition;
+                            _ghostBlockedGameObject.transform.position = mousePosition;
 
                             if (TileArray.AnyInZone(mousePosition, _ghostGameObject.transform.localScale,
                                 new List<TileEnum>() {TileEnum.Water}))
                             {
-                                // fantome de suppression
-                                var ghostGameObjectMeshRenderer = _ghostGameObject.GetComponent<MeshRenderer>();
-                                // Enregistrement de la couleur et ajout de la couleur rouge.
-                                if (ghostGameObjectMeshRenderer != null)
-                                {
-                                    var color = ghostGameObjectMeshRenderer.material.color;
-                                    if (!color.Equals(new Color(255, 0, 0, 0.5f)))
-                                    {
-                                        _ghostGameObjectColor = color;
-                                    }
-
-                                    ghostGameObjectMeshRenderer.material.color = new Color(255, 0, 0, 0.5f);
-                                }
+                                _ghostGameObject.SetActive(false);
+                                _ghostBlockedGameObject.SetActive(true);
                             }
                             else
                             {
-                                var ghostGameObjectMeshRenderer = _ghostGameObject.GetComponent<MeshRenderer>();
-                                if (ghostGameObjectMeshRenderer != null && _ghostGameObjectColor.HasValue)
-                                {
-                                    var color = ghostGameObjectMeshRenderer.material.color;
-                                    if (!color.Equals(_ghostGameObjectColor.Value))
-                                    {
-                                        ghostGameObjectMeshRenderer.material.color = _ghostGameObjectColor.Value;
-                                    }
-                                }
+                                _ghostGameObject.SetActive(true);
+                                _ghostBlockedGameObject.SetActive(false);
                             }
                         }
                     }
