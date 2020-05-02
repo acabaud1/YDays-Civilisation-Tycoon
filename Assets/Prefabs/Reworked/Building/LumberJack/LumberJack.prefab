@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5225587523353317536}
   - component: {fileID: 1553681480433023702}
   m_Layer: 0
-  m_Name: LumberJackCampParent
+  m_Name: LumberJack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,11 +181,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4075237436523829325}
     m_Modifications:
-    - target: {fileID: 912689391078628770, guid: b0c8f365145f320428f6a07a2d8322ab,
-        type: 3}
-      propertyPath: m_Name
-      value: LumberJackCamp
-      objectReference: {fileID: 0}
     - target: {fileID: 4247422156445888433, guid: b0c8f365145f320428f6a07a2d8322ab,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -240,6 +235,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 912689391078628770, guid: b0c8f365145f320428f6a07a2d8322ab,
+        type: 3}
+      propertyPath: m_Name
+      value: LumberJackCamp
       objectReference: {fileID: 0}
     - target: {fileID: 9190557371933875741, guid: b0c8f365145f320428f6a07a2d8322ab,
         type: 3}
