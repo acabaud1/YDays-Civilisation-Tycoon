@@ -342,6 +342,7 @@
           <e p="PNJ" t="Include">
             <e p="Animal.cs" t="Include" />
             <e p="PNJ.cs" t="Include" />
+            <e p="PNJManager.cs" t="Include" />
             <e p="Robot.cs" t="Include" />
           </e>
           <e p="Resources" t="Include">

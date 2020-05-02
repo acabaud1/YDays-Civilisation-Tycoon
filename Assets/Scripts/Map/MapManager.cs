@@ -91,7 +91,7 @@ namespace Map
                         foreach (var doodadProbability in LandDoodads)
                         {
                             doodadNumber = doodadNumber + doodadProbability.Probability;
-                            if (doodadNumber <= selectedDoodadNumber)
+                            if (doodadNumber >= selectedDoodadNumber)
                             {
                                 selectedDoodad = doodadProbability.GameObject;
                                 break;

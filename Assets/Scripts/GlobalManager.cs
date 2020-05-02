@@ -8,8 +8,9 @@ public class GlobalManager : MonoBehaviour
 {
     private MapManager mapManager;
     private ResourceManager resourceManager;
-
     private BuildingManager buildingManager;
+    private PNJManager pnjManager;
+    private ClickableSingleton clickableSingleton;
     public LayerMask layerMask;
 
     public GameObject hub;
@@ -19,9 +20,14 @@ public class GlobalManager : MonoBehaviour
     public GameObject water;
     public GameObject land;
     public GameObject ironOre;
-    public DoodadProbability[] LandDoodads;
+    private DoodadProbability[] ProbilityLandDoodads;
+    public GameObject[] LandDoodads;
+    public GameObject[] animals;
+    public GameObject[] robots;
 
     public TileModel[,] TileArray;
+
+    private bool isInit = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,18 +35,34 @@ public class GlobalManager : MonoBehaviour
         MapManagerInit();
 
         buildingManager = BuildingManager.GetInstance();
+        clickableSingleton = ClickableSingleton.GetInstance();
 
         buildingManager.layerMask = layerMask;
         buildingManager.TileArray = TileArray;
+        buildingManager.ResourceManager = resourceManager;
 
-        SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
+        pnjManager = PNJManager.GetInstance();
+        pnjManager.animals = animals;
+        pnjManager.robots = robots;
 
+        buildingManager.pnjManager = pnjManager;
+        if (SceneManager.sceneCount < 2)
+        {
+            SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
+        }
+        
+        isInit = true;
         InitHub();
     }
 
     void Update()
     {
-        buildingManager.Update();
+        if (isInit)
+        {
+            buildingManager.Update();
+            pnjManager.Update();
+            clickableSingleton.Update();
+        }
     }
 
     private void InitHub()
@@ -51,7 +73,24 @@ public class GlobalManager : MonoBehaviour
     private void MapManagerInit()
     {
         resourceManager = ResourceManager.GetInstance();
+
+        resourceManager.AddAndDistribute(typeof(Iron), 50);
+        resourceManager.AddAndDistribute(typeof(Wood), 50);
+        resourceManager.AddAndDistribute(typeof(Stone), 50);
+        
         mapManager = MapManager.GetInstance();
+
+        List<DoodadProbability> doodads  =new List<DoodadProbability>();
+        foreach (var landDoodad in LandDoodads)
+        {
+            doodads.Add(new DoodadProbability
+            {
+                GameObject = landDoodad,
+                Probability = 1
+            });
+        }
+
+        ProbilityLandDoodads = doodads.ToArray();
 
         mapManager.rock = rock;
         mapManager.sand = sand;
@@ -59,7 +98,7 @@ public class GlobalManager : MonoBehaviour
         mapManager.water = water;
         mapManager.land = land;
         mapManager.ironOre = ironOre;
-        mapManager.LandDoodads = LandDoodads;
+        mapManager.LandDoodads = ProbilityLandDoodads;
 
         TileArray = new TileModel[mapManager.width, mapManager.height];
         mapManager.TileArray = TileArray;
