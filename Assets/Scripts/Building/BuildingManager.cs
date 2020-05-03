@@ -177,8 +177,6 @@ public class BuildingManager
                             TileArray.ClearDoodadsInZone(mousePosition, created.transform.localScale);
                             CleanMod();
 
-                            Debug.Log("Bâtiment posé, robot destination OK");
-
                             // Création du robot et déplacement jusqu'au batiment
                             var robot = pnjManager.CreateRobot(new Vector3(1, 1, 1));
                             robot.attachedBuilding = created;
