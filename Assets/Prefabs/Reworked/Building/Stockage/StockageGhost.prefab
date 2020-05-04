@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1228519939425341146}
   - component: {fileID: 5578413923809649636}
   m_Layer: 0
-  m_Name: Stockage
+  m_Name: StockageGhost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a46b0f7900baeaa438799251971fb161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quantity: 50
 --- !u!1 &7732465392582333914
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,11 +227,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 58becb1844b3df248be22ba6930999d8,
-        type: 3}
-      propertyPath: m_Name
-      value: stockage_basique_v2
-      objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: 58becb1844b3df248be22ba6930999d8,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -247,14 +241,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2750142695957345479, guid: 58becb1844b3df248be22ba6930999d8,
-        type: 3}
+      objectReference: {fileID: 2100000, guid: 43d3a0788946cb347bb774183fda3e8a, type: 2}
     - target: {fileID: -1504981713932161579, guid: 58becb1844b3df248be22ba6930999d8,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2750142695957345479, guid: 58becb1844b3df248be22ba6930999d8,
+      objectReference: {fileID: 2100000, guid: 43d3a0788946cb347bb774183fda3e8a, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 58becb1844b3df248be22ba6930999d8,
         type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43d3a0788946cb347bb774183fda3e8a, type: 2}
+    - target: {fileID: -927199367670048503, guid: 58becb1844b3df248be22ba6930999d8,
+        type: 3}
+      propertyPath: m_Name
+      value: stockage_basique_v2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58becb1844b3df248be22ba6930999d8, type: 3}
 --- !u!4 &2592920225141173516 stripped

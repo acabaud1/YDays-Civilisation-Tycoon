@@ -15,6 +15,7 @@ namespace Assets.Scripts.Building
         LumberJack,
         StoneMine,
         IronMine,
-        Storage
+        Storage,
+        PlantNursery
     }
 }

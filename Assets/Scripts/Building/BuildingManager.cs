@@ -210,7 +210,7 @@ public class BuildingManager
                             takeResourcesToPlace();
 
 
-                            TileArray.SetBuildingInZone(mousePosition, created.transform.localScale, created);
+                            TileArray.SetBuildingInZone(mousePosition, created.transform.localScale, created, _ghostBuildingManager.BuildingEnum);
                             TileArray.ClearDoodadsInZone(mousePosition, created.transform.localScale);
                             CleanMod();
 

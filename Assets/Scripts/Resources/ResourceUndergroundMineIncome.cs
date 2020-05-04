@@ -1,26 +1,25 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ResourceUndergroundMineIncome : MonoBehaviour
 {
-
-    public ResourcesGame[] Resources;
-    public float msBetweenGain = 2000;
+    public List<Type> Resources = new List<Type>();
+    public float TimeBetween = 2;
     public int quantity = 1;
+    public float WaitingTime = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("GainResources", 0, msBetweenGain);
+        Resources.Add(typeof(Iron));
+        Resources.Add(typeof(Stone));
+        InvokeRepeating("GainResources", WaitingTime, TimeBetween);
     }
 
     private void GainResources()
     {
-        ResourceManager.GetInstance().Add(Resources[Random.Range(0, Resources.Length)].GetType(), quantity);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        ResourceManager.GetInstance().Add(Resources[Random.Range(0, Resources.Count)], quantity);
     }
 }

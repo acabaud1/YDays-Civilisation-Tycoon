@@ -52,8 +52,8 @@ MonoBehaviour:
   Radius: 5
   WaitingTime: 1
   ResourceInterval: 1
-  NbByResources: 1
-  RessourceEnum: 3
+  NbByResources: 10
+  RessourceEnums: 03000000
   FloatingTextPrefab: {fileID: 0}
 --- !u!82 &-6195900742967077569
 AudioSource:
@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5365b12522452db408f9a49bc75b2436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Animation: BuildingPop1
 --- !u!111 &5217511358115841634
 Animation:
   m_ObjectHideFlags: 0

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Assets.Scripts.Resources;
+using Boo.Lang;
+using JetBrains.Annotations;
+using Map;
 using Ressource;
 using UnityEngine;
 
@@ -10,11 +13,12 @@ public class ResourceIncomeManager : MonoBehaviour
     public float WaitingTime;
     public float ResourceInterval;
     public int NbByResources;
-    public RessourceEnum RessourceEnum = RessourceEnum.None;
+    public RessourceEnum[] RessourceEnums;
     public GameObject FloatingTextPrefab;
 
     private ResourceManager resourceManagerScript;
     private int nbOres;
+    private BuildingManager buildingManager;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +26,7 @@ public class ResourceIncomeManager : MonoBehaviour
         try
         {
             resourceManagerScript = ResourceManager.GetInstance();
+            buildingManager = BuildingManager.GetInstance();
 
             InvokeRepeating(nameof(AddResources), WaitingTime, ResourceInterval);
         }
@@ -33,43 +38,64 @@ public class ResourceIncomeManager : MonoBehaviour
         }
     }
 
-    private bool GetGameObjetWithRessourceEnum(GameObject go)
+    private TileModel SelectNearestRessource()
     {
-        RessourceType ressourceType = go.GetComponent<RessourceType>();
-        return ressourceType != null && ressourceType.Ressource == RessourceEnum;
-    }
-
-    void GetAllResources()
-    {
-        nbOres = 0;
-        var tileArray = BuildingManager.GetInstance().TileArray;
+        var tileArray = buildingManager.TileArray;
+        List<NearestResource> nearestResources = new List<NearestResource>();
         for (int i = 0; i < tileArray.GetLength(0); i++)
         {
             for (int j = 0; j < tileArray.GetLength(1); j++)
             {
-                if (tileArray[i, j].Resource && tileArray[i, j].RessourceEnum == RessourceEnum && 
-                    Vector3.Distance(tileArray[i, j].Resource.transform.position, this.transform.position) < Radius)
+                if (tileArray[i, j].Resource && RessourceEnums.Contains(tileArray[i, j].RessourceEnum))
                 {
-                    nbOres++;
+                    var distance = Vector3.Distance(tileArray[i, j].Resource.transform.position, transform.position);
+                    if (distance < Radius)
+                    {
+                        nearestResources.Add(new NearestResource()
+                        {
+                            Distance = distance,
+                            Tile = tileArray[i, j]
+                        });
+                    }
                 }
             }
         }
-    }
 
+        return nearestResources.FirstOrDefault(w => w.Distance == nearestResources.Min(m => m.Distance))?.Tile;
+    }
+    
     void AddResources()
     {
-        GetAllResources();
+        var tile = SelectNearestRessource();
+        if (tile != null && resourceManagerScript.CanAddAndDistribute(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(tile.RessourceEnum), NbByResources))
+        {
+            int quantity = 0;
+            if (tile.ResourceQuantity - NbByResources > 0)
+            {
+                quantity = NbByResources;
+            }
+            else
+            {
+                quantity = tile.ResourceQuantity;
+            }
+            tile.ResourceQuantity = tile.ResourceQuantity - quantity;
+            resourceManagerScript.AddAndDistribute(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(tile.RessourceEnum), NbByResources);
 
-        int resources = nbOres * NbByResources;
-        if (!resourceManagerScript.CanAddAndDistribute(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum), resources))
-        {
-            ShowFloatingText("Stocks pleins");
+            if (tile.ResourceQuantity == 0)
+            {
+                tile.RessourceEnum = RessourceEnum.None;
+                var animationComponent = tile.Resource.GetComponent<BuildingPopAnimation>();
+                if (animationComponent)
+                {
+                    animationComponent.PlayAnimation("BuildingDepop1");
+                }
+                else
+                {
+                    Destroy(tile.Resource);
+                }
+                tile.Resource = null;
+            }
         }
-        else
-        {
-            ShowFloatingText(resources.ToString());
-        }
-        resourceManagerScript.AddAndDistribute(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(RessourceEnum), resources);
     }
 
     void ShowFloatingText(string text)

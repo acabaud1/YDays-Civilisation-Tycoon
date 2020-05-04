@@ -42,6 +42,6 @@ public class DisplayResources : MonoBehaviour
 
     private void updateTextMeshValue()
     {
-        TextMeshProText.SetText($"{_resourceManager.GetAllQuantity(_resourceType)}/{_resourceManager.GetAllStock(_resourceType)}");
+        TextMeshProText.SetText($"{_resourceManager.GetAllQuantity(_resourceType)}/{ _resourceManager.GetAllStock(_resourceType)}");
     }
 }

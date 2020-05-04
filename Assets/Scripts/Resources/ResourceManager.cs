@@ -5,6 +5,7 @@ using UnityEngine;
 using UniRx;
 using Ressource;
 using Assets.Scripts.Resources;
+using UnityEditor;
 
 public sealed class ResourceManager : ResourceManagerCore
 {
@@ -43,9 +44,15 @@ public sealed class ResourceManager : ResourceManagerCore
         // Rafraichissement de l'UI pour contenir les maximums et le contenu actuel des ressources
 
         // ex : Iron 60 / 100
+        int sum = 0;
+        foreach (var resourceManagerCore in ResourceManagerCores)
+        {
+            var test = resourceManagerCore.Get(type).Quantity;
+            sum = sum + resourceManagerCore.Get(type).Quantity;
+        }
 
-
-        return Get(type).Quantity + ResourceManagerCores.Sum(rmc => rmc.Get(type).Quantity);
+        var quantity = ResourceManagerCores.Sum(rmc => rmc.Get(type).Quantity);
+        return Get(type).Quantity + quantity;
     }
 
     public int GetAllStock(Type type)
@@ -109,7 +116,6 @@ public sealed class ResourceManager : ResourceManagerCore
         return true;
     }
 
-    private List<ResourcesGame> Resources;
 }
 
 public abstract class ResourcesGame
@@ -136,6 +142,7 @@ public abstract class ResourcesGame
 public class ResourceManagerCore : MonoBehaviour
 {
     private List<ResourcesGame> _resources;
+    public List<ResourcesGame> Resources;
 
     /// <summary>
     /// Instancie une nouvelle instance de la classe <see cref="ResourceManagerCore"/>

@@ -63,6 +63,8 @@ namespace Map
                 if (TileArray[x, y] == null)
                 {
                     TileArray[x, y] = new TileModel();
+                    TileArray[x, y].X = x;
+                    TileArray[x, y].Z = y;
                 }
 
                 if (pnValue > pnThreshold)
@@ -141,6 +143,16 @@ namespace Map
                                 Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0), map);
                             TileArray[x, y].Resource.AddComponent<NavMeshObstacle>().carving = true;
                             TileArray[x, y].RessourceEnum = ressourceEnum;
+
+                            if (ressourceEnum == RessourceEnum.Iron || ressourceEnum == RessourceEnum.Stone)
+                            {
+                                TileArray[x, y].ResourceQuantity = 20;
+                            }
+
+                            if (ressourceEnum == RessourceEnum.Wood)
+                            {
+                                TileArray[x, y].ResourceQuantity = 10;
+                            }
 
                             if (TileArray[x, y].Doodad != null)
                             {

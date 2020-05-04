@@ -14,16 +14,19 @@ public class Combat : MonoBehaviour
     private Faction faction;
     public float attackRange;
     public float attackSpeed;
-    public float attackCooldown;
+    private float attackCooldown;
 
     private SphereCollider sphCollider;
     public float detectionRange;
 
-    public GameObject target;
-    public Combat targetCombat;
-    public Transform targetTransform;
-    public bool isAttacked = false;
-    public bool isAttacking = false;
+    private GameObject target;
+    private Combat targetCombat;
+    private Transform targetTransform;
+    private bool isAttacked = false;
+    private bool isAttacking = false;
+
+    private CharacterStats chStats;
+    private PNJ pnjScript;
 
 
     // Start is called before the first frame update
@@ -33,6 +36,9 @@ public class Combat : MonoBehaviour
         sphCollider.center = Vector3.zero;
         sphCollider.radius = detectionRange;
         sphCollider.isTrigger = true;
+
+        chStats = this.GetComponent<CharacterStats>();
+        attackCooldown = attackSpeed;
     }
 
     // Update is called once per frame
@@ -47,6 +53,7 @@ public class Combat : MonoBehaviour
                     if (attackCooldown <= 0)
                     {
                         //attack
+                        chStats.Attack(target.GetComponent<CharacterStats>());
                         attackCooldown = attackSpeed;
                     }
                     else
@@ -57,6 +64,7 @@ public class Combat : MonoBehaviour
                 else
                 {
                     //move to target
+                    pnjScript.Move(targetTransform.position);
                 }
             }
         }
@@ -65,6 +73,7 @@ public class Combat : MonoBehaviour
             if (isAttacked)
             {
                 //run away from target
+                pnjScript.Move(-targetTransform.position);
             }
         }
     }
