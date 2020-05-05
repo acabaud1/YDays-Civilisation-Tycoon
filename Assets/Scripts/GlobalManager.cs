@@ -23,6 +23,7 @@ public class GlobalManager : MonoBehaviour
     public GameObject[] LandDoodads;
     public GameObject[] animals;
     public GameObject[] robots;
+    public GameObject[] humans;
 
     public TileModel[,] TileArray;
 
@@ -42,6 +43,10 @@ public class GlobalManager : MonoBehaviour
         pnjManager = PNJManager.GetInstance();
         pnjManager.animals = animals;
         pnjManager.robots = robots;
+        pnjManager.humans = humans;
+
+        var human = pnjManager.CreateHuman(new Vector3(1, 1, 1));
+        var ennemy = pnjManager.CreateHuman(new Vector3(1, 1, 3));
 
         buildingManager.pnjManager = pnjManager;
         if (SceneManager.sceneCount < 2)
