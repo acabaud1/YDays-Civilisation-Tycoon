@@ -44,10 +44,8 @@ public class Combat : MonoBehaviour
         {
             if (isAttacking)
             {
-                Debug.Log("position joueur");
-                Debug.Log(gameObject.transform.position);
-                Debug.Log("position ennemi");
-                Debug.Log(targetTransform.position);
+                
+                Debug.Log(Vector3.Distance(gameObject.transform.position, targetTransform.position));
 
                 if (Vector3.Distance(gameObject.transform.position, targetTransform.position) < attackRange)
                 {
@@ -74,7 +72,7 @@ public class Combat : MonoBehaviour
                     var targetRotation = Quaternion.LookRotation(targetTransform.position - this.transform.position);
                     var str = Mathf.Min(strength * Time.deltaTime, 1);
                     this.transform.rotation = Quaternion.Lerp(this.transform.rotation, targetRotation, str);*/
-                    this.gameObject.GetComponent<NavMeshAgent>().SetDestination(new Vector3(position.x-1, position.y, position.z));
+                    this.gameObject.GetComponent<NavMeshAgent>().SetDestination(new Vector3(position.x - 1, position.y, position.z));
                 }
             }
         }
@@ -90,37 +88,46 @@ public class Combat : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        target = null;
-        isAttacked = false;
-        isAttacking = false;
-    }
+    //void OnTriggerExit(Collider other)
+    //{
+    //    target = null;
+    //    targetCombat = null;
+    //    targetTransform = null;
+    //    isAttacked = false;
+    //    isAttacking = false;
+    //}
 
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (target.GetComponent<Combat>() != null && !target.Equals(gameObject))
+        if (other.GetComponent<Combat>() != null)
         {
-            targetCombat = target.GetComponent<Combat>();
-            switch (targetCombat.Faction)
+            target = other.gameObject;
+            //sphCollider.isTrigger = false;
+            if (target.GetComponent<Combat>() != null && !target.Equals(gameObject))
             {
-                case FactionEnum.black:
-                case FactionEnum.red:
-                    targetTransform.position = target.transform.position;
-                    Debug.Log(target.transform.position);
-                    isAttacking = true;
-                    targetCombat.isAttacked = true;
-                    break;
-                case FactionEnum.blue:
-                case FactionEnum.green:
-                    isAttacking = false;
-                    targetCombat.isAttacked = false;
-                    break;
-                default:
-                    break;
+                targetCombat = target.GetComponent<Combat>();
+                Debug.Log(targetCombat);
+                Debug.Log(targetCombat.Faction);
+                switch (targetCombat.Faction)
+                {
+                    case FactionEnum.black:
+                    case FactionEnum.red:
+                        targetTransform = target.transform;
+                        Debug.Log("Target position : " + target.transform.position);
+                        isAttacking = true;
+                        targetCombat.isAttacked = true;
+                        break;
+                    case FactionEnum.blue:
+                    case FactionEnum.green:
+                        isAttacking = false;
+                        targetCombat.isAttacked = false;
+                        break;
+                    default:
+                        break;
+                }
+                isAttacking = true;
             }
-            isAttacking = true; 
-        }
+        }        
     }
 }
