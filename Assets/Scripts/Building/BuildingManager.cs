@@ -145,14 +145,13 @@ public class BuildingManager
                         }
                         else
                         {
-
                             var buildingBehaviorScript = tileModel.Building.GetComponent<BuildingBehavior>();
 
                             if (!buildingBehaviorScript.IsInError())
                             {
                                 buildingBehaviorScript.ToggleMaterial();
                             }
-                            
+
                             if (_lastHoverGameObject != tileModel.Building && buildingBehaviorScript.IsInError())
                             {
                                 buildingBehaviorScript.ToggleMaterial();
