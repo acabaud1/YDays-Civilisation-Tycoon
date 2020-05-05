@@ -5,14 +5,14 @@ using UnityEngine.AI;
 
 public class Combat : MonoBehaviour
 {
-    public enum Faction
+    public enum FactionEnum
     {
         blue, //alliers
         red,  //ennemis
         black, //neutre aggressif
         green //neutre non aggressif
     }
-    private Faction faction;
+    public FactionEnum Faction;
     public float attackRange;
     public float attackSpeed;
     public float attackCooldown;
@@ -34,16 +34,22 @@ public class Combat : MonoBehaviour
         sphCollider.center = Vector3.zero;
         sphCollider.radius = detectionRange;
         sphCollider.isTrigger = true;
+        sphCollider.isTrigger = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (this.faction != Faction.green)
+        if (targetCombat != null && this.Faction != FactionEnum.green)
         {
             if (isAttacking)
             {
-                if (Vector3.Distance(this.transform.position, targetTransform.position) < attackRange)
+                Debug.Log("position joueur");
+                Debug.Log(gameObject.transform.position);
+                Debug.Log("position ennemi");
+                Debug.Log(targetTransform.position);
+
+                if (Vector3.Distance(gameObject.transform.position, targetTransform.position) < attackRange)
                 {
                     if (attackCooldown <= 0)
                     {
@@ -84,29 +90,30 @@ public class Combat : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerExit(Collider other)
     {
-        target = other.gameObject;
-        if (target.GetComponent<Combat>() != null)
+        target = null;
+        isAttacked = false;
+        isAttacking = false;
+    }
+
+
+    void OnTriggerStay(Collider other)
+    {
+        if (target.GetComponent<Combat>() != null && !target.Equals(gameObject))
         {
             targetCombat = target.GetComponent<Combat>();
-            switch (targetCombat.faction)
+            switch (targetCombat.Faction)
             {
-                case Faction.black:
-                    isAttacking = false;
-                    targetCombat.isAttacked = false;
-                    break;
-                case Faction.red:
+                case FactionEnum.black:
+                case FactionEnum.red:
                     targetTransform.position = target.transform.position;
                     Debug.Log(target.transform.position);
                     isAttacking = true;
                     targetCombat.isAttacked = true;
                     break;
-                case Faction.blue:
-                    isAttacking = false;
-                    targetCombat.isAttacked = false;
-                    break;
-                case Faction.green:
+                case FactionEnum.blue:
+                case FactionEnum.green:
                     isAttacking = false;
                     targetCombat.isAttacked = false;
                     break;
