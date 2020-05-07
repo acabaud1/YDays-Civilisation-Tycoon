@@ -9,9 +9,11 @@ public class PNJManager : MonoBehaviour
 {
     public GameObject[] animals;
     public GameObject[] robots;
+    public GameObject[] humans;
 
     List<Animal> _animals = new List<Animal>();
     List<Robot> _robots = new List<Robot>();
+    List<Human> _humans = new List<Human>();
 
     /// <summary>
     ///     Initialise une nouvelle instance de la classe <see cref="PNJManager" />
@@ -57,6 +59,15 @@ public class PNJManager : MonoBehaviour
         return robot;
     }
 
+    public Human CreateHuman(Vector3 position)
+    {
+        var human = new Human(Instantiate(humans[UnityEngine.Random.Range(0, humans.Length)]));
+        human.Spawn(position);
+        _humans.Add(human);
+
+        return human;
+    }
+
     private void Destroy(PNJ obj)
     {
         if (obj.GetType() == typeof(Animal))
@@ -81,5 +92,6 @@ public class PNJManager : MonoBehaviour
         {
             if(_robots[i].CheckDestination()) Destroy(_robots[i]);
         }
+
     }
 }
