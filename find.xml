@@ -1,7 +1,7 @@
 <application>
   <component name="FindSettings">
-    <option name="customScope" value="File '.../ResourceManager.cs'" />
-    <option name="defaultScopeName" value="File '.../ResourceManager.cs'" />
-    <option name="SEARCH_SCOPE" value="File '.../ResourceManager.cs'" />
+    <option name="customScope" value="File '.../Assets/Scripts/AI/LocalNavMeshBuilder.cs'" />
+    <option name="defaultScopeName" value="File '.../Assets/Scripts/AI/LocalNavMeshBuilder.cs'" />
+    <option name="SEARCH_SCOPE" value="File '.../Assets/Scripts/AI/LocalNavMeshBuilder.cs'" />
   </component>
 </application>
