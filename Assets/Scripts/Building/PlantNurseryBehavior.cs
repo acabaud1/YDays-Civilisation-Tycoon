@@ -47,7 +47,7 @@ namespace Assets.Scripts.Building
 
                 tile.Resource = tree;
                 tile.Resource.AddComponent<NavMeshObstacle>().carving = true;
-                tile.RessourceEnum = RessourceEnum.Wood;
+                tile.ResourceEnum = ResourceEnum.Wood;
             }
         }
 

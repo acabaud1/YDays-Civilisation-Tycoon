@@ -3,7 +3,7 @@
     /// <summary>
  /// Enumeration des ressources.
  /// </summary>
-    public enum RessourceEnum
+    public enum ResourceEnum
     {
         None,
         Iron,
