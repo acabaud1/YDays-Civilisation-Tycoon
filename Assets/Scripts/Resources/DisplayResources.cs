@@ -8,6 +8,9 @@ using UniRx;
 using Ressource;
 using Assets.Scripts.Resources;
 
+/// <summary>
+/// Class pour afficher les ressources
+/// </summary>
 public class DisplayResources : MonoBehaviour
 {
     private ResourceManager _resourceManager;
@@ -57,6 +60,9 @@ public class DisplayResources : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Modification de la valeur du textMesh associé à la ressource voulu
+    /// </summary>
     private void updateTextMeshValue()
     {
         TextMeshProText.SetText($"{_resourceManager.GetAllQuantity(_resourceType)}/{ _resourceManager.GetAllStock(_resourceType)}");

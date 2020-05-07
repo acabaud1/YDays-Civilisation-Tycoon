@@ -6,11 +6,12 @@ using UnityEngine;
 public class ResourceManagerCore : MonoBehaviour
 {
     private List<ResourcesGame> _resources;
-    public List<ResourcesGame> Resources;
+    public List<ResourcesGame> Resources; // Liste des ressources
 
     /// <summary>
     /// Instancie une nouvelle instance de la classe <see cref="ResourceManagerCore"/>
     /// </summary>
+    /// <param name="Resources">Quantité à ajouter</param>
     public void Init(List<ResourcesGame> Resources)
     {
         _resources = Resources;
@@ -42,6 +43,12 @@ public class ResourceManagerCore : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// vérification de la possibilité d'ajout d'une ressource, vérifiant 
+    /// </summary>
+    /// <param name="ResourcesGame">Type de la ressource</param>
+    /// <param name="quantity">Quantité à ajouter</param>
+    /// <returns>Si on peut ajouter la ressource</returns>
     protected virtual bool canAdd(ResourcesGame ResourcesGame, int quantity)
     {
         if (ResourcesGame.Quantity + quantity >= ResourcesGame.Minimum &&
@@ -53,6 +60,12 @@ public class ResourceManagerCore : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// vérification de la possibilité d'ajout d'une ressource grace à la fonction <see cref="canAdd"/>
+    /// </summary>
+    /// <param name="type">Type de la ressource</param>
+    /// <param name="quantity">Quantité à ajouter</param>
+    /// <returns>Si on peut ajouter la ressource</returns>
     public bool CanAdd(Type type, int quantity)
     {
         var resource = Get(type);

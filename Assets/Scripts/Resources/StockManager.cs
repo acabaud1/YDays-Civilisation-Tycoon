@@ -3,10 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class de gestion des stocks
+/// </summary>
 public class StockManager : ResourceManagerCore
 {
     private ResourceManager resourceManagerScript = ResourceManager.GetInstance();
 
+    /// <summary>
+    /// Création d'une liste de ressources 
+    /// </summary>
     public StockManager()
     {
         Resources = new List<ResourcesGame>();
@@ -31,6 +37,9 @@ public class StockManager : ResourceManagerCore
         }
     }
 
+    /// <summary>
+    /// Suppression de ce script pour ne plus le compter dans les stockages
+    /// </summary>
     private void OnDestroy()
     {
         resourceManagerScript.ResourceManagerCores.Remove(this);

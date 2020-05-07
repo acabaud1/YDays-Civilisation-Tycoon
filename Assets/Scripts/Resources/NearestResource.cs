@@ -7,8 +7,8 @@ namespace Assets.Scripts.Resources
     /// </summary>
     public class NearestResource
     {
-        public float Distance { get; set; }
+        public float Distance { get; set; } // Distance de la ressource
 
-        public TileModel Tile { get; set; }
+        public TileModel Tile { get; set; } // Définition ou récupération d'une tile.
     }
 }

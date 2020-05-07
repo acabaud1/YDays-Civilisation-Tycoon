@@ -1,8 +1,8 @@
 ﻿namespace Ressource
 {
     /// <summary>
- /// Enumeration des ressources.
- /// </summary>
+    /// Enumeration des ressources.
+    /// </summary>
     public enum ResourceEnum
     {
         None,

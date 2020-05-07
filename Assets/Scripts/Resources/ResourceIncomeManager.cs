@@ -9,6 +9,9 @@ using Map;
 using Ressource;
 using UnityEngine;
 
+/// <summary>
+/// Class pour gérer la récupération des ressources
+/// </summary>
 public class ResourceIncomeManager : MonoBehaviour
 {
     public float Radius;
@@ -40,6 +43,9 @@ public class ResourceIncomeManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Récupération des ressource les plus proche (dans le radius)
+    /// </summary>
     private TileModel SelectNearestRessource()
     {
         var tileArray = buildingManager.TileArray;
@@ -65,7 +71,10 @@ public class ResourceIncomeManager : MonoBehaviour
 
         return nearestResources.FirstOrDefault(w => w.Distance == nearestResources.Min(m => m.Distance))?.Tile;
     }
-    
+
+    /// <summary>
+    /// Ajout de ressources tant qu'il y a des ressources et destructions quand il n'y en a plus 
+    /// </summary>
     void AddResources()
     {
         var tile = SelectNearestRessource();
@@ -100,6 +109,10 @@ public class ResourceIncomeManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Affichage d'un texte flottant proche du récupérateur de ressources
+    /// </summary>
+    /// <param name="text"></param>
     void ShowFloatingText(string text)
     {
         if (FloatingTextPrefab)
