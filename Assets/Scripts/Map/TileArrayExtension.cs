@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Building;
 using Map;
 using UnityEngine;
 
@@ -173,14 +174,16 @@ public static class TileArrayExtension
     /// <param name="mousePosition">Position de la souris.</param>
     /// <param name="zone">Zone autour de la souris.</param>
     /// <param name="building">Batiment.</param>
+    /// <param name="buildingEnum">Typee du batiment.</param>
     public static void SetBuildingInZone(this TileModel[,] list, Vector3 mousePosition, Vector3 zone,
-        GameObject building)
+        GameObject building, BuildingEnum buildingEnum)
     {
         for (int i = (int) mousePosition.x; i < (int) mousePosition.x + (int) zone.x; i++)
         {
             for (int j = (int) mousePosition.z; j < (int) mousePosition.z + (int) zone.z; j++)
             {
                 list[i, j].Building = building;
+                list[i, j].BuildingEnum = buildingEnum;
             }
         }
     }

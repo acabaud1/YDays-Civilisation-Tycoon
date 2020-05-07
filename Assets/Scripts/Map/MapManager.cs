@@ -1,4 +1,6 @@
-﻿using Ressource;
+﻿using System.Linq;
+using Assets.Scripts.Building;
+using Ressource;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,7 +40,7 @@ namespace Map
         public GameObject water;
 
         private int landDoodadsProbability = 50;
-        public GameObject[] LandDoodads;
+        public DoodadProbability[] LandDoodads;
 
         /// <summary>
         ///     Récupère l'instance du map manager.
@@ -62,6 +64,8 @@ namespace Map
                 if (TileArray[x, y] == null)
                 {
                     TileArray[x, y] = new TileModel();
+                    TileArray[x, y].X = x;
+                    TileArray[x, y].Z = y;
                 }
 
                 if (pnValue > pnThreshold)
@@ -83,8 +87,22 @@ namespace Map
 
                     if (Random.Range(0, 100) >= landDoodadsProbability)
                     {
+                        int probabilitySum = LandDoodads.Sum(s => s.Probability);
+                        int selectedDoodadNumber = Random.Range(0, probabilitySum);
+                        GameObject selectedDoodad = null;
+                        int doodadNumber = 0;
+                        foreach (var doodadProbability in LandDoodads)
+                        {
+                            doodadNumber = doodadNumber + doodadProbability.Probability;
+                            if (doodadNumber >= selectedDoodadNumber)
+                            {
+                                selectedDoodad = doodadProbability.GameObject;
+                                break;
+                            }
+                        }
+
                         TileArray[x, y].Doodad = GameObject.Instantiate(
-                            LandDoodads[Random.Range(0, LandDoodads.Length)],
+                            selectedDoodad ?? LandDoodads.First().GameObject,
                             new Vector3(x, 1, y), Quaternion.identity, map);
                     }
                 }
@@ -101,15 +119,15 @@ namespace Map
             for (var n = 0; n < nbOfChunksPerRow; n++)
                 GenerateChunk(m % nbOfChunksPerRow, n % nbOfChunksPerRow);
 
-            GenerateRessources(tree, 0.3f, treeZoom, RessourceEnum.Wood);
-            GenerateRessources(ironOre, 0.1f, ironZoom, RessourceEnum.Iron);
-            GenerateRessources(rock, 0.1f, rockZoom, RessourceEnum.Stone);
+            GenerateResources(tree, 0.3f, treeZoom, ResourceEnum.Wood);
+            GenerateResources(ironOre, 0.1f, ironZoom, ResourceEnum.Iron);
+            GenerateResources(rock, 0.1f, rockZoom, ResourceEnum.Stone);
         }
 
         // 1+n itérations pour générer les différents éléments.
         // requiredPnValue = La valeur renvoyé par le calcul de Perlin à laquelle vous souhaitez placer vos éléments.
-        private void GenerateRessources(GameObject Doodads, float requiredPnValue, float zoom,
-            RessourceEnum ressourceEnum = RessourceEnum.None)
+        private void GenerateResources(GameObject Doodads, float requiredPnValue, float zoom,
+            ResourceEnum resourceEnum = ResourceEnum.None)
         {
             offsetX = Random.Range(0f, 999999f);
             offsetY = Random.Range(0f, 999999f);
@@ -125,7 +143,17 @@ namespace Map
                             TileArray[x, y].Resource = GameObject.Instantiate(Doodads, new Vector3(x, 1, y),
                                 Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0), map);
                             TileArray[x, y].Resource.AddComponent<NavMeshObstacle>().carving = true;
-                            TileArray[x, y].RessourceEnum = ressourceEnum;
+                            TileArray[x, y].ResourceEnum = resourceEnum;
+
+                            if (resourceEnum == ResourceEnum.Iron || resourceEnum == ResourceEnum.Stone)
+                            {
+                                TileArray[x, y].ResourceQuantity = 40;
+                            }
+
+                            if (resourceEnum == ResourceEnum.Wood)
+                            {
+                                TileArray[x, y].ResourceQuantity = 20;
+                            }
 
                             if (TileArray[x, y].Doodad != null)
                             {

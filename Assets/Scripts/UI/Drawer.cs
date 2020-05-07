@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UniRx;
 
 /// <summary>
@@ -65,5 +64,5 @@ public class Drawer : MonoBehaviour
             Obs.Value = true;
         }
     }
-
+    
 }

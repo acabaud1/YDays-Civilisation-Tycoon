@@ -49,6 +49,7 @@ MonoBehaviour:
     type: 3}
   GhostBuildingBlocked: {fileID: 476797562827213113, guid: 1eb20968eb3fe914a9402b6fe9715fc8,
     type: 3}
+  BuildingEnum: 3
 --- !u!1 &2586597509515157144
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,6 +99,7 @@ MonoBehaviour:
     type: 3}
   GhostBuildingBlocked: {fileID: 3278420068947036213, guid: fc67b3ede7d83a04e8e93a0f7979ab16,
     type: 3}
+  BuildingEnum: 2
 --- !u!1 &2586597509546977087
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +149,7 @@ MonoBehaviour:
     type: 3}
   GhostBuildingBlocked: {fileID: 1097879183406132006, guid: addb84e22b386cc479211d5c866955cc,
     type: 3}
+  BuildingEnum: 4
 --- !u!1 &2586597510648240164
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +199,7 @@ MonoBehaviour:
     type: 3}
   GhostBuildingBlocked: {fileID: 4075237436523829324, guid: 2df6706b3e4678241a0e57d8b0693105,
     type: 3}
+  BuildingEnum: 1
 --- !u!1 &2586597510932468352
 GameObject:
   m_ObjectHideFlags: 0
