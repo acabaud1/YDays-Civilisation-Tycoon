@@ -6,17 +6,11 @@ public class CharacterStats : MonoBehaviour
 {
     #region Fields
 
-    public float maxHp;
-    public float damage;
+    public float MaxHp;
+    public float Damage;
 
-    private float curHp;
+    private float _curHp;
 
-
-    #endregion
-
-    #region Properties
-
-    public float CurHp { get => curHp; set => curHp = value; }
 
     #endregion
 
@@ -24,7 +18,7 @@ public class CharacterStats : MonoBehaviour
 
     private void Start()
     {
-        this.CurHp = this.maxHp;
+        _curHp = MaxHp;
     }
 
     #endregion
@@ -32,18 +26,30 @@ public class CharacterStats : MonoBehaviour
 
     #region Public Methods
 
-    public void TakeDamage(float dmg)
+    /// <summary>
+    /// Le PNJ s'inflige les dégâts passés en paramètres
+    /// </summary>
+    /// <param name="dmg">Quantité de dégâts subits</param>
+    /// <returns></returns>
+    public bool TakeDamage(float dmg)
     {
-        this.CurHp -= dmg;
+        _curHp -= dmg;
         if (CheckIfDead())
         {
             Die();
+            return true;
         }
+        return false;
     }
 
-    public void Attack(CharacterStats target)
+    /// <summary>
+    /// Le PNJ attaque la cible passée en paramètre
+    /// </summary>
+    /// <param name="target">Cible attaquée</param>
+    /// <returns></returns>
+    public bool Attack(CharacterStats target)
     {
-        target.TakeDamage(this.damage);
+        return target.TakeDamage(this.Damage);
     }
 
     #endregion
@@ -52,7 +58,7 @@ public class CharacterStats : MonoBehaviour
 
     private bool CheckIfDead()
     {
-        if (this.CurHp <= 0)
+        if (_curHp <= 0)
         {
             return true;
         }

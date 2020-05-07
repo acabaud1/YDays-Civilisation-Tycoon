@@ -12,7 +12,7 @@ public class PNJ
     /// </summary>
     private void Create()
     {
-        _gAgent = GObject.AddComponent<NavMeshAgent>();
+        _gAgent = GObject.GetComponent<NavMeshAgent>();
     }
 
     /// <summary>
