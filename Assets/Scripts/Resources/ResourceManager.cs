@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using UniRx;
 
 public sealed class ResourceManager : ResourceManagerCore
 {
@@ -11,7 +9,10 @@ public sealed class ResourceManager : ResourceManagerCore
     private static readonly object Padlock = new object();
     public List<ResourceManagerCore> ResourceManagerCores { get; set; }
 
-
+    /// <summary>
+    /// Récupère l'instance du ressource manager.
+    /// </summary>
+    /// <returns>ResourceManager.</returns>
     public static ResourceManager GetInstance()
     {
         lock (Padlock)
@@ -26,6 +27,9 @@ public sealed class ResourceManager : ResourceManagerCore
         }
     }
 
+    /// <summary>
+    /// Initialise une nouvelle instance de la class <see cref="ResourceManager"/>
+    /// </summary>
     private ResourceManager()
     {
         ResourceManagerCores = new List<ResourceManagerCore>();
@@ -37,6 +41,11 @@ public sealed class ResourceManager : ResourceManagerCore
         Init(Resources);
     }
 
+    /// <summary>
+    /// Récupère la totalité des quantités.
+    /// </summary>
+    /// <param name="type">Type de la ressource.</param>
+    /// <returns>Quantite en stock.</returns>
     public int GetAllQuantity(Type type)
     {
         // Rafraichissement de l'UI pour contenir les maximums et le contenu actuel des ressources
@@ -96,7 +105,7 @@ public sealed class ResourceManager : ResourceManagerCore
         else if (resourceManagerCore.Get(type).Quantity + quantity < 0)
         {
             int remain = resourceManagerCore.Get(type).Quantity + quantity;
-            resourceManagerCore.Add(type, remain);
+            resourceManagerCore.Add(type, -resourceManagerCore.Get(type).Quantity);
             return remain;
         }
         else
@@ -118,89 +127,5 @@ public sealed class ResourceManager : ResourceManagerCore
         }
 
         return true;
-    }
-}
-
-public abstract class ResourcesGame
-{
-    public string Name { get; set; }
-    public int Quantity { get; set; }
-    public int Minimum { get; set; }
-    public int Maximum { get; set; }
-    public bool IsAccepted { get; set; }
-
-    public ReactiveProperty<int> Obs { get; }
-
-    public ResourcesGame(string name, int quantity, int minimum = 0, int maximum = 30, bool isAccepted = true)
-    {
-        Name = name;
-        Quantity = quantity;
-        Minimum = minimum;
-        Maximum = maximum;
-        IsAccepted = isAccepted;
-        Obs = new ReactiveProperty<int>(quantity);
-    }
-}
-
-public class ResourceManagerCore : MonoBehaviour
-{
-    private List<ResourcesGame> _resources;
-    public List<ResourcesGame> Resources;
-
-    /// <summary>
-    /// Instancie une nouvelle instance de la classe <see cref="ResourceManagerCore"/>
-    /// </summary>
-    public void Init(List<ResourcesGame> Resources)
-    {
-        _resources = Resources;
-    }
-
-    /// <summary>
-    /// Récupère un objet de type ResourcesGame
-    /// </summary>
-    /// <param name="type">Type de la ressource voulue</param>
-    /// <returns></returns>
-    public ResourcesGame Get(Type type) // Wood
-    {
-        return _resources.FirstOrDefault(w => w.GetType() == type);
-    }
-
-    /// <summary>
-    /// Ajoute une quantité à une ressource
-    /// </summary>
-    /// <param name="type">Type de la ressource</param>
-    /// <param name="quantity">Quantité à ajouter</param>
-    public void Add(Type type, int quantity)
-    {
-        var resource = Get(type);
-
-        if (resource != null && canAdd(resource, quantity))
-        {
-            resource.Quantity = resource.Quantity + quantity;
-            resource.Obs.Value = resource.Quantity;
-        }
-    }
-
-    protected virtual bool canAdd(ResourcesGame ResourcesGame, int quantity)
-    {
-        if (ResourcesGame.Quantity + quantity >= ResourcesGame.Minimum &&
-            ResourcesGame.Quantity + quantity <= ResourcesGame.Maximum && ResourcesGame.IsAccepted)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public bool CanAdd(Type type, int quantity)
-    {
-        var resource = Get(type);
-
-        if (resource != null && canAdd(resource, quantity))
-        {
-            return true;
-        }
-
-        return false;
     }
 }
