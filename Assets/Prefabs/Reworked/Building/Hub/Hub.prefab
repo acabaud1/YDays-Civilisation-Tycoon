@@ -87,6 +87,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 720084099591742459}
+  - component: {fileID: -6384843671716494378}
+  - component: {fileID: 4190789572856198899}
+  - component: {fileID: 6077782775114522392}
   m_Layer: 0
   m_Name: Hub
   m_TagString: Untagged
@@ -109,3 +112,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6384843671716494378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557587715288802409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e63fed850edbf4f9417050728f8d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!111 &4190789572856198899
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557587715288802409}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: a460b48165067b74bb53d92a068d22d3, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: a460b48165067b74bb53d92a068d22d3, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &6077782775114522392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557587715288802409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5365b12522452db408f9a49bc75b2436, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animation: BuildingPop2

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Building;
+using UnityEngine;
 
 /// <summary>
 ///     Modèles d'un batiment .
@@ -19,4 +20,9 @@ public class Building : MonoBehaviour
     ///     Obtient ou définit le fantome du batiment.
     /// </summary>
     public GameObject GhostBuildingBlocked;
+
+    /// <summary>
+    ///     Obtient ou définit le batiment cible.
+    /// </summary>
+    public BuildingEnum BuildingEnum;
 }

@@ -15,6 +15,8 @@ public class DisplayResources : MonoBehaviour
     public RessourceEnum ResourceType;
     private Type _resourceType;
 
+    private List<ResourceManagerCore> subscribedManagers = new List<ResourceManagerCore>();
+
     void Start()
     {
         try
@@ -32,6 +34,8 @@ public class DisplayResources : MonoBehaviour
                 resourceManagerCore.Get(_resourceType).Obs.AsObservable().Subscribe(resourceQuantity => {
                     updateTextMeshValue();
                 });
+
+                subscribedManagers.Add(resourceManagerCore);
             }
         }
         catch (NullReferenceException e)
@@ -40,8 +44,21 @@ public class DisplayResources : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        foreach (var resourceManagerCore in _resourceManager.ResourceManagerCores)
+        {
+            if (!subscribedManagers.Contains(resourceManagerCore))
+            {
+                resourceManagerCore.Get(_resourceType).Obs.AsObservable().Subscribe(resourceQuantity => {
+                    updateTextMeshValue();
+                });
+            }
+        }
+    }
+
     private void updateTextMeshValue()
     {
-        TextMeshProText.SetText($"{_resourceManager.GetAllQuantity(_resourceType)}/{_resourceManager.GetAllStock(_resourceType)}");
+        TextMeshProText.SetText($"{_resourceManager.GetAllQuantity(_resourceType)}/{ _resourceManager.GetAllStock(_resourceType)}");
     }
 }

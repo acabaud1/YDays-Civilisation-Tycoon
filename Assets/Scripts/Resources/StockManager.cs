@@ -5,8 +5,16 @@ using UnityEngine;
 
 public class StockManager : ResourceManagerCore
 {
-    public int quantity;
     private ResourceManager resourceManagerScript = ResourceManager.GetInstance();
+
+    public StockManager()
+    {
+        Resources = new List<ResourcesGame>();
+        Resources.Add(new Iron(0, maximum: 100));
+        Resources.Add(new Wood(0, maximum: 100));
+        Resources.Add(new Stone(0, maximum: 100));
+        Init(Resources);
+    }
 
     // Start is called before the first frame update
     void Start()

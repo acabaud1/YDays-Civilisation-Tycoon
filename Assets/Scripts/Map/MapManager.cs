@@ -1,4 +1,5 @@
-﻿using Ressource;
+﻿using System.Linq;
+using Ressource;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,7 +39,7 @@ namespace Map
         public GameObject water;
 
         private int landDoodadsProbability = 50;
-        public GameObject[] LandDoodads;
+        public DoodadProbability[] LandDoodads;
 
         /// <summary>
         ///     Récupère l'instance du map manager.
@@ -62,6 +63,8 @@ namespace Map
                 if (TileArray[x, y] == null)
                 {
                     TileArray[x, y] = new TileModel();
+                    TileArray[x, y].X = x;
+                    TileArray[x, y].Z = y;
                 }
 
                 if (pnValue > pnThreshold)
@@ -83,8 +86,22 @@ namespace Map
 
                     if (Random.Range(0, 100) >= landDoodadsProbability)
                     {
+                        int probabilitySum = LandDoodads.Sum(s => s.Probability);
+                        int selectedDoodadNumber = Random.Range(0, probabilitySum);
+                        GameObject selectedDoodad = null;
+                        int doodadNumber = 0;
+                        foreach (var doodadProbability in LandDoodads)
+                        {
+                            doodadNumber = doodadNumber + doodadProbability.Probability;
+                            if (doodadNumber >= selectedDoodadNumber)
+                            {
+                                selectedDoodad = doodadProbability.GameObject;
+                                break;
+                            }
+                        }
+
                         TileArray[x, y].Doodad = GameObject.Instantiate(
-                            LandDoodads[Random.Range(0, LandDoodads.Length)],
+                            selectedDoodad ?? LandDoodads.First().GameObject,
                             new Vector3(x, 1, y), Quaternion.identity, map);
                     }
                 }
@@ -126,6 +143,16 @@ namespace Map
                                 Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0), map);
                             TileArray[x, y].Resource.AddComponent<NavMeshObstacle>().carving = true;
                             TileArray[x, y].RessourceEnum = ressourceEnum;
+
+                            if (ressourceEnum == RessourceEnum.Iron || ressourceEnum == RessourceEnum.Stone)
+                            {
+                                TileArray[x, y].ResourceQuantity = 40;
+                            }
+
+                            if (ressourceEnum == RessourceEnum.Wood)
+                            {
+                                TileArray[x, y].ResourceQuantity = 20;
+                            }
 
                             if (TileArray[x, y].Doodad != null)
                             {

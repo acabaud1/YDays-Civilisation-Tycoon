@@ -10,7 +10,6 @@ public class ClickableSingleton
 
     private ClickableSingleton()    
     {
-
     }
 
     public static ClickableSingleton GetInstance()
