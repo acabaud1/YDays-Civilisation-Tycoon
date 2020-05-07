@@ -53,8 +53,8 @@ public class GlobalManager : MonoBehaviour
         _pnjManager.robots = Robots;
         _pnjManager.humans = Humans;
 
-        var human = _pnjManager.CreateHuman(new Vector3(1, 1, 1));
-        var ennemy = _pnjManager.CreateHuman(new Vector3(1, 1, 3));
+        //var human = _pnjManager.CreateHuman(new Vector3(1, 1, 1));
+        //var ennemy = _pnjManager.CreateHuman(new Vector3(1, 1, 3));
 
         _buildingManager.PnjManager = _pnjManager;
         if (SceneManager.sceneCount < 2) SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);

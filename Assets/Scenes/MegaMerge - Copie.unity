@@ -541,16 +541,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7baca764d0548414ba4616781e7eae98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  hub: {fileID: 1359349553}
-  rock: {fileID: 6293051901225168551, guid: 5787c936df1f82e46bd9bb55df46499b, type: 3}
-  sand: {fileID: 5056111968920637446, guid: 6c350349d7b04ce49b8fcf9fd60d7f8e, type: 3}
-  tree: {fileID: 2566471781373961457, guid: 8233ee9c5caf45b4b95c443090621712, type: 3}
-  water: {fileID: 2947343326392313654, guid: 92e156c646235f84ea914da64eb75bb2, type: 3}
-  land: {fileID: 4218895845373506685, guid: f964f11a008a95a4b8f41d54f310033b, type: 3}
-  ironOre: {fileID: 8723714644802654550, guid: 1d1f5ba88e92d8f43b0ffbbde393cf17, type: 3}
+  Animals:
+  - {fileID: 8842131497472058431, guid: 08652c64c708246a3b6c260a0a65d810, type: 3}
+  - {fileID: 1186975914126428259, guid: 7dbf0244c31724a8fbd6d7a8ee62f3d7, type: 3}
+  Hub: {fileID: 1359349553}
+  Humans:
+  - {fileID: 1669556266221786066, guid: 32f41a1ad11e51f478bcee413b0f68e8, type: 3}
+  IronOre: {fileID: 8723714644802654550, guid: 1d1f5ba88e92d8f43b0ffbbde393cf17, type: 3}
+  Land: {fileID: 4218895845373506685, guid: f964f11a008a95a4b8f41d54f310033b, type: 3}
   LandDoodads:
   - {fileID: 5764026247928695582, guid: 380c522545dfa514d8bf3d5036ae6c86, type: 3}
   - {fileID: 2842110325370687540, guid: c4f0e7b38070e77449ed27464747956f, type: 3}
@@ -562,13 +560,15 @@ MonoBehaviour:
   - {fileID: 8814465468251380601, guid: 41aca8088ae6f4e4fa94c688a8929cdb, type: 3}
   - {fileID: 8315170610503939119, guid: a3fc267678f828a4d975fdb7565bf0c5, type: 3}
   - {fileID: 1606043400708753374, guid: 0abf83be42f3a454f839760ddf2c5b12, type: 3}
-  animals:
-  - {fileID: 1186975914126428259, guid: 7dbf0244c31724a8fbd6d7a8ee62f3d7, type: 3}
-  - {fileID: 8842131497472058431, guid: 08652c64c708246a3b6c260a0a65d810, type: 3}
-  robots:
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  Robots:
   - {fileID: 6271912681303977189, guid: 26af2ccdd68f64626a5462f3191730af, type: 3}
-  humans:
-  - {fileID: 1669556266221786066, guid: 32f41a1ad11e51f478bcee413b0f68e8, type: 3}
+  Rock: {fileID: 6293051901225168551, guid: 5787c936df1f82e46bd9bb55df46499b, type: 3}
+  Sand: {fileID: 5056111968920637446, guid: 6c350349d7b04ce49b8fcf9fd60d7f8e, type: 3}
+  Tree: {fileID: 2566471781373961457, guid: 8233ee9c5caf45b4b95c443090621712, type: 3}
+  Water: {fileID: 2947343326392313654, guid: 92e156c646235f84ea914da64eb75bb2, type: 3}
 --- !u!4 &970724152
 Transform:
   m_ObjectHideFlags: 0

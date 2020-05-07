@@ -52,7 +52,7 @@ MonoBehaviour:
   WaitingTime: 1
   ResourceInterval: 1
   NbByResources: 10
-  RessourceEnums: 0100000002000000
+  ResourceEnums: 0100000002000000
   FloatingTextPrefab: {fileID: 0}
 --- !u!114 &4567072518201608317
 MonoBehaviour:
