@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Abstract Class
+/// It define the default behavior of a interactable gameObject.
+/// </summary>
 public abstract class ClickAction : MonoBehaviour
 {
     protected Drawer drawer;
@@ -14,12 +18,9 @@ public abstract class ClickAction : MonoBehaviour
         drawer = drawerGameObject.GetComponent<Drawer>();
     }
 
-
-
     public virtual void HandleClick()
     {
         drawer.OnOpen();
-        // bottomButtons.SetActive(false);
     }
 
 }

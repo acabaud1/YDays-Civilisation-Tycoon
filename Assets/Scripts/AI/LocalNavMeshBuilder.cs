@@ -4,14 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using NavMeshBuilder = UnityEngine.AI.NavMeshBuilder;
 
-// Build and update a localized navmesh from the sources marked by NavMeshSourceTag
 [DefaultExecutionOrder(-102)]
 public class LocalNavMeshBuilder : MonoBehaviour
 {
-    // The center of the build
     public Transform m_Tracked;
-
-    // The size of the build bounds
     public Vector3 m_Size = new Vector3(80.0f, 20.0f, 80.0f);
 
     NavMeshData m_NavMesh;
@@ -19,6 +15,9 @@ public class LocalNavMeshBuilder : MonoBehaviour
     NavMeshDataInstance m_Instance;
     List<NavMeshBuildSource> m_Sources = new List<NavMeshBuildSource>();
 
+    /// <summary>
+    ///     Appel de la mise à jour des chemins en continu
+    /// </summary>
     IEnumerator Start()
     {
         while (true)
@@ -28,9 +27,11 @@ public class LocalNavMeshBuilder : MonoBehaviour
         }
     }
 
+    /// <summary>
+    ///     Construction et ajout des chemins
+    /// </summary>
     void OnEnable()
     {
-        // Construct and add navmesh
         m_NavMesh = new NavMeshData();
         m_Instance = NavMesh.AddNavMeshData(m_NavMesh);
         if (m_Tracked == null)
@@ -38,12 +39,18 @@ public class LocalNavMeshBuilder : MonoBehaviour
         UpdateNavMesh(false);
     }
 
+    /// <summary>
+    ///     Désactivation des chemins
+    /// </summary>
     void OnDisable()
     {
-        // Unload navmesh and clear handle
         m_Instance.Remove();
     }
 
+    /// <summary>
+    ///     Mise à jour des chemins
+    /// </summary>
+    /// <param name="asyncUpdate">Mise à jour asynchrone</param>
     void UpdateNavMesh(bool asyncUpdate = false)
     {
         NavMeshSourceTag.Collect(ref m_Sources);
@@ -56,6 +63,9 @@ public class LocalNavMeshBuilder : MonoBehaviour
             NavMeshBuilder.UpdateNavMeshData(m_NavMesh, defaultBuildSettings, m_Sources, bounds);
     }
 
+    /// <summary>
+    ///     Calcul de la position des chemins
+    /// </summary>
     static Vector3 Quantize(Vector3 v, Vector3 quant)
     {
         float x = quant.x * Mathf.Floor(v.x / quant.x);
@@ -64,13 +74,18 @@ public class LocalNavMeshBuilder : MonoBehaviour
         return new Vector3(x, y, z);
     }
 
+    /// <summary>
+    ///     Calcul des limites des chemins
+    /// </summary>
     Bounds QuantizedBounds()
     {
-        // Quantize the bounds to update only when theres a 10% change in size
         var center = m_Tracked ? m_Tracked.position : transform.position;
         return new Bounds(Quantize(center, 0.1f * m_Size), m_Size);
     }
 
+    /// <summary>
+    ///     Affichage du chemin en couleurs
+    /// </summary>
     void OnDrawGizmosSelected()
     {
         if (m_NavMesh)
