@@ -22,7 +22,7 @@ namespace Map
         /// <summary>
         /// Type de ressource.
         /// </summary>
-        public RessourceEnum RessourceEnum { get; set; }
+        public ResourceEnum ResourceEnum { get; set; }
         
         /// <summary>
         /// Resource présente au dessus de la tile

@@ -1,38 +1,50 @@
 ﻿using UnityEngine;
 
-public class BuildingBehavior : MonoBehaviour
+namespace Assets.Scripts.Building
 {
-    public Material DefaultMaterial;
-    public Material ErrorMaterial;
-
-    private bool isInError = false;
-    private MeshRenderer meshRenderer;
-
-
-    public bool IsInError()
-    {
-        return isInError;
-    }
-
-    public void ToggleMaterial()
-    {
-        if (isInError)
-        {
-            meshRenderer.material = ErrorMaterial;
-        }
-        else
-        {
-            meshRenderer.material = DefaultMaterial;
-        }
-
-        isInError = !isInError;
-    }
-
     /// <summary>
-    /// 
+    /// Définit le comportement d'un batiment.
     /// </summary>
-    void Start()
+    public class BuildingBehavior : MonoBehaviour
     {
-        meshRenderer = GetComponent<MeshRenderer>();
+        public Material DefaultMaterial;
+        public Material ErrorMaterial;
+
+        private bool _isInError = false;
+        private MeshRenderer _meshRenderer;
+
+        /// <summary>
+        /// Obtient si le batiment est en mode erreur.
+        /// </summary>
+        /// <returns>Si le batiment est en mode erreur.</returns>
+        public bool IsInError()
+        {
+            return _isInError;
+        }
+
+        /// <summary>
+        /// Change l'etat du batiement pour le mettre en erreur.
+        /// </summary>
+        public void ToggleMaterial()
+        {
+            if (_isInError)
+            {
+                _meshRenderer.material = ErrorMaterial;
+            }
+            else
+            {
+                _meshRenderer.material = DefaultMaterial;
+            }
+
+            _isInError = !_isInError;
+        }
+
+        /// <summary>
+        /// Fonction executé a l'instanciation du GameObject.
+        /// </summary>
+        void Start()
+        {
+            _meshRenderer = GetComponent<MeshRenderer>();
+        }
     }
 }

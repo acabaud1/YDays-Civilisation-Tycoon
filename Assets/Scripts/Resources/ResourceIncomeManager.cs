@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Building;
 using Assets.Scripts.Resources;
 using JetBrains.Annotations;
 using Map;
@@ -13,7 +14,7 @@ public class ResourceIncomeManager : MonoBehaviour
     public float WaitingTime;
     public float ResourceInterval;
     public int NbByResources;
-    public RessourceEnum[] RessourceEnums;
+    public ResourceEnum[] ResourceEnums;
     public GameObject FloatingTextPrefab;
 
     private ResourceManager resourceManagerScript;
@@ -46,7 +47,7 @@ public class ResourceIncomeManager : MonoBehaviour
         {
             for (int j = 0; j < tileArray.GetLength(1); j++)
             {
-                if (tileArray[i, j].Resource && RessourceEnums.Contains(tileArray[i, j].RessourceEnum))
+                if (tileArray[i, j].Resource && ResourceEnums.Contains(tileArray[i, j].ResourceEnum))
                 {
                     var distance = Vector3.Distance(tileArray[i, j].Resource.transform.position, transform.position);
                     if (distance < Radius)
@@ -67,7 +68,7 @@ public class ResourceIncomeManager : MonoBehaviour
     void AddResources()
     {
         var tile = SelectNearestRessource();
-        if (tile != null && resourceManagerScript.CanAddAndDistribute(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(tile.RessourceEnum), NbByResources))
+        if (tile != null && resourceManagerScript.CanAddAndDistribute(ResourceHelper.GetResourceGameTypeFromRessourceEnum(tile.ResourceEnum), NbByResources))
         {
             int quantity = 0;
             if (tile.ResourceQuantity - NbByResources > 0)
@@ -79,11 +80,11 @@ public class ResourceIncomeManager : MonoBehaviour
                 quantity = tile.ResourceQuantity;
             }
             tile.ResourceQuantity = tile.ResourceQuantity - quantity;
-            resourceManagerScript.AddAndDistribute(RessourceHelper.GetRessourceGameTypeFromRessourceEnum(tile.RessourceEnum), NbByResources);
+            resourceManagerScript.AddAndDistribute(ResourceHelper.GetResourceGameTypeFromRessourceEnum(tile.ResourceEnum), NbByResources);
 
             if (tile.ResourceQuantity == 0)
             {
-                tile.RessourceEnum = RessourceEnum.None;
+                tile.ResourceEnum = ResourceEnum.None;
                 var animationComponent = tile.Resource.GetComponent<BuildingPopAnimation>();
                 if (animationComponent)
                 {

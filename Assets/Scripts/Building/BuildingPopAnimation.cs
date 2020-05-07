@@ -1,44 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BuildingPopAnimation : MonoBehaviour
+namespace Assets.Scripts.Building
 {
-    private Animation animation;
-    public string Animation = "BuildingPop1";
-    private string LastPlayedAnimation;
-    private bool isAnimationPlaying = false;
-
-    // Start is called before the first frame update
-    void Start()
+    public class BuildingPopAnimation : MonoBehaviour
     {
-        animation = GetComponent<Animation>();
-        PlayAnimation(Animation);
-        if (isAnimationPlaying && !animation.isPlaying)
+        private Animation _animation;
+        public string Animation = "BuildingPop1";
+        private string _lastPlayedAnimation;
+        private bool _isAnimationPlaying = false;
+
+        /// <summary>
+        /// Méthode appeler à l'instanciation du GameObject.
+        /// </summary>
+        void Start()
         {
-            OnAnimationEnd();
+            _animation = GetComponent<Animation>();
+            PlayAnimation(Animation);
+            if (_isAnimationPlaying && !_animation.isPlaying)
+            {
+                OnAnimationEnd();
+            }
         }
-    }
 
-    public void PlayAnimation(string animationName)
-    {
-        animation.Play(animationName);
-        LastPlayedAnimation = animationName;
-        isAnimationPlaying = true;
-    }
-
-    private void OnAnimationEnd()
-    {
-        if (LastPlayedAnimation == "BuildingDepop1" || LastPlayedAnimation == "BuildingDepop2")
+        /// <summary>
+        /// Joue une animation en fonction de son nom.
+        /// </summary>
+        /// <param name="animationName">Nom de l'animation.</param>
+        public void PlayAnimation(string animationName)
         {
-            Destroy(gameObject);
-            isAnimationPlaying = false;
+            _animation.Play(animationName);
+            _lastPlayedAnimation = animationName;
+            _isAnimationPlaying = true;
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        /// <summary>
+        /// Callback de l'animation.
+        /// </summary>
+        private void OnAnimationEnd()
+        {
+            if (_lastPlayedAnimation == "BuildingDepop1" || _lastPlayedAnimation == "BuildingDepop2")
+            {
+                Destroy(gameObject);
+                _isAnimationPlaying = false;
+            }
+        }
     }
 }

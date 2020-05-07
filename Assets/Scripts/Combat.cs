@@ -18,14 +18,13 @@ public class Combat : MonoBehaviour
     private SphereCollider sphCollider;
     public float detectionRange;
 
-    private GameObject target;
-    private Combat targetCombat;
-    private Transform targetTransform;
-    private bool isAttacked = false;
-    private bool isAttacking = false;
+    public GameObject target;
+    public Combat targetCombat;
+    public Transform targetTransform;
+    public bool isAttacked = false;
+    public bool isAttacking = false;
 
     private CharacterStats chStats;
-    private PNJ pnjScript;
 
 
     // Start is called before the first frame update
@@ -38,7 +37,6 @@ public class Combat : MonoBehaviour
         sphCollider.isTrigger = true;
 
         chStats = this.GetComponent<CharacterStats>();
-        attackCooldown = attackSpeed;
     }
 
     // Update is called once per frame
@@ -55,6 +53,7 @@ public class Combat : MonoBehaviour
                         //attack
                         chStats.Attack(target.GetComponent<CharacterStats>());
                         attackCooldown = attackSpeed;
+
                         var anim = this.gameObject.GetComponent<Animation>();
                         anim.Play("Coup");
                     }
@@ -65,7 +64,7 @@ public class Combat : MonoBehaviour
                 }
                 else
                 {
-                    
+
                     //move to target
                     var position = targetTransform.position;
 
@@ -75,7 +74,6 @@ public class Combat : MonoBehaviour
                     var str = Mathf.Min(strength * Time.deltaTime, 1);
                     this.transform.rotation = Quaternion.Lerp(this.transform.rotation, targetRotation, str);*/
                     this.gameObject.GetComponent<NavMeshAgent>().SetDestination(new Vector3(position.x - 1, position.y, position.z));
-                    pnjScript.Move(targetTransform.position);
                 }
             }
         }
@@ -84,7 +82,6 @@ public class Combat : MonoBehaviour
             if (isAttacked)
             {
                 //run away from target
-                pnjScript.Move(-targetTransform.position);
                 var position = targetTransform.position;
 
                 this.gameObject.GetComponent<NavMeshAgent>().SetDestination(new Vector3(position.x - 5, position.y, position.z - 5));
@@ -107,7 +104,7 @@ public class Combat : MonoBehaviour
         if (other.GetComponent<Combat>() != null)
         {
             target = other.gameObject;
-            //sphCollider.isTrigger = false;
+
             if (target.GetComponent<Combat>() != null && !target.Equals(gameObject))
             {
                 targetCombat = target.GetComponent<Combat>();

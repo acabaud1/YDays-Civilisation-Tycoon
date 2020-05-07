@@ -12,7 +12,7 @@ public class DisplayResources : MonoBehaviour
 {
     private ResourceManager _resourceManager;
     public TextMeshProUGUI TextMeshProText;
-    public RessourceEnum ResourceType;
+    public ResourceEnum ResourceType;
     private Type _resourceType;
 
     private List<ResourceManagerCore> subscribedManagers = new List<ResourceManagerCore>();
@@ -23,7 +23,7 @@ public class DisplayResources : MonoBehaviour
         {
             _resourceManager = ResourceManager.GetInstance();
             // Si ResourceType ne décrit pas un type valide, C# renvoi une exception.
-            _resourceType = RessourceHelper.GetRessourceGameTypeFromRessourceEnum(ResourceType);
+            _resourceType = ResourceHelper.GetResourceGameTypeFromRessourceEnum(ResourceType);
             var resource = _resourceManager.Get(_resourceType);
             var observable = resource.Obs.AsObservable();
             observable.Subscribe(resourceQuantity => {

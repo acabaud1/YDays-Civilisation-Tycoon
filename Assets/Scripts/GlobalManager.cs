@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Building;
 using Map;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -38,7 +39,7 @@ public class GlobalManager : MonoBehaviour
         buildingManager = BuildingManager.GetInstance();
         clickableSingleton = ClickableSingleton.GetInstance();
 
-        buildingManager.layerMask = layerMask;
+        buildingManager.LayerMask = layerMask;
         buildingManager.TileArray = TileArray;
         buildingManager.ResourceManager = resourceManager;
 
@@ -50,7 +51,7 @@ public class GlobalManager : MonoBehaviour
         var human = pnjManager.CreateHuman(new Vector3(1, 1, 1));
         var ennemy = pnjManager.CreateHuman(new Vector3(1, 1, 3));
 
-        buildingManager.pnjManager = pnjManager;
+        buildingManager.PnjManager = pnjManager;
         if (SceneManager.sceneCount < 2)
         {
             SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);

@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// The specific behavior of StonMine when you clicked on it.
+/// </summary>
 public class ClickActionStone : ClickAction
 {
 
