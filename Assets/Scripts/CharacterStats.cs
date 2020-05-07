@@ -11,13 +11,20 @@ public class CharacterStats : MonoBehaviour
 
     private float curHp;
 
+
+    #endregion
+
+    #region Properties
+
+    public float CurHp { get => curHp; set => curHp = value; }
+
     #endregion
 
     #region Unity methods
 
     private void Start()
     {
-        this.curHp = this.maxHp;
+        this.CurHp = this.maxHp;
     }
 
     #endregion
@@ -27,7 +34,7 @@ public class CharacterStats : MonoBehaviour
 
     public void TakeDamage(float dmg)
     {
-        this.curHp -= dmg;
+        this.CurHp -= dmg;
         if (CheckIfDead())
         {
             Die();
@@ -45,7 +52,7 @@ public class CharacterStats : MonoBehaviour
 
     private bool CheckIfDead()
     {
-        if (this.curHp <= 0)
+        if (this.CurHp <= 0)
         {
             return true;
         }

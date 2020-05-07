@@ -104,8 +104,9 @@ GameObject:
   - component: {fileID: 2409475609298969025}
   - component: {fileID: 5762969857728384187}
   - component: {fileID: 3559874696542140272}
+  - component: {fileID: 3439610818062749439}
   - component: {fileID: -5894522730619335498}
-  - component: {fileID: 8813168765454185240}
+  - component: {fileID: -4897950919170402092}
   m_Layer: 0
   m_Name: Homme_Anim_Coup
   m_TagString: Untagged
@@ -164,13 +165,26 @@ MonoBehaviour:
   Faction: 1
   attackRange: 2.5
   attackSpeed: 2
-  attackCooldown: 2
   detectionRange: 5
   target: {fileID: 0}
   targetCombat: {fileID: 0}
   targetTransform: {fileID: 0}
   isAttacked: 0
   isAttacking: 0
+--- !u!114 &3439610818062749439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669556266221786066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc565a40e2e747a4a89b8eacb2c1c061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 100
+  damage: 10
 --- !u!111 &-5894522730619335498
 Animation:
   m_ObjectHideFlags: 0
@@ -188,7 +202,7 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!54 &8813168765454185240
+--- !u!54 &-4897950919170402092
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
