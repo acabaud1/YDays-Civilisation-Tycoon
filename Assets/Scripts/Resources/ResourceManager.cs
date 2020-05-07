@@ -1,28 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using UniRx;
-using Ressource;
-using Assets.Scripts.Resources;
 
-public class ResourceManager : ResourceManagerCore
+public sealed class ResourceManager : ResourceManagerCore
 {
-    private static ResourceManager _instance;
+    private static ResourceManager _instance = null;
+    private static bool isInstanciate = false;
+    private static readonly object Padlock = new object();
     public List<ResourceManagerCore> ResourceManagerCores { get; set; }
 
-
+    /// <summary>
+    /// Récupère l'instance du ressource manager.
+    /// </summary>
+    /// <returns>ResourceManager.</returns>
     public static ResourceManager GetInstance()
     {
-        if (_instance == null)
+        lock (Padlock)
         {
-            _instance = new ResourceManager();
-        }
+            if (!isInstanciate)
+            {
+                _instance = new ResourceManager();
+                isInstanciate = true;
+            }
 
-        return _instance;
+            return _instance;
+        }
     }
 
-    private ResourceManager() : base()
+    /// <summary>
+    /// Initialise une nouvelle instance de la class <see cref="ResourceManager"/>
+    /// </summary>
+    private ResourceManager()
     {
         ResourceManagerCores = new List<ResourceManagerCore>();
 
@@ -33,14 +41,25 @@ public class ResourceManager : ResourceManagerCore
         Init(Resources);
     }
 
+    /// <summary>
+    /// Récupère la totalité des quantités.
+    /// </summary>
+    /// <param name="type">Type de la ressource.</param>
+    /// <returns>Quantite en stock.</returns>
     public int GetAllQuantity(Type type)
     {
         // Rafraichissement de l'UI pour contenir les maximums et le contenu actuel des ressources
 
         // ex : Iron 60 / 100
+        int sum = 0;
+        foreach (var resourceManagerCore in ResourceManagerCores)
+        {
+            var test = resourceManagerCore.Get(type).Quantity;
+            sum = sum + resourceManagerCore.Get(type).Quantity;
+        }
 
-
-        return Get(type).Quantity + ResourceManagerCores.Sum(rmc => rmc.Get(type).Quantity);
+        var quantity = ResourceManagerCores.Sum(rmc => rmc.Get(type).Quantity);
+        return Get(type).Quantity + quantity;
     }
 
     public int GetAllStock(Type type)
@@ -55,19 +74,18 @@ public class ResourceManager : ResourceManagerCore
     public void AddAndDistribute(Type type, int quantity)
     {
         // en fonction du type et de la quantité => distribution de la ressources dans les entrepos
-
         // Calcul de la place :
 
         int remain = quantity;
 
-        remain = addPossible(this, type, remain);
+        remain = AddIfPossible(this, type, remain);
 
-        if (remain > 0)
+        if (remain != 0)
         {
             foreach (var rmc in ResourceManagerCores)
             {
-                remain = addPossible(rmc, type, remain);
-                if (remain > 0)
+                remain = AddIfPossible(rmc, type, remain);
+                if (remain == 0)
                 {
                     break;
                 }
@@ -75,13 +93,19 @@ public class ResourceManager : ResourceManagerCore
         }
     }
 
-    private int addPossible(ResourceManagerCore resourceManagerCore, Type type, int quantity)
+    private int AddIfPossible(ResourceManagerCore resourceManagerCore, Type type, int quantity)
     {
-        if (resourceManagerCore.Get(type).Quantity + quantity > resourceManagerCore.Get(type).Maximum)
+        if (resourceManagerCore.Get(type).Quantity + quantity > resourceManagerCore.Get(type).Maximum && quantity > 0)
         {
             int remain = Math.Abs(resourceManagerCore.Get(type).Maximum - resourceManagerCore.Get(type).Quantity -
                                   quantity);
             resourceManagerCore.Add(type, quantity - remain);
+            return remain;
+        }
+        else if (resourceManagerCore.Get(type).Quantity + quantity < 0)
+        {
+            int remain = resourceManagerCore.Get(type).Quantity + quantity;
+            resourceManagerCore.Add(type, -resourceManagerCore.Get(type).Quantity);
             return remain;
         }
         else
@@ -97,97 +121,11 @@ public class ResourceManager : ResourceManagerCore
         int quantityStockMaximum = Get(type).Maximum + ResourceManagerCores.Sum(rmc => rmc.Get(type).Maximum);
 
         // Vérification s'il y a de la place et distribution dans les stocks
-        if (quantityStock + quantity > quantityStockMaximum)
+        if (quantityStock + quantity > quantityStockMaximum || quantityStock + quantity < 0)
         {
             return false;
         }
 
         return true;
-        // TODO: sinon affichage d'un message
-    }
-
-    private List<ResourcesGame> Resources;
-}
-
-public abstract class ResourcesGame
-{
-    public string Name { get; set; }
-    public int Quantity { get; set; }
-    public int Minimum { get; set; }
-    public int Maximum { get; set; }
-    public bool IsAccepted { get; set; }
-
-    public ReactiveProperty<int> Obs { get; }
-
-    public ResourcesGame(string name, int quantity, int minimum = 0, int maximum = 30, bool isAccepted = true)
-    {
-        Name = name;
-        Quantity = quantity;
-        Minimum = minimum;
-        Maximum = maximum;
-        IsAccepted = isAccepted;
-        Obs = new ReactiveProperty<int>(quantity);
-    }
-}
-
-public class ResourceManagerCore : MonoBehaviour
-{
-    private List<ResourcesGame> _resources;
-
-    /// <summary>
-    /// Instancie une nouvelle instance de la classe <see cref="ResourceManagerCore"/>
-    /// </summary>
-    public void Init(List<ResourcesGame> Resources)
-    {
-        _resources = Resources;
-    }
-
-    /// <summary>
-    /// Récupère un objet de type ResourcesGame
-    /// </summary>
-    /// <param name="type">Type de la ressource voulue</param>
-    /// <returns></returns>
-    public ResourcesGame Get(Type type) // Wood
-    {
-        return _resources.FirstOrDefault(w => w.GetType() == type);
-    }
-
-    /// <summary>
-    /// Ajoute une quantité à une ressource
-    /// </summary>
-    /// <param name="type">Type de la ressource</param>
-    /// <param name="quantity">Quantité à ajouter</param>
-    public void Add(Type type, int quantity)
-    {
-        var resource = Get(type);
-
-        if (resource != null && canAdd(resource, quantity))
-        {
-            resource.Quantity += quantity;
-            resource.Obs.Value = resource.Quantity;
-        }
-    }
-
-    protected virtual bool canAdd(ResourcesGame ResourcesGame, int quantity)
-    {
-        if (ResourcesGame.Quantity + quantity > ResourcesGame.Minimum &&
-            ResourcesGame.Quantity + quantity < ResourcesGame.Maximum && ResourcesGame.IsAccepted)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public bool CanAdd(Type type, int quantity)
-    {
-        var resource = Get(type);
-
-        if (resource != null && canAdd(resource, quantity))
-        {
-            return true;
-        }
-
-        return false;
     }
 }

@@ -9,12 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4075237436523829325}
-  - component: {fileID: -6997157615705391632}
   - component: {fileID: -6195900742967077569}
   - component: {fileID: 5225587523353317536}
   - component: {fileID: 1553681480433023702}
   m_Layer: 0
-  m_Name: LumberJackCampParent
+  m_Name: LumberJackGhostBlocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,24 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6997157615705391632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4075237436523829324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f60a16cfa10eab64e9d7a7a86c5f944c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Radius: 5
-  WaitingTime: 1
-  ResourceInterval: 1
-  NbByResources: 1
-  RessourceEnum: 3
-  FloatingTextPrefab: {fileID: 0}
 --- !u!82 &-6195900742967077569
 AudioSource:
   m_ObjectHideFlags: 0
@@ -181,11 +162,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4075237436523829325}
     m_Modifications:
-    - target: {fileID: 912689391078628770, guid: b0c8f365145f320428f6a07a2d8322ab,
-        type: 3}
-      propertyPath: m_Name
-      value: LumberJackCamp
-      objectReference: {fileID: 0}
     - target: {fileID: 4247422156445888433, guid: b0c8f365145f320428f6a07a2d8322ab,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -241,6 +217,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 912689391078628770, guid: b0c8f365145f320428f6a07a2d8322ab,
+        type: 3}
+      propertyPath: m_Name
+      value: LumberJackCamp
+      objectReference: {fileID: 0}
     - target: {fileID: 9190557371933875741, guid: b0c8f365145f320428f6a07a2d8322ab,
         type: 3}
       propertyPath: ShapeModule.m_Position.x
@@ -271,6 +252,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 1483461254961981822, guid: b0c8f365145f320428f6a07a2d8322ab,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3d75278a8b2df0546a5f3b947ad85b63, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0c8f365145f320428f6a07a2d8322ab, type: 3}
 --- !u!4 &180136468252789789 stripped

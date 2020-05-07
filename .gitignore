@@ -35,3 +35,9 @@ sysinfo.txt
 *.apk
 *.unitypackage
 /.gitattributes
+
+# editor specific files
+_mac/
+.idea/
+.vs/
+.vscode/

@@ -5,5 +5,5 @@ using UnityEngine;
 
 public class RessourceType : MonoBehaviour
 {
-    public RessourceEnum Ressource { get; set; }
+    public ResourceEnum Resource { get; set; }
 }
