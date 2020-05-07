@@ -146,12 +146,12 @@ namespace Map
 
                             if (ressourceEnum == RessourceEnum.Iron || ressourceEnum == RessourceEnum.Stone)
                             {
-                                TileArray[x, y].ResourceQuantity = 20;
+                                TileArray[x, y].ResourceQuantity = 40;
                             }
 
                             if (ressourceEnum == RessourceEnum.Wood)
                             {
-                                TileArray[x, y].ResourceQuantity = 10;
+                                TileArray[x, y].ResourceQuantity = 20;
                             }
 
                             if (TileArray[x, y].Doodad != null)

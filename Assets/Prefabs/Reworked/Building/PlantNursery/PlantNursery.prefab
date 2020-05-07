@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaitingTime: 1
   Interval: 1
-  Radius: 4
+  Radius: 5
   Tree: {fileID: 2566471781373961457, guid: 8233ee9c5caf45b4b95c443090621712, type: 3}
 --- !u!1001 &2964938659062859368
 PrefabInstance:

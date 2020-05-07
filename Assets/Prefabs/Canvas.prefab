@@ -4643,7 +4643,7 @@ MonoBehaviour:
     type: 3}
   GhostBuildingBlocked: {fileID: 4209699886816457993, guid: 3dfb9a4ecb9c9484d86b8c597302640e,
     type: 3}
-  BuildingEnum: 0
+  BuildingEnum: 5
 --- !u!1 &8050973687653699790
 GameObject:
   m_ObjectHideFlags: 0

@@ -442,6 +442,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -200
       objectReference: {fileID: 0}
+    - target: {fileID: 4609440481273493731, guid: 758f415ea7c314c43920dced162028e0,
+        type: 3}
+      propertyPath: BuildingEnum
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609440482319173628, guid: 758f415ea7c314c43920dced162028e0,
+        type: 3}
+      propertyPath: BuildingEnum
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609440482377605233, guid: 758f415ea7c314c43920dced162028e0,
+        type: 3}
+      propertyPath: BuildingEnum
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609440482404744799, guid: 758f415ea7c314c43920dced162028e0,
+        type: 3}
+      propertyPath: BuildingEnum
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 758f415ea7c314c43920dced162028e0, type: 3}
 --- !u!1 &1094726787 stripped

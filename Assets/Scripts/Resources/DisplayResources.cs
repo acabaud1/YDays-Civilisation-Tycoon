@@ -15,6 +15,8 @@ public class DisplayResources : MonoBehaviour
     public RessourceEnum ResourceType;
     private Type _resourceType;
 
+    private List<ResourceManagerCore> subscribedManagers = new List<ResourceManagerCore>();
+
     void Start()
     {
         try
@@ -32,11 +34,26 @@ public class DisplayResources : MonoBehaviour
                 resourceManagerCore.Get(_resourceType).Obs.AsObservable().Subscribe(resourceQuantity => {
                     updateTextMeshValue();
                 });
+
+                subscribedManagers.Add(resourceManagerCore);
             }
         }
         catch (NullReferenceException e)
         {
             Debug.LogError($"Le type {ResourceType} n'existe pas... Les Resources existantes sont Iron, Stone et Wood. {e}");
+        }
+    }
+
+    void Update()
+    {
+        foreach (var resourceManagerCore in _resourceManager.ResourceManagerCores)
+        {
+            if (!subscribedManagers.Contains(resourceManagerCore))
+            {
+                resourceManagerCore.Get(_resourceType).Obs.AsObservable().Subscribe(resourceQuantity => {
+                    updateTextMeshValue();
+                });
+            }
         }
     }
 

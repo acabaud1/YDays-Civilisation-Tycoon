@@ -67,12 +67,17 @@ namespace Assets.Scripts.Building
                     result.Add(new BuildingCost
                     {
                         Resource = typeof(Stone),
-                        Quantity = 10
+                        Quantity = 110
+                    });
+                    result.Add(new BuildingCost
+                    {
+                        Resource = typeof(Iron),
+                        Quantity = 110
                     });
                     result.Add(new BuildingCost
                     {
                         Resource = typeof(Wood),
-                        Quantity = 10
+                        Quantity = 110
                     });
                         return result;
                 }
@@ -85,8 +90,32 @@ namespace Assets.Scripts.Building
                     });
                     result.Add(new BuildingCost
                     {
+                        Resource = typeof(Iron),
+                        Quantity = 20
+                    });
+                    result.Add(new BuildingCost
+                    {
                         Resource = typeof(Wood),
                         Quantity = 20
+                    });
+                        return result;
+                }
+                case BuildingEnum.PlantNursery:
+                {
+                    result.Add(new BuildingCost
+                    {
+                        Resource = typeof(Stone),
+                        Quantity = 25
+                    });
+                    result.Add(new BuildingCost
+                    {
+                        Resource = typeof(Iron),
+                        Quantity = 25
+                    });
+                    result.Add(new BuildingCost
+                    {
+                        Resource = typeof(Wood),
+                        Quantity = 25
                     });
                         return result;
                 }
