@@ -1,31 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Building.Models;
 
 namespace Assets.Scripts.Building
 {
     /// <summary>
-    /// Cout du batiment.
+    ///     Cout du batiment.
     /// </summary>
     public class BuildingCost
     {
         /// <summary>
-        /// Obtient ou définit la resource.
+        ///     Obtient ou définit la resource.
         /// </summary>
         public Type Resource { get; set; }
 
         /// <summary>
-        /// obtient ou définit la quantité de ressource.
+        ///     obtient ou définit la quantité de ressource.
         /// </summary>
         public int Quantity { get; set; }
 
         /// <summary>
-        /// Récupère le cout du batiment.
+        ///     Récupère le cout du batiment.
         /// </summary>
         /// <param name="building">Batiment.</param>
         /// <returns>Cout.</returns>
         public static List<BuildingCost> GetCost(BuildingEnum building)
         {
-            List<BuildingCost> result = new List<BuildingCost>();
+            var result = new List<BuildingCost>();
 
             switch (building)
             {
@@ -60,7 +61,7 @@ namespace Assets.Scripts.Building
                         Resource = typeof(Wood),
                         Quantity = 10
                     });
-                        return result;
+                    return result;
                 }
                 case BuildingEnum.IronMine:
                 {
@@ -79,7 +80,7 @@ namespace Assets.Scripts.Building
                         Resource = typeof(Wood),
                         Quantity = 110
                     });
-                        return result;
+                    return result;
                 }
                 case BuildingEnum.Storage:
                 {
@@ -98,7 +99,7 @@ namespace Assets.Scripts.Building
                         Resource = typeof(Wood),
                         Quantity = 20
                     });
-                        return result;
+                    return result;
                 }
                 case BuildingEnum.PlantNursery:
                 {
@@ -117,7 +118,7 @@ namespace Assets.Scripts.Building
                         Resource = typeof(Wood),
                         Quantity = 25
                     });
-                        return result;
+                    return result;
                 }
             }
 

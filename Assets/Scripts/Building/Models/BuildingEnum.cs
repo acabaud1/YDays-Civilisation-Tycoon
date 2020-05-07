@@ -1,7 +1,7 @@
-﻿namespace Assets.Scripts.Building
+﻿namespace Assets.Scripts.Building.Models
 {
     /// <summary>
-    /// Liste des batiments.
+    ///     Liste des batiments.
     /// </summary>
     public enum BuildingEnum
     {

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Building;
+using Assets.Scripts.Building.Models;
 using Ressource;
 using UnityEngine;
 

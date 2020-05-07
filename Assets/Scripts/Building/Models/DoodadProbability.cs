@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Building
+namespace Assets.Scripts.Building.Models
 {
     /// <summary>
-    /// Modèle de probabilité des doodads.
+    ///     Modèle de probabilité des doodads.
     /// </summary>
     public class DoodadProbability
     {
         /// <summary>
-        /// Obtient ou définit le doodad.
+        ///     Obtient ou définit le doodad.
         /// </summary>
         public GameObject GameObject { get; set; }
 
         /// <summary>
-        /// Obtient ou définit la probabilité.
+        ///     Obtient ou définit la probabilité.
         /// </summary>
         public int Probability { get; set; }
     }

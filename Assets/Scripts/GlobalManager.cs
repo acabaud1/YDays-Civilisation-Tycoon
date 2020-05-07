@@ -1,114 +1,123 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Building;
+using Assets.Scripts.Building.Models;
 using Map;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+///     Gestion global et génération des différents manager.
+/// </summary>
 public class GlobalManager : MonoBehaviour
 {
-    private MapManager mapManager;
-    private ResourceManager resourceManager;
-    private BuildingManager buildingManager;
-    private PNJManager pnjManager;
-    private ClickableSingleton clickableSingleton;
-    public LayerMask layerMask;
+    private BuildingManager _buildingManager;
+    private ClickableSingleton _clickableSingleton;
 
-    public GameObject hub;
-    public GameObject rock;
-    public GameObject sand;
-    public GameObject tree;
-    public GameObject water;
-    public GameObject land;
-    public GameObject ironOre;
-    private DoodadProbability[] ProbilityLandDoodads;
+    private bool _isInit;
+    private MapManager _mapManager;
+    private PNJManager _pnjManager;
+    private DoodadProbability[] _probilityLandDoodads;
+    private ResourceManager _resourceManager;
+    public GameObject[] Animals;
+
+    public GameObject Hub;
+    public GameObject[] Humans;
+    public GameObject IronOre;
+    public GameObject Land;
     public GameObject[] LandDoodads;
-    public GameObject[] animals;
-    public GameObject[] robots;
-    public GameObject[] humans;
+    public LayerMask LayerMask;
+    public GameObject[] Robots;
+    public GameObject Rock;
+    public GameObject Sand;
 
     public TileModel[,] TileArray;
+    public GameObject Tree;
+    public GameObject Water;
 
-    private bool isInit = false;
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    ///     Fonction appelé a la création du GameObject.
+    /// </summary>
+    private void Start()
     {
         MapManagerInit();
 
-        buildingManager = BuildingManager.GetInstance();
-        clickableSingleton = ClickableSingleton.GetInstance();
+        _buildingManager = BuildingManager.GetInstance();
+        _clickableSingleton = ClickableSingleton.GetInstance();
 
-        buildingManager.LayerMask = layerMask;
-        buildingManager.TileArray = TileArray;
-        buildingManager.ResourceManager = resourceManager;
+        _buildingManager.LayerMask = LayerMask;
+        _buildingManager.TileArray = TileArray;
+        _buildingManager.ResourceManager = _resourceManager;
 
-        pnjManager = PNJManager.GetInstance();
-        pnjManager.animals = animals;
-        pnjManager.robots = robots;
-        pnjManager.humans = humans;
+        _pnjManager = PNJManager.GetInstance();
+        _pnjManager.animals = Animals;
+        _pnjManager.robots = Robots;
+        _pnjManager.humans = Humans;
 
-        var human = pnjManager.CreateHuman(new Vector3(1, 1, 1));
-        var ennemy = pnjManager.CreateHuman(new Vector3(1, 1, 3));
+        var human = _pnjManager.CreateHuman(new Vector3(1, 1, 1));
+        var ennemy = _pnjManager.CreateHuman(new Vector3(1, 1, 3));
 
-        buildingManager.PnjManager = pnjManager;
-        if (SceneManager.sceneCount < 2)
-        {
-            SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
-        }
-        
-        isInit = true;
+        _buildingManager.PnjManager = _pnjManager;
+        if (SceneManager.sceneCount < 2) SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
+
+        _isInit = true;
         InitHub();
     }
 
-    void Update()
+    /// <summary>
+    ///     Fonction appelé a chaque frame du jeux.
+    /// </summary>
+    private void Update()
     {
-        if (isInit)
+        if (_isInit)
         {
-            buildingManager.Update();
-            pnjManager.Update();
-            clickableSingleton.Update();
+            _buildingManager.Update();
+            _pnjManager.Update();
+            _clickableSingleton.Update();
         }
     }
 
+    /// <summary>
+    ///     Initialize la gestion des batiment pour pouvoir poser le hub.
+    /// </summary>
     private void InitHub()
     {
-        buildingManager.SetBuilding(hub);
+        _buildingManager.SetBuilding(Hub);
     }
 
+    /// <summary>
+    ///     Initialisation du Map Manager.
+    /// </summary>
     private void MapManagerInit()
     {
-        resourceManager = ResourceManager.GetInstance();
+        _resourceManager = ResourceManager.GetInstance();
 
-        resourceManager.AddAndDistribute(typeof(Iron), 50);
-        resourceManager.AddAndDistribute(typeof(Wood), 50);
-        resourceManager.AddAndDistribute(typeof(Stone), 50);
-        
-        mapManager = MapManager.GetInstance();
+        _resourceManager.AddAndDistribute(typeof(Iron), 50);
+        _resourceManager.AddAndDistribute(typeof(Wood), 50);
+        _resourceManager.AddAndDistribute(typeof(Stone), 50);
 
-        List<DoodadProbability> doodads  =new List<DoodadProbability>();
+        _mapManager = MapManager.GetInstance();
+
+        var doodads = new List<DoodadProbability>();
         foreach (var landDoodad in LandDoodads)
-        {
             doodads.Add(new DoodadProbability
             {
                 GameObject = landDoodad,
                 Probability = 1
             });
-        }
 
-        ProbilityLandDoodads = doodads.ToArray();
+        _probilityLandDoodads = doodads.ToArray();
 
-        mapManager.rock = rock;
-        mapManager.sand = sand;
-        mapManager.tree = tree;
-        mapManager.water = water;
-        mapManager.land = land;
-        mapManager.ironOre = ironOre;
-        mapManager.LandDoodads = ProbilityLandDoodads;
+        _mapManager.rock = Rock;
+        _mapManager.sand = Sand;
+        _mapManager.tree = Tree;
+        _mapManager.water = Water;
+        _mapManager.land = Land;
+        _mapManager.ironOre = IronOre;
+        _mapManager.LandDoodads = _probilityLandDoodads;
 
-        TileArray = new TileModel[mapManager.width, mapManager.height];
-        mapManager.TileArray = TileArray;
+        TileArray = new TileModel[_mapManager.width, _mapManager.height];
+        _mapManager.TileArray = TileArray;
 
-        mapManager.Start();
+        _mapManager.Start();
     }
 }

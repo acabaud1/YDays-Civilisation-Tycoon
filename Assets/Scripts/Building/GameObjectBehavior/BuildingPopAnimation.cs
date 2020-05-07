@@ -1,29 +1,26 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Building
+namespace Assets.Scripts.Building.GameObjectBehavior
 {
     public class BuildingPopAnimation : MonoBehaviour
     {
         private Animation _animation;
-        public string Animation = "BuildingPop1";
+        private bool _isAnimationPlaying;
         private string _lastPlayedAnimation;
-        private bool _isAnimationPlaying = false;
+        public string Animation = "BuildingPop1";
 
         /// <summary>
-        /// Méthode appeler à l'instanciation du GameObject.
+        ///     Méthode appeler à l'instanciation du GameObject.
         /// </summary>
-        void Start()
+        private void Start()
         {
             _animation = GetComponent<Animation>();
             PlayAnimation(Animation);
-            if (_isAnimationPlaying && !_animation.isPlaying)
-            {
-                OnAnimationEnd();
-            }
+            if (_isAnimationPlaying && !_animation.isPlaying) OnAnimationEnd();
         }
 
         /// <summary>
-        /// Joue une animation en fonction de son nom.
+        ///     Joue une animation en fonction de son nom.
         /// </summary>
         /// <param name="animationName">Nom de l'animation.</param>
         public void PlayAnimation(string animationName)
@@ -34,7 +31,7 @@ namespace Assets.Scripts.Building
         }
 
         /// <summary>
-        /// Callback de l'animation.
+        ///     Callback de l'animation.
         /// </summary>
         private void OnAnimationEnd()
         {

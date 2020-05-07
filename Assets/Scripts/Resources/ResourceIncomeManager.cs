@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Building;
+using Assets.Scripts.Building.GameObjectBehavior;
 using Assets.Scripts.Resources;
 using JetBrains.Annotations;
 using Map;

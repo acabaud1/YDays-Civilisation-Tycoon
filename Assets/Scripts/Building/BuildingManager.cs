@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Building.GameObjectBehavior;
 using Map;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,29 +11,20 @@ namespace Assets.Scripts.Building
     public class BuildingManager
     {
         /// <summary>
-        /// Obtient ou définit la liste des cases.
+        ///     Instance de la gestion des bâtiments.
         /// </summary>
-        public TileModel[,] TileArray { get; set; }
+        private static BuildingManager _instance;
 
-        /// <summary>
-        /// Obtient ou définit le ressource manager.
-        /// </summary>
-        public ResourceManager ResourceManager { get; set; }
+        private GameObject _ghostBlockedGameObject;
 
-        /// <summary>
-        /// Obtient ou définit le Hub.
-        /// </summary>
-        public GameObject Hub { get; set; }
+        private Models.Building _ghostBuildingManager;
+        private GameObject _ghostGameObject;
 
         private bool _isInDeleteMode;
         private bool _isInGostMode;
 
         private GameObject _lastHoverGameObject;
         private GameObject _selectedGameObject;
-        private GameObject _ghostGameObject;
-        private GameObject _ghostBlockedGameObject;
-
-        private Building _ghostBuildingManager;
 
         [FormerlySerializedAs("LayerMask")] public LayerMask LayerMask;
         public PNJManager PnjManager;
@@ -45,24 +37,35 @@ namespace Assets.Scripts.Building
         }
 
         /// <summary>
-        /// Instance de la gestion des bâtiments.
+        ///     Obtient ou définit la liste des cases.
         /// </summary>
-        private static BuildingManager _instance;
+        public TileModel[,] TileArray { get; set; }
 
         /// <summary>
-        /// Récupère l'instance de building manager.
+        ///     Obtient ou définit le ressource manager.
+        /// </summary>
+        public ResourceManager ResourceManager { get; set; }
+
+        /// <summary>
+        ///     Obtient ou définit le Hub.
+        /// </summary>
+        public GameObject Hub { get; set; }
+
+        /// <summary>
+        ///     Récupère l'instance de building manager.
         /// </summary>
         /// <returns>Building Manager.</returns>
         public static BuildingManager GetInstance()
         {
-            if (_instance == null)
-            {
-                _instance = new BuildingManager();
-            }
+            if (_instance == null) _instance = new BuildingManager();
 
             return _instance;
         }
 
+        /// <summary>
+        ///     Obtient si le building manager est en mode placement de batiment.
+        /// </summary>
+        /// <returns></returns>
         public bool IsInGhostMode()
         {
             return _isInGostMode;
@@ -102,7 +105,7 @@ namespace Assets.Scripts.Building
         /// <param name="buildingManager">Gestionnaire du bâtiment.</param>
         public void SetBuilding(GameObject buildingManager)
         {
-            var script = buildingManager.GetComponent<Building>();
+            var script = buildingManager.GetComponent<Models.Building>();
             if (script != null)
             {
                 CleanMod();
@@ -111,7 +114,8 @@ namespace Assets.Scripts.Building
                 if (_ghostBlockedGameObject != null) GameObject.Destroy(_ghostBlockedGameObject);
                 _selectedGameObject = script.FullBuilding;
                 _isInGostMode = true;
-                _ghostGameObject = GameObject.Instantiate(script.GhostBuilding, new Vector3(0, -2, 0), Quaternion.identity);
+                _ghostGameObject =
+                    GameObject.Instantiate(script.GhostBuilding, new Vector3(0, -2, 0), Quaternion.identity);
                 _ghostBlockedGameObject =
                     GameObject.Instantiate(script.GhostBuildingBlocked, new Vector3(0, -2, 0), Quaternion.identity);
                 _ghostBlockedGameObject.SetActive(false);
@@ -119,33 +123,27 @@ namespace Assets.Scripts.Building
         }
 
         /// <summary>
-        /// Définit si l'on peut poser le batiment.
+        ///     Définit si l'on peut poser le batiment.
         /// </summary>
         /// <returns>Peux on poser le batiment.</returns>
         private bool HasResourcesToPlace()
         {
-            bool result = true;
+            var result = true;
             foreach (var buildingCost in BuildingCost.GetCost(_ghostBuildingManager.BuildingEnum))
-            {
                 if (!ResourceManager.CanAddAndDistribute(buildingCost.Resource, -buildingCost.Quantity))
-                {
                     result = false;
-                }
-            }
 
             return result;
         }
 
         /// <summary>
-        /// Enleve les ressources du stock.
+        ///     Enleve les ressources du stock.
         /// </summary>
         private void TakeResourcesToPlace()
         {
             var resourceManager = ResourceManager;
             foreach (var buildingCost in BuildingCost.GetCost(_ghostBuildingManager.BuildingEnum))
-            {
                 resourceManager.AddAndDistribute(buildingCost.Resource, -buildingCost.Quantity);
-            }
         }
 
         /// <summary>
@@ -163,11 +161,8 @@ namespace Assets.Scripts.Building
                     {
                         var mousePosition = hit.point;
 
-                        Vector3 localScale = _selectedGameObject.transform.localScale;
-                        if (_isInDeleteMode)
-                        {
-                            localScale = Vector3.one;
-                        }
+                        var localScale = _selectedGameObject.transform.localScale;
+                        if (_isInDeleteMode) localScale = Vector3.one;
 
                         mousePosition.x = (int) Math.Round(mousePosition.x) + (localScale.x - 1) / 2;
                         mousePosition.y = 1;
@@ -180,7 +175,7 @@ namespace Assets.Scripts.Building
                             if (Input.GetMouseButtonDown(0))
                             {
                                 // Suppression
-                                GameObject building = tileModel.Building;
+                                var building = tileModel.Building;
                                 TileArray.DeleteBuilding(building);
                                 GameObject.Destroy(building);
                             }
@@ -188,15 +183,10 @@ namespace Assets.Scripts.Building
                             {
                                 var buildingBehaviorScript = tileModel.Building.GetComponent<BuildingBehavior>();
 
-                                if (!buildingBehaviorScript.IsInError())
-                                {
-                                    buildingBehaviorScript.ToggleMaterial();
-                                }
+                                if (!buildingBehaviorScript.IsInError()) buildingBehaviorScript.ToggleMaterial();
 
                                 if (_lastHoverGameObject != tileModel.Building && buildingBehaviorScript.IsInError())
-                                {
                                     buildingBehaviorScript.ToggleMaterial();
-                                }
                             }
 
                             _lastHoverGameObject = tileModel.Building;
@@ -205,16 +195,17 @@ namespace Assets.Scripts.Building
                         {
                             if (Input.GetMouseButtonDown(0) && !TileArray.AnyInZone(mousePosition,
                                 _ghostGameObject.transform.localScale,
-                                new List<TileEnum>() {TileEnum.Water}) && HasResourcesToPlace())
+                                new List<TileEnum> {TileEnum.Water}) && HasResourcesToPlace())
                             {
                                 // Pose du batiment
-                                GameObject created = GameObject.Instantiate(_selectedGameObject, mousePosition,
+                                var created = GameObject.Instantiate(_selectedGameObject, mousePosition,
                                     Quaternion.identity);
 
                                 TakeResourcesToPlace();
 
 
-                                TileArray.SetBuildingInZone(mousePosition, created.transform.localScale, created, _ghostBuildingManager.BuildingEnum);
+                                TileArray.SetBuildingInZone(mousePosition, created.transform.localScale, created,
+                                    _ghostBuildingManager.BuildingEnum);
                                 TileArray.ClearDoodadsInZone(mousePosition, created.transform.localScale);
                                 CleanMod();
 
@@ -226,7 +217,7 @@ namespace Assets.Scripts.Building
 
                                     var hubPos = Hub.transform.position;
                                     var robotPos = new Vector3(hubPos.x, hubPos.y, hubPos.z);
-                                
+
                                     var robot = PnjManager.CreateRobot(robotPos);
                                     robot.attachedBuilding = created;
                                     robot.Move(mousePosition);
@@ -239,7 +230,7 @@ namespace Assets.Scripts.Building
                                 _ghostBlockedGameObject.transform.position = mousePosition;
 
                                 if (TileArray.AnyInZone(mousePosition, _ghostGameObject.transform.localScale,
-                                    new List<TileEnum>() {TileEnum.Water}))
+                                    new List<TileEnum> {TileEnum.Water}))
                                 {
                                     _ghostGameObject.SetActive(false);
                                     _ghostBlockedGameObject.SetActive(true);

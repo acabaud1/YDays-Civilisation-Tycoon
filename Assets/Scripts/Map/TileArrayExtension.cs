@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Building;
+using Assets.Scripts.Building.Models;
 using Map;
 using UnityEngine;
 
