@@ -8,6 +8,7 @@ public class BuildingBehavior : MonoBehaviour
     private bool isInError = false;
     private MeshRenderer meshRenderer;
 
+
     public bool IsInError()
     {
         return isInError;
@@ -27,15 +28,11 @@ public class BuildingBehavior : MonoBehaviour
         isInError = !isInError;
     }
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// 
+    /// </summary>
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

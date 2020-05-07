@@ -20,6 +20,7 @@ public class GlobalManager : MonoBehaviour
     public GameObject water;
     public GameObject land;
     public GameObject ironOre;
+    private DoodadProbability[] ProbilityLandDoodads;
     public GameObject[] LandDoodads;
     public GameObject[] animals;
     public GameObject[] robots;
@@ -39,7 +40,8 @@ public class GlobalManager : MonoBehaviour
 
         buildingManager.layerMask = layerMask;
         buildingManager.TileArray = TileArray;
-        
+        buildingManager.ResourceManager = resourceManager;
+
         pnjManager = PNJManager.GetInstance();
         pnjManager.animals = animals;
         pnjManager.robots = robots;
@@ -76,7 +78,24 @@ public class GlobalManager : MonoBehaviour
     private void MapManagerInit()
     {
         resourceManager = ResourceManager.GetInstance();
+
+        resourceManager.AddAndDistribute(typeof(Iron), 50);
+        resourceManager.AddAndDistribute(typeof(Wood), 50);
+        resourceManager.AddAndDistribute(typeof(Stone), 50);
+        
         mapManager = MapManager.GetInstance();
+
+        List<DoodadProbability> doodads  =new List<DoodadProbability>();
+        foreach (var landDoodad in LandDoodads)
+        {
+            doodads.Add(new DoodadProbability
+            {
+                GameObject = landDoodad,
+                Probability = 1
+            });
+        }
+
+        ProbilityLandDoodads = doodads.ToArray();
 
         mapManager.rock = rock;
         mapManager.sand = sand;
@@ -84,7 +103,7 @@ public class GlobalManager : MonoBehaviour
         mapManager.water = water;
         mapManager.land = land;
         mapManager.ironOre = ironOre;
-        mapManager.LandDoodads = LandDoodads;
+        mapManager.LandDoodads = ProbilityLandDoodads;
 
         TileArray = new TileModel[mapManager.width, mapManager.height];
         mapManager.TileArray = TileArray;

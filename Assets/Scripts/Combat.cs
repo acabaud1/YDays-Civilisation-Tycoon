@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class Combat : MonoBehaviour
@@ -50,9 +48,6 @@ public class Combat : MonoBehaviour
         {
             if (isAttacking)
             {
-                
-                Debug.Log(Vector3.Distance(gameObject.transform.position, targetTransform.position));
-
                 if (Vector3.Distance(gameObject.transform.position, targetTransform.position) < attackRange)
                 {
                     if (attackCooldown <= 0)
@@ -116,14 +111,11 @@ public class Combat : MonoBehaviour
             if (target.GetComponent<Combat>() != null && !target.Equals(gameObject))
             {
                 targetCombat = target.GetComponent<Combat>();
-                Debug.Log(targetCombat);
-                Debug.Log(targetCombat.Faction);
                 switch (targetCombat.Faction)
                 {
                     case FactionEnum.black:
                     case FactionEnum.red:
                         targetTransform = target.transform;
-                        Debug.Log("Target position : " + target.transform.position);
                         isAttacking = true;
                         targetCombat.isAttacked = true;
                         break;

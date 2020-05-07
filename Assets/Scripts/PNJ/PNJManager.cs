@@ -52,7 +52,7 @@ public class PNJManager : MonoBehaviour
 
     public Robot CreateRobot(Vector3 position)
     {
-        var robot = new Robot(Instantiate(robots[UnityEngine.Random.Range(0, animals.Length)]));
+        var robot = new Robot(Instantiate(robots[UnityEngine.Random.Range(0, animals.Length)], position, Quaternion.identity));
         robot.Spawn(position);
         _robots.Add(robot);
 

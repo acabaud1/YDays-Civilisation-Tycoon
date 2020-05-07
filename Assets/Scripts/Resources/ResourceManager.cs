@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UniRx;
-using Ressource;
-using Assets.Scripts.Resources;
-using UnityEditor;
 
 public sealed class ResourceManager : ResourceManagerCore
 {
@@ -24,6 +21,7 @@ public sealed class ResourceManager : ResourceManagerCore
                 _instance = new ResourceManager();
                 isInstanciate = true;
             }
+
             return _instance;
         }
     }
@@ -71,13 +69,13 @@ public sealed class ResourceManager : ResourceManagerCore
 
         int remain = quantity;
 
-        remain = addPossible(this, type, remain);
+        remain = AddIfPossible(this, type, remain);
 
         if (remain != 0)
         {
             foreach (var rmc in ResourceManagerCores)
             {
-                remain = addPossible(rmc, type, remain);
+                remain = AddIfPossible(rmc, type, remain);
                 if (remain == 0)
                 {
                     break;
@@ -86,7 +84,7 @@ public sealed class ResourceManager : ResourceManagerCore
         }
     }
 
-    private int addPossible(ResourceManagerCore resourceManagerCore, Type type, int quantity)
+    private int AddIfPossible(ResourceManagerCore resourceManagerCore, Type type, int quantity)
     {
         if (resourceManagerCore.Get(type).Quantity + quantity > resourceManagerCore.Get(type).Maximum && quantity > 0)
         {
@@ -95,7 +93,7 @@ public sealed class ResourceManager : ResourceManagerCore
             resourceManagerCore.Add(type, quantity - remain);
             return remain;
         }
-        else if (quantity + resourceManagerCore.Get(type).Quantity < 0)
+        else if (resourceManagerCore.Get(type).Quantity + quantity < 0)
         {
             int remain = resourceManagerCore.Get(type).Quantity + quantity;
             resourceManagerCore.Add(type, remain);
@@ -121,7 +119,6 @@ public sealed class ResourceManager : ResourceManagerCore
 
         return true;
     }
-
 }
 
 public abstract class ResourcesGame
