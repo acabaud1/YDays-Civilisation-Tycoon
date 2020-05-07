@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// This class is used for trigger action on interactable objects
+/// </summary>
 public class ClickableSingleton
 {
 
@@ -22,7 +25,11 @@ public class ClickableSingleton
         return _instance;
     }
 
-
+	/// <summary>
+	/// Called by the globalManager.
+	/// This function listen every click of user and trigger the clickAction of the clicked gameObject.
+	/// If the gameObject haven't go ClickAction it do nothing.
+	/// </summary>
     public void Update()
     {
         if (Input.GetMouseButtonDown(0))
