@@ -5,24 +5,30 @@ using UnityEngine;
 using UniRx;
 using Ressource;
 using Assets.Scripts.Resources;
+using UnityEditor;
 
-public class ResourceManager : ResourceManagerCore
+public sealed class ResourceManager : ResourceManagerCore
 {
-    private static ResourceManager _instance;
+    private static ResourceManager _instance = null;
+    private static bool isInstanciate = false;
+    private static readonly object Padlock = new object();
     public List<ResourceManagerCore> ResourceManagerCores { get; set; }
 
 
     public static ResourceManager GetInstance()
     {
-        if (_instance == null)
+        lock (Padlock)
         {
-            _instance = new ResourceManager();
+            if (!isInstanciate)
+            {
+                _instance = new ResourceManager();
+                isInstanciate = true;
+            }
+            return _instance;
         }
-
-        return _instance;
     }
 
-    private ResourceManager() : base()
+    private ResourceManager()
     {
         ResourceManagerCores = new List<ResourceManagerCore>();
 
@@ -38,9 +44,15 @@ public class ResourceManager : ResourceManagerCore
         // Rafraichissement de l'UI pour contenir les maximums et le contenu actuel des ressources
 
         // ex : Iron 60 / 100
+        int sum = 0;
+        foreach (var resourceManagerCore in ResourceManagerCores)
+        {
+            var test = resourceManagerCore.Get(type).Quantity;
+            sum = sum + resourceManagerCore.Get(type).Quantity;
+        }
 
-
-        return Get(type).Quantity + ResourceManagerCores.Sum(rmc => rmc.Get(type).Quantity);
+        var quantity = ResourceManagerCores.Sum(rmc => rmc.Get(type).Quantity);
+        return Get(type).Quantity + quantity;
     }
 
     public int GetAllStock(Type type)
@@ -55,19 +67,18 @@ public class ResourceManager : ResourceManagerCore
     public void AddAndDistribute(Type type, int quantity)
     {
         // en fonction du type et de la quantité => distribution de la ressources dans les entrepos
-
         // Calcul de la place :
 
         int remain = quantity;
 
         remain = addPossible(this, type, remain);
 
-        if (remain > 0)
+        if (remain != 0)
         {
             foreach (var rmc in ResourceManagerCores)
             {
                 remain = addPossible(rmc, type, remain);
-                if (remain > 0)
+                if (remain == 0)
                 {
                     break;
                 }
@@ -77,11 +88,17 @@ public class ResourceManager : ResourceManagerCore
 
     private int addPossible(ResourceManagerCore resourceManagerCore, Type type, int quantity)
     {
-        if (resourceManagerCore.Get(type).Quantity + quantity > resourceManagerCore.Get(type).Maximum)
+        if (resourceManagerCore.Get(type).Quantity + quantity > resourceManagerCore.Get(type).Maximum && quantity > 0)
         {
             int remain = Math.Abs(resourceManagerCore.Get(type).Maximum - resourceManagerCore.Get(type).Quantity -
                                   quantity);
             resourceManagerCore.Add(type, quantity - remain);
+            return remain;
+        }
+        else if (quantity + resourceManagerCore.Get(type).Quantity < 0)
+        {
+            int remain = resourceManagerCore.Get(type).Quantity + quantity;
+            resourceManagerCore.Add(type, remain);
             return remain;
         }
         else
@@ -97,16 +114,14 @@ public class ResourceManager : ResourceManagerCore
         int quantityStockMaximum = Get(type).Maximum + ResourceManagerCores.Sum(rmc => rmc.Get(type).Maximum);
 
         // Vérification s'il y a de la place et distribution dans les stocks
-        if (quantityStock + quantity > quantityStockMaximum)
+        if (quantityStock + quantity > quantityStockMaximum || quantityStock + quantity < 0)
         {
             return false;
         }
 
         return true;
-        // TODO: sinon affichage d'un message
     }
 
-    private List<ResourcesGame> Resources;
 }
 
 public abstract class ResourcesGame
@@ -133,6 +148,7 @@ public abstract class ResourcesGame
 public class ResourceManagerCore : MonoBehaviour
 {
     private List<ResourcesGame> _resources;
+    public List<ResourcesGame> Resources;
 
     /// <summary>
     /// Instancie une nouvelle instance de la classe <see cref="ResourceManagerCore"/>
@@ -163,15 +179,15 @@ public class ResourceManagerCore : MonoBehaviour
 
         if (resource != null && canAdd(resource, quantity))
         {
-            resource.Quantity += quantity;
+            resource.Quantity = resource.Quantity + quantity;
             resource.Obs.Value = resource.Quantity;
         }
     }
 
     protected virtual bool canAdd(ResourcesGame ResourcesGame, int quantity)
     {
-        if (ResourcesGame.Quantity + quantity > ResourcesGame.Minimum &&
-            ResourcesGame.Quantity + quantity < ResourcesGame.Maximum && ResourcesGame.IsAccepted)
+        if (ResourcesGame.Quantity + quantity >= ResourcesGame.Minimum &&
+            ResourcesGame.Quantity + quantity <= ResourcesGame.Maximum && ResourcesGame.IsAccepted)
         {
             return true;
         }

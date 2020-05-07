@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Building;
 using Map;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -14,15 +15,19 @@ public class BuildingManager
     /// </summary>
     public TileModel[,] TileArray { get; set; }
 
+    public ResourceManager ResourceManager { get; set; }
+
     private bool _isInDeleteMode;
     private bool _isInGostMode;
+
+    public GameObject Hub { get; set; }
 
     private GameObject _lastHoverGameObject;
     private GameObject _selectedGameObject;
     private GameObject _ghostGameObject;
     private GameObject _ghostBlockedGameObject;
 
-    private Building _lastBuilding;
+    private Building _ghostBuildingManager;
 
     [FormerlySerializedAs("LayerMask")] public LayerMask layerMask;
     public PNJManager pnjManager;
@@ -67,7 +72,7 @@ public class BuildingManager
         GameObject.Destroy(_ghostBlockedGameObject);
         _ghostGameObject = null;
         _ghostBlockedGameObject = null;
-        _lastBuilding = null;
+        _ghostBuildingManager = null;
         _isInGostMode = false;
         _isInDeleteMode = !_isInDeleteMode;
     }
@@ -83,7 +88,7 @@ public class BuildingManager
         _ghostBlockedGameObject = null;
         _isInGostMode = false;
         _isInDeleteMode = false;
-        _lastBuilding = null;
+        _ghostBuildingManager = null;
     }
 
     /// <summary>
@@ -97,14 +102,45 @@ public class BuildingManager
         if (script != null)
         {
             CleanMod();
-            _lastBuilding = script;
+            _ghostBuildingManager = script;
             if (_ghostGameObject != null) GameObject.Destroy(_ghostGameObject);
             if (_ghostBlockedGameObject != null) GameObject.Destroy(_ghostBlockedGameObject);
             _selectedGameObject = script.FullBuilding;
             _isInGostMode = true;
             _ghostGameObject = GameObject.Instantiate(script.GhostBuilding, new Vector3(0, -2, 0), Quaternion.identity);
-            _ghostBlockedGameObject = GameObject.Instantiate(script.GhostBuildingBlocked, new Vector3(0, -2, 0), Quaternion.identity);
+            _ghostBlockedGameObject =
+                GameObject.Instantiate(script.GhostBuildingBlocked, new Vector3(0, -2, 0), Quaternion.identity);
             _ghostBlockedGameObject.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// Définit si l'on peut poser le batiment.
+    /// </summary>
+    /// <returns>Peux on poser le batiment.</returns>
+    private bool HasResourcesToPlace()
+    {
+        bool result = true;
+        foreach (var buildingCost in BuildingCost.GetCost(_ghostBuildingManager.BuildingEnum))
+        {
+            if (!ResourceManager.CanAddAndDistribute(buildingCost.Resource, -buildingCost.Quantity))
+            {
+                result = false;
+            }
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Enleve les ressources du stock.
+    /// </summary>
+    private void TakeResourcesToPlace()
+    {
+        var resourceManager = ResourceManager;
+        foreach (var buildingCost in BuildingCost.GetCost(_ghostBuildingManager.BuildingEnum))
+        {
+            resourceManager.AddAndDistribute(buildingCost.Resource, -buildingCost.Quantity);
         }
     }
 
@@ -113,7 +149,8 @@ public class BuildingManager
     /// </summary>
     public void Update()
     {
-        if ((_isInGostMode || _isInDeleteMode) && EventSystem.current != null && !EventSystem.current.IsPointerOverGameObject())
+        if ((_isInGostMode || _isInDeleteMode) && EventSystem.current != null &&
+            !EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit hit;
             var ray = Camera.main?.ScreenPointToRay(Input.mousePosition);
@@ -145,14 +182,13 @@ public class BuildingManager
                         }
                         else
                         {
-
                             var buildingBehaviorScript = tileModel.Building.GetComponent<BuildingBehavior>();
 
                             if (!buildingBehaviorScript.IsInError())
                             {
                                 buildingBehaviorScript.ToggleMaterial();
                             }
-                            
+
                             if (_lastHoverGameObject != tileModel.Building && buildingBehaviorScript.IsInError())
                             {
                                 buildingBehaviorScript.ToggleMaterial();
@@ -163,24 +199,34 @@ public class BuildingManager
                     }
                     else if (_isInGostMode)
                     {
-                        if (Input.GetMouseButtonDown(0) && !TileArray.AnyInZone(mousePosition, _ghostGameObject.transform.localScale,
-                            new List<TileEnum>() { TileEnum.Water }))
+                        if (Input.GetMouseButtonDown(0) && !TileArray.AnyInZone(mousePosition,
+                            _ghostGameObject.transform.localScale,
+                            new List<TileEnum>() {TileEnum.Water}) && HasResourcesToPlace())
                         {
                             // Pose du batiment
                             GameObject created = GameObject.Instantiate(_selectedGameObject, mousePosition,
                                 Quaternion.identity);
 
-                            // Désactivation temporaire du bâtiment jusqu'à ce que le robot arrive
-                            created.SetActive(false);
+                            TakeResourcesToPlace();
 
-                            TileArray.SetBuildingInZone(mousePosition, created.transform.localScale, created);
+
+                            TileArray.SetBuildingInZone(mousePosition, created.transform.localScale, created, _ghostBuildingManager.BuildingEnum);
                             TileArray.ClearDoodadsInZone(mousePosition, created.transform.localScale);
                             CleanMod();
 
-                            // Création du robot et déplacement jusqu'au batiment
-                            var robot = pnjManager.CreateRobot(new Vector3(1, 1, 1));
-                            robot.attachedBuilding = created;
-                            robot.Move(mousePosition);
+                            if (Hub)
+                            {
+                                // Désactivation temporaire du bâtiment jusqu'à ce que le robot arrive
+                                created.SetActive(false);
+                                // Création du robot et déplacement jusqu'au batiment
+
+                                var hubPos = Hub.transform.position;
+                                var robotPos = new Vector3(hubPos.x, hubPos.y, hubPos.z);
+                                
+                                var robot = pnjManager.CreateRobot(robotPos);
+                                robot.attachedBuilding = created;
+                                robot.Move(mousePosition);
+                            }
                         }
                         else
                         {
