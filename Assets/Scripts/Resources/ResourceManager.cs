@@ -88,10 +88,16 @@ public sealed class ResourceManager : ResourceManagerCore
 
     private int addPossible(ResourceManagerCore resourceManagerCore, Type type, int quantity)
     {
-        if (resourceManagerCore.Get(type).Quantity + quantity > resourceManagerCore.Get(type).Maximum)
+        if (resourceManagerCore.Get(type).Quantity + quantity > resourceManagerCore.Get(type).Maximum && quantity > 0)
         {
             int remain = Math.Abs(resourceManagerCore.Get(type).Maximum - resourceManagerCore.Get(type).Quantity -
                                   quantity);
+            resourceManagerCore.Add(type, quantity - remain);
+            return remain;
+        }
+        else if (quantity < 0)
+        {
+            int remain = resourceManagerCore.Get(type).Quantity + quantity;
             resourceManagerCore.Add(type, quantity - remain);
             return remain;
         }
