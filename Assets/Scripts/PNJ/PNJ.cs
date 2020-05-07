@@ -7,12 +7,15 @@ public class PNJ
     private NavMeshAgent _gAgent;
     public GameObject attachedBuilding;
 
+    private float agentSpeed = 1f;
+
     /// <summary>
     /// Crée le GameObject correspondant au modèle
     /// </summary>
     private void Create()
     {
         _gAgent = GObject.AddComponent<NavMeshAgent>();
+        _gAgent.speed = agentSpeed;
     }
 
     /// <summary>

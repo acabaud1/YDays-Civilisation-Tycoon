@@ -5,6 +5,7 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="InputManager.cs" t="Include" />
         <e p="Low Poly Rocks Pack" t="Include">
           <e p="Bonus Assets" t="Include">
             <e p="Scripts" t="Include">
@@ -328,8 +329,16 @@
           </e>
           <e p="Building" t="Include">
             <e p="Building.cs" t="Include" />
+            <e p="BuildingBehavior.cs" t="Include" />
             <e p="BuildingManager.cs" t="Include" />
           </e>
+          <e p="ClickHandlers" t="Include">
+            <e p="ClickAction.cs" t="Include" />
+            <e p="ClickActionIron.cs" t="Include" />
+            <e p="ClickActionStone.cs" t="Include" />
+            <e p="ClickActionWood.cs" t="Include" />
+          </e>
+          <e p="Combat.cs" t="Include" />
           <e p="GlobalManager.cs" t="Include" />
           <e p="Map" t="Include">
             <e p="CameraMovement.cs" t="Include" />
@@ -353,14 +362,18 @@
             <e p="RessourceEnum.cs" t="Include" />
             <e p="RessourceHelper.cs" t="Include" />
             <e p="RessourceType.cs" t="Include" />
+            <e p="StockManager.cs" t="Include" />
             <e p="Stone.cs" t="Include" />
             <e p="Wood.cs" t="Include" />
           </e>
           <e p="Sound" t="Include">
+            <e p="GlobalMusicSoundManager.cs" t="Include" />
             <e p="SoundManager.cs" t="Include" />
           </e>
           <e p="UI" t="Include">
+            <e p="BottomButtonsActivate.cs" t="Include" />
             <e p="BuildingProxy.cs" t="Include" />
+            <e p="ClickableSingleton.cs" t="Include" />
             <e p="Drawer.cs" t="Include" />
             <e p="Quit.cs" t="Include" />
           </e>

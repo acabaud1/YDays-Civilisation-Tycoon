@@ -566,9 +566,7 @@ MonoBehaviour:
   - {fileID: 1186975914126428259, guid: 7dbf0244c31724a8fbd6d7a8ee62f3d7, type: 3}
   - {fileID: 8842131497472058431, guid: 08652c64c708246a3b6c260a0a65d810, type: 3}
   robots:
-  - {fileID: 3832275571483260830, guid: 7fefbbc1f3efb4592b5c2a45ce999da7, type: 3}
-  - {fileID: 6864922729172984129, guid: f6c0c6a092c8d4df1b0ca9cb0d91b08a, type: 3}
-  - {fileID: 6304746607550612984, guid: f84605d3720424786bb0d6b752315838, type: 3}
+  - {fileID: 6271912681303977189, guid: 26af2ccdd68f64626a5462f3191730af, type: 3}
   humans:
   - {fileID: 1669556266221786066, guid: 32f41a1ad11e51f478bcee413b0f68e8, type: 3}
 --- !u!4 &970724152
@@ -656,7 +654,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081795374}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 27, y: 0, z: 37.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 970724152}
