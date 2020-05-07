@@ -43,7 +43,7 @@ public class PNJManager : MonoBehaviour
 
     public Animal CreateAnimal(Vector3 position)
     {
-        var animal = new Animal(Instantiate(animals[UnityEngine.Random.Range(0, animals.Length)]));
+        var animal = new Animal(Instantiate(animals[UnityEngine.Random.Range(0, (animals.Length-1))]));
         animal.Spawn(position);
         _animals.Add(animal);
 
@@ -52,7 +52,7 @@ public class PNJManager : MonoBehaviour
 
     public Robot CreateRobot(Vector3 position)
     {
-        var robot = new Robot(Instantiate(robots[UnityEngine.Random.Range(0, animals.Length)], position, Quaternion.identity));
+        var robot = new Robot(Instantiate(robots[UnityEngine.Random.Range(0, (animals.Length - 1))], position, Quaternion.identity));
         robot.Spawn(position);
         _robots.Add(robot);
 
